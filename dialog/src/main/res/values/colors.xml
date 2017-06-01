@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="gray_light">#f2f2f2</color>
+    <color name="gray_light_d">#dfdfdf</color>
+    <color name="green_light">#2e548235</color>
+    <color name="green_light_d">#58548235</color>
+</resources>

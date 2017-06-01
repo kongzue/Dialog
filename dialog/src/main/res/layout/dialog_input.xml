@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标题"
+            android:id="@+id/txt_dialog_title"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/editbox_bkg"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="tip"
+            android:singleLine="true"
+            android:id="@+id/txt_dialog_tip"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:layout_marginTop="25dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="negative"
+                android:id="@+id/btn_selectNegative"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:background="@drawable/button_selectordialog_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="positive"
+                android:id="@+id/btn_selectPositive"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:background="@drawable/button_selectordialog_green" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
