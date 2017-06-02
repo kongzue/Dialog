@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.kongzue.dialog.util.DialogThemeColor;
+import com.kongzue.dialog.util.Log;
+
 
 /**
  * Created by ZhangChao on 2017/5/5.
@@ -14,8 +17,32 @@ import android.widget.TextView;
 
 public class MessageDialog {
 
+    private static AlertDialog alertDialog;
+    private static int colorId = 0;
+    private static Context context;
+
+    private static String title ="";
+    private static String tipText ="";
+    private static String positiveButtonText ="";
+    private static View.OnClickListener positiveClick ;
+
+    public MessageDialog(Context context) {
+        this.context = context;
+    }
+
     public static void show(Context context, String title, String tipText, String positiveButtonText, final View.OnClickListener positiveClick) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+        MessageDialog.context = context;
+        MessageDialog.title= title;
+        MessageDialog.tipText = tipText;
+        MessageDialog.positiveButtonText = positiveButtonText;
+        MessageDialog.positiveClick = positiveClick;
+
+        doShow();
+    }
+
+    private static void doShow() {
+        alertDialog = new AlertDialog.Builder(context).create();
 
         alertDialog.show();
         Window window = alertDialog.getWindow();
@@ -30,6 +57,7 @@ public class MessageDialog {
 
         btn_selectNegative.setVisibility(View.GONE);
 
+        btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
         btn_selectPositive.setText(positiveButtonText);
         btn_selectPositive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,4 +76,37 @@ public class MessageDialog {
         });
     }
 
+    public MessageDialog show() {
+        if (context == null) {
+            Log.println("Error:context is null,please init Dialog first.");
+            return null;
+        }
+        doShow();
+        return this;
+    }
+
+    public MessageDialog setThemeColor(int colorId){
+        this.colorId = colorId;
+        return this;
+    }
+
+    public MessageDialog setTitle(String title){
+        this.title = title;
+        return this;
+    }
+
+    public MessageDialog setTipText(String tipText){
+        this.tipText = tipText;
+        return this;
+    }
+
+    public MessageDialog setPositiveButtonText(String positiveButtonText){
+        this.positiveButtonText = positiveButtonText;
+        return this;
+    }
+
+    public MessageDialog setPositiveButtonClickListener(View.OnClickListener positiveClick){
+        this.positiveClick = positiveClick;
+        return this;
+    }
 }

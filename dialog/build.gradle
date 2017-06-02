@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def siteUrl = 'https://github.com/kongzue/dialog' //项目在github主页地址
-def gitUrl = 'https://github.com/kongzue/dialog.git'   //Git仓库的地址
+def siteUrl = 'https://github.com/kongzue/Dialog' //项目在github主页地址
+def gitUrl = 'https://github.com/kongzue/Dialog.git'   //Git仓库的地址
 
 group = "com.kongzue.dialog"//发布aar前缀根节点
 version = "0.0.1"//发布aar的库版本
@@ -60,6 +60,41 @@ install {
                 }
             }
         }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "dialog" //项目在JCenter的名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
     }
 }
 

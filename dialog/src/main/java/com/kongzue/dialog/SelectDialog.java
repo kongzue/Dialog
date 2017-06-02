@@ -7,13 +7,45 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.kongzue.dialog.util.DialogThemeColor;
+import com.kongzue.dialog.util.Log;
+
 
 /**
  * Created by ZhangChao on 2017/5/5.
  */
 
 public class SelectDialog {
+
+    private static AlertDialog alertDialog;
+    private static int colorId = 0;
+    private static Context context;
+
+    private static String title;
+    private static String tipText;
+    private static String positiveButtonText;
+    private static String nativeButtonText;
+    private static View.OnClickListener positiveClick;
+    private static View.OnClickListener nativeClick;
+
+    public SelectDialog(Context context) {
+        this.context = context;
+    }
+
     public static void show(Context context, String title, String tipText,String positiveButtonText,String nativeButtonText, final View.OnClickListener positiveClick, final View.OnClickListener nativeClick){
+
+        SelectDialog.context = context;
+        SelectDialog.title= title;
+        SelectDialog.tipText = tipText;
+        SelectDialog.positiveButtonText = positiveButtonText;
+        SelectDialog.nativeButtonText = nativeButtonText;
+        SelectDialog.positiveClick = positiveClick;
+        SelectDialog.nativeClick = nativeClick;
+
+        doShow();
+    }
+
+    private static void doShow() {
         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
         alertDialog.show();
@@ -27,6 +59,7 @@ public class SelectDialog {
         TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
         TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
 
+        btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
         btn_selectPositive.setText(positiveButtonText);
         btn_selectPositive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,5 +85,49 @@ public class SelectDialog {
                 if (nativeClick != null) nativeClick.onClick(pButton);
             }
         });
+    }
+
+    public SelectDialog show() {
+        if (context == null) {
+            Log.println("Error:context is null,please init Dialog first.");
+            return null;
+        }
+        doShow();
+        return this;
+    }
+
+    public SelectDialog setThemeColor(int colorId){
+        this.colorId = colorId;
+        return this;
+    }
+
+    public SelectDialog setTitle(String title){
+        this.title = title;
+        return this;
+    }
+
+    public SelectDialog setTipText(String tipText){
+        this.tipText = tipText;
+        return this;
+    }
+
+    public SelectDialog setPositiveButtonText(String positiveButtonText){
+        this.positiveButtonText = positiveButtonText;
+        return this;
+    }
+
+    public SelectDialog setNativeButtonText(String nativeButtonText){
+        this.nativeButtonText = nativeButtonText;
+        return this;
+    }
+
+    public SelectDialog setPositiveButtonClickListener(View.OnClickListener positiveClick){
+        this.positiveClick = positiveClick;
+        return this;
+    }
+
+    public SelectDialog setNativeButtonClickListener(View.OnClickListener nativeClick){
+        this.nativeClick = nativeClick;
+        return this;
     }
 }

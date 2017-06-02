@@ -19,6 +19,11 @@ public class DialogPlugin extends Application {
         super.onCreate();
     }
 
+    public void onCreate(boolean isDebug) {
+        super.onCreate();
+        DialogPlugin.isDebug = isDebug;
+    }
+
     public static Context getContext() {
         return context;
     }

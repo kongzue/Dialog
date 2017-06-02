@@ -5,4 +5,8 @@
     <color name="gray_light_d">#dfdfdf</color>
     <color name="green_light">#2e548235</color>
     <color name="green_light_d">#58548235</color>
+    <color name="orange_light">#fae6d6</color>
+    <color name="orange_light_d">#f9dac1</color>
+    <color name="blue_light">#dae4f2</color>
+    <color name="blue_light_d">#c0d4f1</color>
 </resources>

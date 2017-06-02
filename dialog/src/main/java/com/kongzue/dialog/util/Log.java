@@ -10,7 +10,7 @@ public class Log {
 
     public static void println(Object msg){
         if(DialogPlugin.isDebug == false){
-            return;  //  不打印日志
+            return;
         }
         android.util.Log.d("kongzue.dialog>>>",msg.toString());
     }
