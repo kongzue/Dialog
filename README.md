@@ -34,7 +34,7 @@ compile 'com.kongzue.dialog:dialog:1.0.0'
 ```
 
 ## 使用说明
-三种主体色的配置值在DialogThemeColor类中，
+三种主体色的配置值在DialogThemeColor类中，下文中的colorId就是从中获取的，
 
 蓝色对应DialogThemeColor.COLOR_BLUE，
 
