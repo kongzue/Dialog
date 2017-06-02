@@ -1,4 +1,4 @@
-# Dialog
+# 空祖家的Dialog
 空祖家的通用对话框。此项目是用来演示如何封装一个Android Library的，具体封装和发布步骤详见简书：http://www.jianshu.com/p/ccac7ac0b819
 
 空祖家的对话框拥有简洁鲜明的样式，提供绿色、蓝色、橙色和灰色4种主题颜色以及消息提示框、选择框、输入框三种，各自提供两种调用方式。
@@ -34,7 +34,15 @@ compile 'com.kongzue.dialog:dialog:1.0.0'
 ```
 
 ## 使用说明
-三种主体色的配置值在DialogThemeColor类中，蓝色对应DialogThemeColor.COLOR_BLUE，绿色对应DialogThemeColor.COLOR_GREEN，橙色对应DialogThemeColor.COLOR_ORANGE，灰色对应DialogThemeColor.COLOR_GRAY。
+三种主体色的配置值在DialogThemeColor类中，
+
+蓝色对应DialogThemeColor.COLOR_BLUE，
+
+绿色对应DialogThemeColor.COLOR_GREEN，
+
+橙色对应DialogThemeColor.COLOR_ORANGE，
+
+灰色对应DialogThemeColor.COLOR_GRAY。
 
 ### 调用消息对话框的方法：
 ```
