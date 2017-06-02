@@ -13,6 +13,7 @@ import com.kongzue.dialog.InputDialog;
 import com.kongzue.dialog.MessageDialog;
 import com.kongzue.dialog.SelectDialog;
 import com.kongzue.dialog.listener.InputDialogCallbackClickListener;
+import com.kongzue.dialog.util.DialogThemeColor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDatas() {
         //欢迎信息，快速调用对话框的方式
-        MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的集中对话框样式，如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
+        MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式，如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
     }
 
     private void initEvent() {
