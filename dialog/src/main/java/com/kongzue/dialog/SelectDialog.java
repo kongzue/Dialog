@@ -65,7 +65,7 @@ public class SelectDialog {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                positiveClick.onClick(v);
+                if (positiveClick != null) positiveClick.onClick(v);
             }
         });
 
@@ -74,7 +74,7 @@ public class SelectDialog {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                nativeClick.onClick(v);
+                if (nativeClick != null) nativeClick.onClick(v);
             }
         });
 

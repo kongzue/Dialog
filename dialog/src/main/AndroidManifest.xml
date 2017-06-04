@@ -3,7 +3,6 @@
     package="com.kongzue.dialog">
 
     <application
-        android:name=".DialogPlugin"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
