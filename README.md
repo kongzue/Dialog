@@ -3,6 +3,12 @@
 
 空祖家的对话框拥有简洁鲜明的样式，提供绿色、蓝色、橙色和灰色4种主题颜色以及消息提示框、选择框、输入框三种，以及一种载入对话框，各自提供两种调用方式。
 
+![提示框](http://upload-images.jianshu.io/upload_images/1976622-ee730c81091a968f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![选择框](http://upload-images.jianshu.io/upload_images/1976622-6d4a84d821415b2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![输入框](http://upload-images.jianshu.io/upload_images/1976622-ac15660c751edffb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 本例中，包含DialogDemo（Dialog/app/）是对话框的演示项目源代码，以及Library库（Dialog/dialog/）是封装的空祖家对话框的源代码。
 
 项目托管的Maven仓库在https://bintray.com/myzchh/maven/dialog
