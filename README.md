@@ -36,7 +36,7 @@ repositories {
 ```
 在dependencies{}中添加引用：
 ```
-compile 'com.kongzue.dialog:dialog:1.0.0'
+compile 'com.kongzue.dialog:dialog:1.0.1'
 ```
 
 ## 使用说明
