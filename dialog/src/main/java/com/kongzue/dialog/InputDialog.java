@@ -33,6 +33,7 @@ public class InputDialog {
 
     public static void show(Context context, final InputDialogCallbackClickListener positiveClick, String title, String hintText) {
         InputDialog.title = title;
+        InputDialog.colorId = DialogThemeColor.normalColor;
         InputDialog.inputHintText = inputHintText;
         InputDialog.positiveClick = positiveClick;
         InputDialog.context = context;

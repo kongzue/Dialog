@@ -8,6 +8,8 @@ import com.kongzue.dialog.R;
 
 public class DialogThemeColor {
 
+    public static int normalColor = 0;
+
     public static int COLOR_GREEN = 0;
     public static int COLOR_BLUE = 1;
     public static int COLOR_ORANGE = 2;

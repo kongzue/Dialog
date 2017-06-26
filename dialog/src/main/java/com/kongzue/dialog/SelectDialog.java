@@ -34,6 +34,7 @@ public class SelectDialog {
 
     public static void show(Context context, String title, String tipText,String positiveButtonText,String nativeButtonText, final View.OnClickListener positiveClick, final View.OnClickListener nativeClick){
 
+        SelectDialog.colorId = DialogThemeColor.normalColor;
         SelectDialog.context = context;
         SelectDialog.title= title;
         SelectDialog.tipText = tipText;

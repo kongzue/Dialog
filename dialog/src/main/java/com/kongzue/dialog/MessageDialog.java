@@ -32,6 +32,7 @@ public class MessageDialog {
 
     public static void show(Context context, String title, String tipText, String positiveButtonText, final View.OnClickListener positiveClick) {
 
+        MessageDialog.colorId = DialogThemeColor.normalColor;
         MessageDialog.context = context;
         MessageDialog.title= title;
         MessageDialog.tipText = tipText;
