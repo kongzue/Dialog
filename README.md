@@ -36,7 +36,7 @@ repositories {
 ```
 在dependencies{}中添加引用：
 ```
-compile 'com.kongzue.dialog:dialog:1.0.1'
+compile 'com.kongzue.dialog:dialog:1.0.2'
 ```
 
 ## 使用说明
@@ -49,6 +49,12 @@ compile 'com.kongzue.dialog:dialog:1.0.1'
 橙色对应DialogThemeColor.COLOR_ORANGE，
 
 灰色对应DialogThemeColor.COLOR_GRAY。
+
+使用快速模式的情况下可以设置默认主题颜色：
+
+```
+DialogThemeColor.normalColor = DialogThemeColor.COLOR_BLUE;
+```
 
 ### 调用消息对话框的方法：
 ```
