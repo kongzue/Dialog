@@ -20,12 +20,14 @@ import com.kongzue.dialog.util.Log;
 public class InputDialog {
 
     private static AlertDialog alertDialog;
-    private static int colorId = 0;
+    private static int colorId = -1;
     private static Context context;
 
     private static String title = "";
     private static String inputHintText = "";
     private static InputDialogCallbackClickListener positiveClick;
+
+    private static boolean isCanCancel = true;
 
     public InputDialog(Context context) {
         this.context = context;
@@ -43,6 +45,9 @@ public class InputDialog {
 
     private static void doShow() {
         alertDialog = new AlertDialog.Builder(context).create();
+
+        alertDialog.setCancelable(isCanCancel);
+
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         alertDialog.setView(new EditText(context));
@@ -61,6 +66,8 @@ public class InputDialog {
 
         TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
         TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
+
+        if (colorId == -1) colorId = DialogThemeColor.normalColor;
 
         btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
         btn_selectPositive.setText("确定");
@@ -105,8 +112,17 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setThemeColor(int colorId){
+    public InputDialog setThemeColor(int colorId) {
         this.colorId = colorId;
+        return this;
+    }
+
+    public boolean isCanCancel() {
+        return isCanCancel;
+    }
+
+    public InputDialog setIsCanCancel(boolean isCanCancel) {
+        this.isCanCancel = isCanCancel;
         return this;
     }
 
