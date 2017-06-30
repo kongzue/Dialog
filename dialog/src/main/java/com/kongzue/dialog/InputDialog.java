@@ -2,6 +2,7 @@ package com.kongzue.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,7 +26,10 @@ public class InputDialog {
 
     private static String title = "";
     private static String inputHintText = "";
+    private static String positiveButtonText;
+    private static String nativeButtonText;
     private static InputDialogCallbackClickListener positiveClick;
+    private static View.OnClickListener nativeClick;
 
     private static boolean isCanCancel = true;
 
@@ -33,12 +37,16 @@ public class InputDialog {
         this.context = context;
     }
 
-    public static void show(Context context, final InputDialogCallbackClickListener positiveClick, String title, String hintText) {
+    public static void show(Context context, String title, String hintText,
+                            String positiveButtonText, String nativeButtonText, final InputDialogCallbackClickListener positiveClick, final View.OnClickListener nativeClick) {
         InputDialog.title = title;
         InputDialog.colorId = DialogThemeColor.normalColor;
-        InputDialog.inputHintText = inputHintText;
-        InputDialog.positiveClick = positiveClick;
+        InputDialog.inputHintText = hintText;
         InputDialog.context = context;
+        InputDialog.positiveButtonText = positiveButtonText;
+        InputDialog.nativeButtonText = nativeButtonText;
+        InputDialog.positiveClick = positiveClick;
+        InputDialog.nativeClick = nativeClick;
 
         doShow();
     }
@@ -70,7 +78,7 @@ public class InputDialog {
         if (colorId == -1) colorId = DialogThemeColor.normalColor;
 
         btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
-        btn_selectPositive.setText("确定");
+        btn_selectPositive.setText(positiveButtonText);
         btn_selectPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,11 +87,20 @@ public class InputDialog {
             }
         });
 
-        btn_selectNegative.setText("取消");
+        btn_selectNegative.setText(nativeButtonText);
         btn_selectNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
+                if (nativeClick != null) nativeClick.onClick(v);
+            }
+        });
+
+        final View pButton = btn_selectNegative;
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (nativeClick != null) nativeClick.onClick(pButton);
             }
         });
     }
@@ -94,6 +111,33 @@ public class InputDialog {
             return null;
         }
         doShow();
+        return this;
+    }
+
+    public String getPositiveButtonText() {
+        return positiveButtonText;
+    }
+
+    public InputDialog setPositiveButtonText(String positiveButtonText) {
+        InputDialog.positiveButtonText = positiveButtonText;
+        return this;
+    }
+
+    public String getNativeButtonText() {
+        return nativeButtonText;
+    }
+
+    public InputDialog setNativeButtonText(String nativeButtonText) {
+        InputDialog.nativeButtonText = nativeButtonText;
+        return this;
+    }
+
+    public View.OnClickListener getNativeClick() {
+        return nativeClick;
+    }
+
+    public InputDialog setNativeClick(View.OnClickListener nativeClick) {
+        InputDialog.nativeClick = nativeClick;
         return this;
     }
 
