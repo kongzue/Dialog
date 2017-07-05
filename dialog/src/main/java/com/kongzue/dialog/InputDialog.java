@@ -52,57 +52,62 @@ public class InputDialog {
     }
 
     private static void doShow() {
-        alertDialog = new AlertDialog.Builder(context).create();
+        try {
+            alertDialog = new AlertDialog.Builder(context).create();
 
-        alertDialog.setCancelable(isCanCancel);
+            alertDialog.setCancelable(isCanCancel);
 
-        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        alertDialog.setView(new EditText(context));
-        alertDialog.show();
+            alertDialog.setView(new EditText(context));
+            alertDialog.show();
 
-        Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.dialog_input);
-        TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
-        tv_title.setText(title);
-        final EditText editText = (EditText) window.findViewById(R.id.txt_dialog_tip);
+            Window window = alertDialog.getWindow();
+            window.setContentView(R.layout.dialog_input);
+            TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
+            tv_title.setText(title);
+            final EditText editText = (EditText) window.findViewById(R.id.txt_dialog_tip);
 
-        editText.setHint(inputHintText);
+            editText.setHint(inputHintText);
 
-        editText.setText("");
-        editText.setSelection(editText.length());
+            editText.setText("");
+            editText.setSelection(editText.length());
 
-        TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
-        TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
+            TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
+            TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
 
-        if (colorId == -1) colorId = DialogThemeColor.normalColor;
+            if (colorId == -1) colorId = DialogThemeColor.normalColor;
 
-        btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
-        btn_selectPositive.setText(positiveButtonText);
-        btn_selectPositive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                if (positiveClick != null) positiveClick.onClick(v, editText.getText().toString());
-            }
-        });
+            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
+            btn_selectPositive.setText(positiveButtonText);
+            btn_selectPositive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    if (positiveClick != null)
+                        positiveClick.onClick(v, editText.getText().toString());
+                }
+            });
 
-        btn_selectNegative.setText(nativeButtonText);
-        btn_selectNegative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                if (nativeClick != null) nativeClick.onClick(v);
-            }
-        });
+            btn_selectNegative.setText(nativeButtonText);
+            btn_selectNegative.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    if (nativeClick != null) nativeClick.onClick(v);
+                }
+            });
 
-        final View pButton = btn_selectNegative;
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (nativeClick != null) nativeClick.onClick(pButton);
-            }
-        });
+            final View pButton = btn_selectNegative;
+            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    if (nativeClick != null) nativeClick.onClick(pButton);
+                }
+            });
+        } catch (Exception e) {
+
+        }
     }
 
     public InputDialog show() {

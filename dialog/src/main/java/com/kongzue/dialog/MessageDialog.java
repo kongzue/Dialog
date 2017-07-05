@@ -45,43 +45,47 @@ public class MessageDialog {
     }
 
     private static void doShow() {
-        alertDialog = new AlertDialog.Builder(context).create();
+        try {
+            alertDialog = new AlertDialog.Builder(context).create();
 
-        alertDialog.setCancelable(isCanCancel);
+            alertDialog.setCancelable(isCanCancel);
 
-        alertDialog.show();
+            alertDialog.show();
 
-        Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.dialog_select);
-        TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
-        tv_title.setText(title);
-        final TextView tip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-        tip.setText(tipText);
+            Window window = alertDialog.getWindow();
+            window.setContentView(R.layout.dialog_select);
+            TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
+            tv_title.setText(title);
+            final TextView tip = (TextView) window.findViewById(R.id.txt_dialog_tip);
+            tip.setText(tipText);
 
-        TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
-        TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
+            TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
+            TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
 
-        btn_selectNegative.setVisibility(View.GONE);
+            btn_selectNegative.setVisibility(View.GONE);
 
-        if (colorId == -1) colorId = DialogThemeColor.normalColor;
+            if (colorId == -1) colorId = DialogThemeColor.normalColor;
 
-        btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
-        btn_selectPositive.setText(positiveButtonText);
-        btn_selectPositive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                if (positiveClick != null) positiveClick.onClick(v);
-            }
-        });
+            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
+            btn_selectPositive.setText(positiveButtonText);
+            btn_selectPositive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    if (positiveClick != null) positiveClick.onClick(v);
+                }
+            });
 
-        final View pButton = btn_selectPositive;
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (positiveClick != null) positiveClick.onClick(pButton);
-            }
-        });
+            final View pButton = btn_selectPositive;
+            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    if (positiveClick != null) positiveClick.onClick(pButton);
+                }
+            });
+        } catch (Exception e) {
+
+        }
     }
 
     public MessageDialog show() {
