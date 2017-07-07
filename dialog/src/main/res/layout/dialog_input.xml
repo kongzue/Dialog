@@ -1,70 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="#ffffff">
+        android:layout_centerVertical="true"
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="标题"
-            android:id="@+id/txt_dialog_title"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:gravity="center"
+            android:text="标题"
             android:textColor="#000000"
-            android:textSize="20dp"
-            android:layout_marginTop="20dp" />
+            android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/txt_dialog_tip"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@drawable/editbox_bkg"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:text="tip"
-            android:singleLine="true"
-            android:id="@+id/txt_dialog_tip"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/editbox_bkg"
             android:gravity="center"
+            android:singleLine="true"
+            android:text="tip"
             android:textColor="#000000"
-            android:layout_marginTop="25dp" />
+            android:textSize="18dp" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="negative"
                 android:id="@+id/btn_selectNegative"
-                android:clickable="true"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:background="@drawable/button_selectordialog_gray" />
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="positive"
-                android:id="@+id/btn_selectPositive"
-                android:clickable="true"
                 android:layout_weight="1"
+                android:background="@drawable/button_selectordialog_gray"
+                android:clickable="true"
                 android:gravity="center"
+                android:text="negative"
                 android:textColor="#000000"
-                android:background="@drawable/button_selectordialog_green" />
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/btn_selectPositive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_selectordialog_green"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="positive"
+                android:textColor="#000000"
+                android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
