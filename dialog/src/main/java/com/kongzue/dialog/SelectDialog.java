@@ -69,7 +69,7 @@ public class SelectDialog {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 if (tipText.contains("\n")) {
-                    tip.setTextAlignment(TEXT_ALIGNMENT_INHERIT);
+                    tip.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 } else {
                     tip.setTextAlignment(TEXT_ALIGNMENT_CENTER);
                 }

@@ -4,15 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kongzue.dialog.util.DialogThemeColor;
 import com.kongzue.dialog.util.Log;
 
 import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import static android.view.View.TEXT_ALIGNMENT_INHERIT;
+import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 
 /**
@@ -65,9 +68,9 @@ public class MessageDialog {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 if (tipText.contains("\n")) {
-                    tip.setTextAlignment(TEXT_ALIGNMENT_INHERIT);
+                    tip.setGravity(Gravity.START);
                 } else {
-                    tip.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+                    tip.setGravity(Gravity.CENTER);
                 }
             }
 
