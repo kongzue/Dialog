@@ -21,7 +21,7 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -36,7 +36,7 @@ repositories {
 ```
 在dependencies{}中添加引用：
 ```
-compile 'com.kongzue.dialog:dialog:1.0.2'
+compile 'com.kongzue.dialog:dialog:1.1.0'
 ```
 
 ## 使用说明
