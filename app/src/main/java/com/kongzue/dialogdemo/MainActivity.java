@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDatas() {
         //欢迎信息，快速调用对话框的方式
-        MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式\n如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
+        MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式\na 如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
     }
 
     private void initEvent() {
@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 InputDialog inputDialog = new InputDialog(MainActivity.this)
                         .setTitle("请输入文字")
                         .setInputHintText("这里是提示文字")
+                        .setPositiveButtonText("积极选择")
+                        .setNativeButtonText("消极选择")
                         .setThemeColor(colorId)                   //设置主题颜色
                         .setOnPositiveButtonClickListener(new InputDialogCallbackClickListener() {      //输入对话框回调方法
                             @Override

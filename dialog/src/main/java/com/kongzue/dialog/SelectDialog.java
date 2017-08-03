@@ -12,7 +12,6 @@ import com.kongzue.dialog.util.DialogThemeColor;
 import com.kongzue.dialog.util.Log;
 
 import static android.view.View.TEXT_ALIGNMENT_CENTER;
-import static android.view.View.TEXT_ALIGNMENT_INHERIT;
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 
@@ -22,53 +21,64 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 public class SelectDialog {
 
-    private static AlertDialog alertDialog;
-    private static int colorId = -1;
-    private static Context context;
+    private static SelectDialog selectDialog;
 
-    private static String title;
-    private static String tipText;
-    private static String positiveButtonText;
-    private static String nativeButtonText;
-    private static View.OnClickListener positiveClick;
-    private static View.OnClickListener nativeClick;
+    private AlertDialog alertDialog;
+    private int colorId = -1;
+    private Context context;
 
-    private static boolean isCanCancel = true;
+    private String title;
+    private String tipText;
+    private String positiveButtonText;
+    private String nativeButtonText;
+    private View.OnClickListener positiveClick;
+    private View.OnClickListener nativeClick;
+
+    private boolean isCanCancel = true;
 
     public SelectDialog(Context context) {
         this.context = context;
+        selectDialog = this;
     }
 
     public static void show(Context context, String title, String tipText, String positiveButtonText, String nativeButtonText, final View.OnClickListener positiveClick, final View.OnClickListener nativeClick) {
 
-        SelectDialog.colorId = DialogThemeColor.normalColor;
-        SelectDialog.context = context;
-        SelectDialog.title = title;
-        SelectDialog.tipText = tipText;
-        SelectDialog.positiveButtonText = positiveButtonText;
-        SelectDialog.nativeButtonText = nativeButtonText;
-        SelectDialog.positiveClick = positiveClick;
-        SelectDialog.nativeClick = nativeClick;
+        if (selectDialog == null) {
+            synchronized (SelectDialog.class) {
+                if (selectDialog == null) {
+                    selectDialog = new SelectDialog(context);
+                }
+            }
+        }
+
+        selectDialog.colorId = DialogThemeColor.normalColor;
+        selectDialog.context = context;
+        selectDialog.title = title;
+        selectDialog.tipText = tipText;
+        selectDialog.positiveButtonText = positiveButtonText;
+        selectDialog.nativeButtonText = nativeButtonText;
+        selectDialog.positiveClick = positiveClick;
+        selectDialog.nativeClick = nativeClick;
 
         doShow();
     }
 
     private static void doShow() {
         try {
-            final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            final AlertDialog alertDialog = new AlertDialog.Builder(selectDialog.context).create();
 
-            alertDialog.setCancelable(isCanCancel);
+            alertDialog.setCancelable(selectDialog.isCanCancel);
 
             alertDialog.show();
             Window window = alertDialog.getWindow();
             window.setContentView(R.layout.dialog_select);
             TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
-            tv_title.setText(title);
+            tv_title.setText(selectDialog.title);
             final TextView tip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-            tip.setText(tipText);
+            tip.setText(selectDialog.tipText);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                if (tipText.contains("\n")) {
+                if (selectDialog.tipText.contains("\n")) {
                     tip.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 } else {
                     tip.setTextAlignment(TEXT_ALIGNMENT_CENTER);
@@ -78,24 +88,24 @@ public class SelectDialog {
             TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
             TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
 
-            if (colorId == -1) colorId = DialogThemeColor.normalColor;
+            if (selectDialog.colorId == -1) selectDialog.colorId = DialogThemeColor.normalColor;
 
-            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
-            btn_selectPositive.setText(positiveButtonText);
+            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(selectDialog.colorId));
+            btn_selectPositive.setText(selectDialog.positiveButtonText);
             btn_selectPositive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    if (positiveClick != null) positiveClick.onClick(v);
+                    if (selectDialog.positiveClick != null) selectDialog.positiveClick.onClick(v);
                 }
             });
 
-            btn_selectNegative.setText(nativeButtonText);
+            btn_selectNegative.setText(selectDialog.nativeButtonText);
             btn_selectNegative.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    if (nativeClick != null) nativeClick.onClick(v);
+                    if (selectDialog.nativeClick != null) selectDialog.nativeClick.onClick(v);
                 }
             });
 
@@ -103,7 +113,7 @@ public class SelectDialog {
             alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    if (nativeClick != null) nativeClick.onClick(pButton);
+                    if (selectDialog.nativeClick != null) selectDialog.nativeClick.onClick(pButton);
                 }
             });
         } catch (Exception e) {

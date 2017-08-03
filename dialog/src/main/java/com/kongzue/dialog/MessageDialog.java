@@ -8,14 +8,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kongzue.dialog.util.DialogThemeColor;
 import com.kongzue.dialog.util.Log;
-
-import static android.view.View.TEXT_ALIGNMENT_CENTER;
-import static android.view.View.TEXT_ALIGNMENT_INHERIT;
-import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 
 /**
@@ -24,50 +19,61 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 public class MessageDialog {
 
-    private static AlertDialog alertDialog;
-    private static int colorId = -1;
-    private static Context context;
+    private static MessageDialog messageDialog;
 
-    private static String title = "";
-    private static String tipText = "";
-    private static String positiveButtonText = "";
-    private static View.OnClickListener positiveClick;
+    private AlertDialog alertDialog;
+    private int colorId = -1;
+    private Context context;
 
-    private static boolean isCanCancel = true;
+    private String title = "";
+    private String tipText = "";
+    private String positiveButtonText = "";
+    private View.OnClickListener positiveClick;
+
+    private boolean isCanCancel = true;
 
     public MessageDialog(Context context) {
         this.context = context;
+        messageDialog = this;
     }
 
     public static void show(Context context, String title, String tipText, String positiveButtonText, final View.OnClickListener positiveClick) {
 
-        MessageDialog.colorId = DialogThemeColor.normalColor;
-        MessageDialog.context = context;
-        MessageDialog.title = title;
-        MessageDialog.tipText = tipText;
-        MessageDialog.positiveButtonText = positiveButtonText;
-        MessageDialog.positiveClick = positiveClick;
+        if (messageDialog == null) {
+            synchronized (MessageDialog.class) {
+                if (messageDialog == null) {
+                    messageDialog = new MessageDialog(context);
+                }
+            }
+        }
+
+        messageDialog.colorId = DialogThemeColor.normalColor;
+        messageDialog.context = context;
+        messageDialog.title = title;
+        messageDialog.tipText = tipText;
+        messageDialog.positiveButtonText = positiveButtonText;
+        messageDialog.positiveClick = positiveClick;
 
         doShow();
     }
 
     private static void doShow() {
         try {
-            alertDialog = new AlertDialog.Builder(context).create();
+            messageDialog.alertDialog = new AlertDialog.Builder(messageDialog.context).create();
 
-            alertDialog.setCancelable(isCanCancel);
+            messageDialog.alertDialog.setCancelable(messageDialog.isCanCancel);
 
-            alertDialog.show();
+            messageDialog.alertDialog.show();
 
-            Window window = alertDialog.getWindow();
+            Window window = messageDialog.alertDialog.getWindow();
             window.setContentView(R.layout.dialog_select);
             TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
-            tv_title.setText(title);
+            tv_title.setText(messageDialog.title);
             final TextView tip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-            tip.setText(tipText);
+            tip.setText(messageDialog.tipText);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                if (tipText.contains("\n")) {
+                if (messageDialog.tipText.contains("\n")) {
                     tip.setGravity(Gravity.START);
                 } else {
                     tip.setGravity(Gravity.CENTER);
@@ -80,23 +86,24 @@ public class MessageDialog {
 
             btn_selectNegative.setVisibility(View.GONE);
 
-            if (colorId == -1) colorId = DialogThemeColor.normalColor;
+            if (messageDialog.colorId == -1) messageDialog.colorId = DialogThemeColor.normalColor;
 
-            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
-            btn_selectPositive.setText(positiveButtonText);
+            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(messageDialog.colorId));
+            btn_selectPositive.setText(messageDialog.positiveButtonText);
             btn_selectPositive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    alertDialog.dismiss();
-                    if (positiveClick != null) positiveClick.onClick(v);
+                    messageDialog.alertDialog.dismiss();
+                    if (messageDialog.positiveClick != null) messageDialog.positiveClick.onClick(v);
                 }
             });
 
             final View pButton = btn_selectPositive;
-            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            messageDialog.alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    if (positiveClick != null) positiveClick.onClick(pButton);
+                    if (messageDialog.positiveClick != null)
+                        messageDialog.positiveClick.onClick(pButton);
                 }
             });
         } catch (Exception e) {
@@ -143,7 +150,7 @@ public class MessageDialog {
     }
 
     public MessageDialog setIsCanCancel(boolean isCanCancel) {
-        MessageDialog.isCanCancel = isCanCancel;
+        this.isCanCancel = isCanCancel;
         return this;
     }
 }

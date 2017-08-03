@@ -20,55 +20,67 @@ import com.kongzue.dialog.util.Log;
 
 public class InputDialog {
 
-    private static AlertDialog alertDialog;
-    private static int colorId = -1;
-    private static Context context;
+    private static InputDialog inputDialog;
 
-    private static String title = "";
-    private static String inputHintText = "";
-    private static String positiveButtonText;
-    private static String nativeButtonText;
-    private static InputDialogCallbackClickListener positiveClick;
-    private static View.OnClickListener nativeClick;
+    private AlertDialog alertDialog;
+    private int colorId = -1;
+    private Context context;
 
-    private static boolean isCanCancel = true;
+    private String title = "";
+    private String inputHintText = "";
+    private String positiveButtonText;
+    private String nativeButtonText;
+    private InputDialogCallbackClickListener positiveClick;
+    private View.OnClickListener nativeClick;
+
+    private boolean isCanCancel = true;
 
     public InputDialog(Context context) {
         this.context = context;
+        inputDialog = this;
     }
 
     public static void show(Context context, String title, String hintText,
                             String positiveButtonText, String nativeButtonText, final InputDialogCallbackClickListener positiveClick, final View.OnClickListener nativeClick) {
-        InputDialog.title = title;
-        InputDialog.colorId = DialogThemeColor.normalColor;
-        InputDialog.inputHintText = hintText;
-        InputDialog.context = context;
-        InputDialog.positiveButtonText = positiveButtonText;
-        InputDialog.nativeButtonText = nativeButtonText;
-        InputDialog.positiveClick = positiveClick;
-        InputDialog.nativeClick = nativeClick;
+
+        if (inputDialog == null) {
+            synchronized (InputDialog.class) {
+                if (inputDialog == null) {
+                    inputDialog = new InputDialog(context);
+                }
+            }
+        }
+
+        inputDialog.title = title;
+        inputDialog.colorId = DialogThemeColor.normalColor;
+        inputDialog.inputHintText = hintText;
+        inputDialog.context = context;
+        inputDialog.positiveButtonText = positiveButtonText;
+        inputDialog.nativeButtonText = nativeButtonText;
+        inputDialog.positiveClick = positiveClick;
+        inputDialog.nativeClick = nativeClick;
 
         doShow();
     }
 
     private static void doShow() {
         try {
-            alertDialog = new AlertDialog.Builder(context).create();
+            inputDialog.alertDialog = new AlertDialog.Builder(inputDialog.context).create();
 
-            alertDialog.setCancelable(isCanCancel);
+            inputDialog.alertDialog.setCancelable(inputDialog.isCanCancel);
 
-            alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            inputDialog.alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-            alertDialog.setView(new EditText(context));
-            alertDialog.show();
+            inputDialog.alertDialog.setView(new EditText(inputDialog.context));
+            inputDialog.alertDialog.show();
 
-            Window window = alertDialog.getWindow();
+            Window window = inputDialog.alertDialog.getWindow();
             window.setContentView(R.layout.dialog_input);
             TextView tv_title = (TextView) window.findViewById(R.id.txt_dialog_title);
-            tv_title.setText(title);
+            tv_title.setText(inputDialog.title);
             final EditText editText = (EditText) window.findViewById(R.id.txt_dialog_tip);
 
-            editText.setHint(inputHintText);
+            editText.setHint(inputDialog.inputHintText);
 
             editText.setText("");
             editText.setSelection(editText.length());
@@ -76,33 +88,33 @@ public class InputDialog {
             TextView btn_selectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
             TextView btn_selectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
 
-            if (colorId == -1) colorId = DialogThemeColor.normalColor;
+            if (inputDialog.colorId == -1) inputDialog.colorId = DialogThemeColor.normalColor;
 
-            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(colorId));
-            btn_selectPositive.setText(positiveButtonText);
+            btn_selectPositive.setBackgroundResource(DialogThemeColor.getRes(inputDialog.colorId));
+            btn_selectPositive.setText(inputDialog.positiveButtonText);
             btn_selectPositive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    alertDialog.dismiss();
-                    if (positiveClick != null)
-                        positiveClick.onClick(v, editText.getText().toString());
+                    inputDialog.alertDialog.dismiss();
+                    if (inputDialog.positiveClick != null)
+                        inputDialog.positiveClick.onClick(v, editText.getText().toString());
                 }
             });
 
-            btn_selectNegative.setText(nativeButtonText);
+            btn_selectNegative.setText(inputDialog.nativeButtonText);
             btn_selectNegative.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    alertDialog.dismiss();
-                    if (nativeClick != null) nativeClick.onClick(v);
+                    inputDialog.alertDialog.dismiss();
+                    if (inputDialog.nativeClick != null) inputDialog.nativeClick.onClick(v);
                 }
             });
 
             final View pButton = btn_selectNegative;
-            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            inputDialog.alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    if (nativeClick != null) nativeClick.onClick(pButton);
+                    if (inputDialog.nativeClick != null) inputDialog.nativeClick.onClick(pButton);
                 }
             });
         } catch (Exception e) {
@@ -124,7 +136,7 @@ public class InputDialog {
     }
 
     public InputDialog setPositiveButtonText(String positiveButtonText) {
-        InputDialog.positiveButtonText = positiveButtonText;
+        this.positiveButtonText = positiveButtonText;
         return this;
     }
 
@@ -133,7 +145,7 @@ public class InputDialog {
     }
 
     public InputDialog setNativeButtonText(String nativeButtonText) {
-        InputDialog.nativeButtonText = nativeButtonText;
+        this.nativeButtonText = nativeButtonText;
         return this;
     }
 
@@ -142,7 +154,7 @@ public class InputDialog {
     }
 
     public InputDialog setNativeClick(View.OnClickListener nativeClick) {
-        InputDialog.nativeClick = nativeClick;
+        this.nativeClick = nativeClick;
         return this;
     }
 
