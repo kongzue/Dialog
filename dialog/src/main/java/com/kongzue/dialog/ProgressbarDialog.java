@@ -3,6 +3,10 @@ package com.kongzue.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 /**
@@ -10,7 +14,9 @@ import android.os.Bundle;
  */
 
 public class ProgressbarDialog extends Dialog {
+
     private Context context;
+    private String info;
 
     public ProgressbarDialog(Context context) {
         super(context, R.style.processDialog);
@@ -28,11 +34,41 @@ public class ProgressbarDialog extends Dialog {
         setCancelable(false);
     }
 
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+        if (boxInfo!=null && txtInfo!=null) {
+            if (!info.isEmpty()) {
+                boxInfo.setVisibility(View.VISIBLE);
+                txtInfo.setText(info);
+            } else {
+                boxInfo.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private RelativeLayout boxInfo;
+    private TextView txtInfo;
+    private ProgressBar progressBar1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.dialog_progressbar);
+
+        boxInfo = (RelativeLayout) findViewById(R.id.box_info);
+        txtInfo = (TextView) findViewById(R.id.txt_info);
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
+
+        if (!info.isEmpty()){
+            boxInfo.setVisibility(View.VISIBLE);
+            txtInfo.setText(info);
+        }else{
+            boxInfo.setVisibility(View.GONE);
+        }
     }
 
 }

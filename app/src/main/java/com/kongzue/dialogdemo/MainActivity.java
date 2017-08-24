@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.kongzue.dialog.InputDialog;
 import com.kongzue.dialog.MessageDialog;
+import com.kongzue.dialog.ProgressbarDialog;
 import com.kongzue.dialog.SelectDialog;
 import com.kongzue.dialog.listener.InputDialogCallbackClickListener;
 import com.kongzue.dialog.util.DialogThemeColor;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnMsg;
     private Button btnInput;
     private Button btnSelect;
+    private Button btnPsg;
+    private Button btnPsgInfo;
 
     private void initViews() {
         grp = (RadioGroup) findViewById(R.id.grp);
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         btnMsg = (Button) findViewById(R.id.btn_msg);
         btnInput = (Button) findViewById(R.id.btn_input);
         btnSelect = (Button) findViewById(R.id.btn_select);
+        btnPsg = (Button) findViewById(R.id.btn_psg);
+        btnPsgInfo = (Button) findViewById(R.id.btn_psg_info);
     }
 
     @Override
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         //欢迎信息，快速调用对话框的方式
         MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式\na 如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
     }
+
+    private ProgressbarDialog progressbarDialog;
 
     private void initEvent() {
         //选择主题配色
@@ -151,6 +158,28 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(MainActivity.this, "你做出了消极的选择", Toast.LENGTH_LONG).show();
 //                    }
 //                });
+            }
+        });
+
+        //载入对话框
+        btnPsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (progressbarDialog==null) progressbarDialog=new ProgressbarDialog(MainActivity.this);
+                progressbarDialog.setInfo("");
+                progressbarDialog.setCancelable(true);
+                progressbarDialog.show();
+            }
+        });
+
+        //带文字的载入对话框
+        btnPsgInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (progressbarDialog==null) progressbarDialog=new ProgressbarDialog(MainActivity.this);
+                progressbarDialog.setInfo("载入中...");
+                progressbarDialog.setCancelable(true);
+                progressbarDialog.show();
             }
         });
     }
