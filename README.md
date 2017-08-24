@@ -28,7 +28,7 @@ Maven仓库：
 Gradle：
 在dependencies{}中添加引用：
 ```
-compile 'com.kongzue.dialog:dialog:1.1.1'
+compile 'com.kongzue.dialog:dialog:1.1.2'
 ```
 
 ## 使用说明
