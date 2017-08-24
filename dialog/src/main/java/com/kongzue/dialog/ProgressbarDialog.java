@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class ProgressbarDialog extends Dialog {
 
     private Context context;
-    private String info;
+    private String info="";
 
     public ProgressbarDialog(Context context) {
         super(context, R.style.processDialog);
