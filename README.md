@@ -26,17 +26,9 @@ Maven仓库：
 </dependency>
 ```
 Gradle：
-先在app项目的build.gradle中添加
-```
-repositories {
-    maven {
-        url  "http://dl.bintray.com/myzchh/maven"
-    }
-}
-```
 在dependencies{}中添加引用：
 ```
-compile 'com.kongzue.dialog:dialog:1.1.0'
+compile 'com.kongzue.dialog:dialog:1.1.1'
 ```
 
 ## 使用说明
