@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="#ffffff"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/rect_iosdialog_bkg"
         android:orientation="vertical">
 
         <TextView
@@ -18,46 +18,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="标题"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="17dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_dialog_tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="测试文本"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="中文内容"
             android:textColor="#000000"
-            android:textSize="14dp" />
+            android:textSize="13dp" />
 
         <EditText
             android:id="@+id/txt_input"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/editbox_bkg"
-            android:gravity="center"
+            android:background="@drawable/editbox_bkg_ios"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:singleLine="true"
-            android:text=""
+            android:text="输入文本"
             android:textColor="#000000"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/split_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -65,24 +74,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_selectordialog_gray"
+                android:background="@drawable/button_dialog_left"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="negative"
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:text="取消"
+                android:textColor="@color/ios_dlg_text"
+                android:textSize="17dp" />
+
+            <ImageView
+                android:id="@+id/split_vertical"
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/split_line" />
 
             <TextView
                 android:id="@+id/btn_selectPositive"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_selectordialog_blue"
+                android:background="@drawable/button_dialog_right"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="positive"
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:text="确定"
+                android:textColor="@color/ios_dlg_text"
+                android:textSize="17dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

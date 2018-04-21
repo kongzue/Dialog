@@ -3,6 +3,7 @@ package com.kongzue.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -10,15 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kongzue.dialog.listener.InputDialogCallbackClickListener;
+import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogThemeColor;
-import com.kongzue.dialog.util.Log;
 
 
 /**
  * Created by ZhangChao on 2017/5/5.
  */
 
-public class InputDialog {
+@Deprecated
+public class InputDialog extends BaseDialog {
 
     private static InputDialog inputDialog;
 
@@ -124,7 +126,7 @@ public class InputDialog {
 
     public InputDialog show() {
         if (context == null) {
-            Log.println("Error:context is null,please init Dialog first.");
+            log("Error:context is null,please init Dialog first.");
             return null;
         }
         doShow();

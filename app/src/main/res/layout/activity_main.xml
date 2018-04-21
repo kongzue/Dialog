@@ -6,10 +6,17 @@
     tools:context="com.kongzue.dialogdemo.MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="风格"/>
 
         <RadioGroup
             android:id="@+id/grp"
@@ -20,28 +27,34 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/rdo_green"
+                android:id="@+id/rdo_material"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="绿色" />
+                android:text="Material" />
 
             <RadioButton
-                android:id="@+id/rdo_blue"
+                android:id="@+id/rdo_kongzue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="蓝色" />
+                android:text="Kongzue" />
 
             <RadioButton
-                android:id="@+id/rdo_orange"
+                android:id="@+id/rdo_ios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="橙色" />
+                android:text="iOS" />
 
         </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="普通对话框"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,6 +81,12 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="进度与提示"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,15 +96,35 @@
                 android:id="@+id/btn_psg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="载入对话框" />
-
-            <Button
-                android:id="@+id/btn_psg_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="带文字的载入对话框" />
+                android:text="等待对话框" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_tip_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="完成提示框" />
+
+            <Button
+                android:id="@+id/btn_tip_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="警告提示框" />
+
+            <Button
+                android:id="@+id/btn_tip_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="错误提示框" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 </RelativeLayout>

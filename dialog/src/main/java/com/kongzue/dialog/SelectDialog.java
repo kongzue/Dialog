@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogThemeColor;
-import com.kongzue.dialog.util.Log;
 
 import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
@@ -19,7 +19,8 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
  * Created by ZhangChao on 2017/5/5.
  */
 
-public class SelectDialog {
+@Deprecated
+public class SelectDialog extends BaseDialog {
 
     private static SelectDialog selectDialog;
 
@@ -123,7 +124,7 @@ public class SelectDialog {
 
     public SelectDialog show() {
         if (context == null) {
-            Log.println("Error:context is null,please init Dialog first.");
+            log("Error:context is null,please init Dialog first.");
             return null;
         }
         doShow();

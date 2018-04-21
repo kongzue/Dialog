@@ -1,5 +1,6 @@
 package com.kongzue.dialog;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
  * Created by ZhangChao on 2017/3/28.
  */
 
+@Deprecated
 public class ProgressbarDialog extends Dialog {
 
     private Context context;
@@ -61,7 +63,7 @@ public class ProgressbarDialog extends Dialog {
 
         boxInfo = (RelativeLayout) findViewById(R.id.box_info);
         txtInfo = (TextView) findViewById(R.id.txt_info);
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
+        progressBar1 = (ProgressBar) findViewById(R.id.psgBar);
 
         if (!info.isEmpty()){
             boxInfo.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,20 +10,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <RelativeLayout
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/rent_progressbkg"></RelativeLayout>
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:background="@drawable/rect_progressbkg"></RelativeLayout>
 
         <TextView
             android:id="@+id/txt_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="115dp"
+            android:layout_marginTop="90dp"
             android:text="haha"
             android:textColor="#fff"
             android:textSize="14dp" />
@@ -30,10 +30,11 @@
     </RelativeLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/psgBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:paddingBottom="30dp"
         android:layout_centerVertical="true" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="white">#ffffff</color>
     <color name="gray_light">#f2f2f2</color>
     <color name="gray_light_d">#dfdfdf</color>
     <color name="green_light">#2e548235</color>
@@ -10,4 +11,8 @@
     <color name="blue_light">#dae4f2</color>
     <color name="blue_light_d">#c0d4f1</color>
     <color name="progress_dlg_bkg">#c8000000</color>
+    <color name="ios_dlg_bkg">#e6ffffff</color>
+    <color name="ios_dlg_text">#007aff</color>
+    <color name="split_line">#cdcdd1</color>
+    <color name="cursor_line">#353535</color>
 </resources>
