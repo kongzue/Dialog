@@ -1,13 +1,9 @@
-# 空祖家的Dialog
-空祖家的通用对话框。此项目是用来演示如何封装一个Android Library的，具体封装和发布步骤详见简书：http://www.jianshu.com/p/ccac7ac0b819
+# 空祖家的Dialog2.0
+献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
-空祖家的对话框拥有简洁鲜明的样式，提供绿色、蓝色、橙色和灰色4种主题颜色以及消息提示框、选择框、输入框三种，以及一种载入对话框，各自提供两种调用方式。
+空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提升、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
 
-![提示框](http://upload-images.jianshu.io/upload_images/1976622-ee730c81091a968f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![选择框](http://upload-images.jianshu.io/upload_images/1976622-6d4a84d821415b2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![输入框](http://upload-images.jianshu.io/upload_images/1976622-ac15660c751edffb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
 
 本例中，包含DialogDemo（Dialog/app/）是对话框的演示项目源代码，以及Library库（Dialog/dialog/）是封装的空祖家对话框的源代码。
 
@@ -21,107 +17,140 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>1.1.0</version>
+  <version>2.0.0</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-compile 'com.kongzue.dialog:dialog:1.1.2'
+implementation 'com.kongzue.dialog:dialog:2.0.0'
 ```
 
 ## 使用说明
-三种主体色的配置值在DialogThemeColor类中，下文中的colorId就是从中获取的，
-
-蓝色对应DialogThemeColor.COLOR_BLUE，
-
-绿色对应DialogThemeColor.COLOR_GREEN，
-
-橙色对应DialogThemeColor.COLOR_ORANGE，
-
-灰色对应DialogThemeColor.COLOR_GRAY。
-
-使用快速模式的情况下可以设置默认主题颜色：
-
+组件启用前请先初始化全局的风格样式，具体方法为
 ```
-DialogThemeColor.normalColor = DialogThemeColor.COLOR_BLUE;
+DialogSettings.type = TYPE_MATERIAL;
 ```
+
+Material 风格对应 DialogSettings.TYPE_MATERIAL，
+
+Kongzue 风格对应 DialogSettings.TYPE_KONGZUE，
+
+iOS 风格对应 DialogSettings.TYPE_IOS
+
+需要注意的是风格设置仅针对对话框，提示框样式不会改变。
+
+## 关于v2组件包
+在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
+
+为了更有效率的开发，我们现在强烈推荐直接使用v2组件库，其包含的包地址为：com.kongzue.dialog.v2
 
 ### 调用消息对话框的方法：
 ```
-MessageDialog messageDialog = new MessageDialog(MainActivity.this)
-                        .setTitle("消息提示框")
-                        .setTipText("用于提示一些消息")
-                        .setThemeColor(colorId)
-                        .setPositiveButtonText("知道了")
-                        .setPositiveButtonClickListener(null)          //如果没有要点击的事件可以直接传null
-                        .show();
+MessageDialog.show(me, "消息提示框", "用于提示一些消息", "知道了", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+    }
+});
 ```
 或者可以采用快速调用方式：
 ```
-MessageDialog.show(MainActivity.this,"消息提示框","用于提示一些消息","知道了",null);
+MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
 ```
 
 ### 调用选择对话框的方法：
 ```
-SelectDialog selectDialog = new SelectDialog(MainActivity.this)
-                        .setTitle("选择框")
-                        .setTipText("请做出你的选择")
-                        .setPositiveButtonText("积极选择")
-                        .setPositiveButtonClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "你做出了积极的选择", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNativeButtonText("消极选择")
-                        .setNativeButtonClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "你做出了消极的选择", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setThemeColor(colorId)
-                        .show();
+SelectDialog.show(me, "提示", "请做出你的选择", "确定", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+    }
+}, "取消", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+    }
+});
 ```
 或者可以采用快速调用方式：
 ```
-SelectDialog.show(MainActivity.this, "选择框", "请做出你的选择", "积极选择", "消极选择", new View.OnClickListener() {
+SelectDialog.show(me, "提示", "请做出你的选择", new DialogInterface.OnClickListener() {
     @Override
-    public void onClick(View v) {
-        Toast.makeText(MainActivity.this, "你做出了积极的选择", Toast.LENGTH_LONG).show();
-    }
-}, new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(MainActivity.this, "你做出了消极的选择", Toast.LENGTH_LONG).show();
+    public void onClick(DialogInterface dialog, int which) {
+        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
     }
 });
 ```
 
 ### 调用输入对话框：
 ```
-InputDialog inputDialog = new InputDialog(MainActivity.this)
-                        .setTitle("请输入文字")
-                        .setInputHintText("这里是提示文字")
-                        .setThemeColor(colorId)                   //设置主题颜色
-                        .setOnPositiveButtonClickListener(new InputDialogCallbackClickListener() {      //输入对话框回调方法
-                            @Override
-                            public void onClick(View v, String inputText) {
-                                Toast.makeText(MainActivity.this, "你输入的是：" + inputText, Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .show();
+InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", "确定", new InputDialogOkButtonClickListener() {
+    @Override
+    public void onClick(Dialog dialog, String inputText) {
+        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+    }
+}, "取消", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+});
 ```
 或者可以采用快速调用方式：
 ```
-InputDialog.show(MainActivity.this, new InputDialogCallbackClickListener() {
+InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", new InputDialogOkButtonClickListener() {
                     @Override
-                    public void onClick(View v, String inputText) {
-                        Toast.makeText(MainActivity.this, "你输入的是：" + inputText, Toast.LENGTH_LONG).show();
+                    public void onClick(Dialog dialog, String inputText) {
+                        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
                     }
-                },"请输入文字","这里是提示文字");
+                });
+```
+
+### 调用等待提示框：
+```
+WaitDialog.show(me, "载入中...");
+```
+
+### 调用完成提示框：
+```
+TipDialog.show(me, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+```
+
+### 调用警告提示框：
+```
+TipDialog.show(me, "请输入密码", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+```
+
+### 调用错误提示框：
+```
+TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
+```
+
+## 附加功能：
+在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
+
+使用方法可以参考以下代码：
+```
+WaitDialog.show(me, "载入中...").setCanCancel(true);
+```
+
+在空祖家的对话框组件中，您可以使用监听器来监听对话框的生命周期，Demo如下：
+```
+WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListener(new DialogLifeCycleListener() {
+    @Override
+    public void onCreate(AlertDialog alertDialog) {
+        //此时对话框创建
+    }
+    @Override
+    public void onShow(AlertDialog alertDialog) {
+        //此时对话框显示
+    }
+    @Override
+    public void onDismiss() {
+        //此时对话框关闭
+    }
+});
 ```
 
 ## 开源协议

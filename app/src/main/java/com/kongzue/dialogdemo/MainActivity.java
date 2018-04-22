@@ -3,6 +3,7 @@ package com.kongzue.dialogdemo;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.ProgressbarDialog;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         //欢迎信息，快速调用对话框的方式
         //MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式\na 如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
 
-        MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\na 如有问题可以在https://github.com/kongzue/Dialog提交反馈");
+        MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
     }
 
     private ProgressbarDialog progressbarDialog;
@@ -138,19 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //载入对话框
-        btnPsg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (progressbarDialog == null)
-                    progressbarDialog = new ProgressbarDialog(MainActivity.this);
-                progressbarDialog.setInfo("");
-                progressbarDialog.setCancelable(true);
-                progressbarDialog.show();
-            }
-        });
-
-        //带文字的载入对话框
+        //调用等待提示框
         btnPsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
