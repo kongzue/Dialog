@@ -1,9 +1,13 @@
-# 空祖家的Dialog2.0
+# 空祖家的对话框 2.0
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提示、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
+
+试用版可以前往 http://kongzue.com/open_source/KongzueDialogDemo2.0.apk 下载
+
+![Kongzue's Dialog Demo](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/KongzueDialogDemoDownload.png)
 
 本例中，包含DialogDemo（Dialog/app/）是对话框的演示项目源代码，以及Library库（Dialog/dialog/）是封装的空祖家对话框的源代码。
 
