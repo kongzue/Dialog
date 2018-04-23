@@ -21,14 +21,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.0.0'
+implementation 'com.kongzue.dialog:dialog:2.0.1'
 ```
 
 ## 使用说明
@@ -173,3 +173,11 @@ WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListene
    See the License for the specific language governing permissions and
    limitations under the License.
 ```
+
+## 更新日志：
+v2.0.1:
+- TipDialog提供自定义提示图标；
+- WaitDialog可通过dismiss()方法关闭等待提示框；
+
+v2.0.0:
+- 新增v2组件库；
