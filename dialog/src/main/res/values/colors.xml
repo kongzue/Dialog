@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="black">#000</color>
     <color name="white">#ffffff</color>
     <color name="gray_light">#f2f2f2</color>
     <color name="gray_light_d">#dfdfdf</color>
@@ -13,6 +14,19 @@
     <color name="progress_dlg_bkg">#c8000000</color>
     <color name="ios_dlg_bkg">#e6ffffff</color>
     <color name="ios_dlg_text">#007aff</color>
-    <color name="split_line">#cdcdd1</color>
-    <color name="cursor_line">#353535</color>
+    <color name="dark">#353535</color>
+
+    <color name="ios_dialog_button_press">#e1e1e1</color>
+    <color name="ios_dialog_button_press_dark">#80323232</color>
+
+    <color name="ios_dialog_split_light">#cdcdd1</color>
+    <color name="ios_dialog_split_dark">#4e4e50</color>
+
+    <color name="dlg_bkg_dark">#f0181818</color>
+
+    <color name="blue_normal_dark">#14dfdfdf</color>
+    <color name="blue_press_dark">#1ec0d4f1</color>
+
+    <color name="gray_normal_dark">#14dfdfdf</color>
+    <color name="gray_press_dark">#1ec0d4f1</color>
 </resources>

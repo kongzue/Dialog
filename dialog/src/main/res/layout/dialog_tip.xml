@@ -14,7 +14,7 @@
             android:id="@+id/box_info"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:background="@drawable/rect_progressbkg"
+            android:background="@drawable/rect_dark"
             android:visibility="visible">
 
             <ImageView
@@ -32,7 +32,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="90dp"
                 android:text="Tip"
-                android:textColor="#fff"
+                android:textColor="?attr/colorAccent"
                 android:textSize="14dp" />
 
         </RelativeLayout>

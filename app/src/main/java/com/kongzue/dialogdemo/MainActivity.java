@@ -21,6 +21,8 @@ import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 
+import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
+import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.TYPE_IOS;
 import static com.kongzue.dialog.v2.DialogSettings.TYPE_KONGZUE;
 import static com.kongzue.dialog.v2.DialogSettings.TYPE_MATERIAL;
@@ -35,9 +37,15 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton rdoMaterial;
     private RadioButton rdoKongzue;
     private RadioButton rdoIos;
+    private RadioGroup grpDialogTheme;
+    private RadioButton rdoDialogThemeLight;
+    private RadioButton rdoDialogThemeDark;
     private Button btnMsg;
     private Button btnInput;
     private Button btnSelect;
+    private RadioGroup grpTipTheme;
+    private RadioButton rdoTipThemeLight;
+    private RadioButton rdoTipThemeDark;
     private Button btnPsg;
     private Button btnTipOk;
     private Button btnTipWarning;
@@ -48,9 +56,15 @@ public class MainActivity extends AppCompatActivity {
         rdoMaterial = (RadioButton) findViewById(R.id.rdo_material);
         rdoKongzue = (RadioButton) findViewById(R.id.rdo_kongzue);
         rdoIos = (RadioButton) findViewById(R.id.rdo_ios);
+        grpDialogTheme = (RadioGroup) findViewById(R.id.grp_dialog_theme);
+        rdoDialogThemeLight = (RadioButton) findViewById(R.id.rdo_dialog_theme_light);
+        rdoDialogThemeDark = (RadioButton) findViewById(R.id.rdo_dialog_theme_dark);
         btnMsg = (Button) findViewById(R.id.btn_msg);
         btnInput = (Button) findViewById(R.id.btn_input);
         btnSelect = (Button) findViewById(R.id.btn_select);
+        grpTipTheme = (RadioGroup) findViewById(R.id.grp_tip_theme);
+        rdoTipThemeLight = (RadioButton) findViewById(R.id.rdo_tip_theme_light);
+        rdoTipThemeDark = (RadioButton) findViewById(R.id.rdo_tip_theme_dark);
         btnPsg = (Button) findViewById(R.id.btn_psg);
         btnTipOk = (Button) findViewById(R.id.btn_tip_ok);
         btnTipWarning = (Button) findViewById(R.id.btn_tip_warning);
@@ -63,16 +77,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         me = this;
 
-        DialogSettings.type = TYPE_MATERIAL;
-
         initViews();
         initDatas();
         initEvent();
     }
 
     private void initDatas() {
-        //欢迎信息，快速调用对话框的方式
-        //MessageDialog.show(this, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式\na 如有问题可以在https://github.com/kongzue/Dialog提交反馈", "关闭", null);
+        DialogSettings.type = TYPE_MATERIAL;
+        DialogSettings.tip_theme = THEME_DARK;
+        DialogSettings.dialog_theme = THEME_LIGHT;
 
         MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
     }
@@ -80,6 +93,30 @@ public class MainActivity extends AppCompatActivity {
     private ProgressbarDialog progressbarDialog;
 
     private void initEvent() {
+
+        grpDialogTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (rdoDialogThemeDark.getId() == checkedId) {
+                    DialogSettings.dialog_theme = THEME_DARK;
+                }
+                if (rdoDialogThemeLight.getId() == checkedId) {
+                    DialogSettings.dialog_theme = THEME_LIGHT;
+                }
+            }
+        });
+
+        grpTipTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (rdoTipThemeDark.getId() == checkedId) {
+                    DialogSettings.tip_theme = THEME_DARK;
+                }
+                if (rdoTipThemeLight.getId() == checkedId) {
+                    DialogSettings.tip_theme = THEME_LIGHT;
+                }
+            }
+        });
 
         grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

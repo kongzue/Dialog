@@ -21,7 +21,7 @@ public class ProgressbarDialog extends Dialog {
     private String info="";
 
     public ProgressbarDialog(Context context) {
-        super(context, R.style.processDialog);
+        super(context, R.style.darkMode);
 
         // TODO Auto-generated constructor stub
         this.context = context;

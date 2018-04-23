@@ -16,6 +16,10 @@ import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.util.BaseDialog;
 
+import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
+import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
+import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
+
 public class TipDialog extends BaseDialog {
 
     public static final int SHOW_TIME_SHORT = 0;
@@ -102,7 +106,18 @@ public class TipDialog extends BaseDialog {
     private TextView txtInfo;
 
     private void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.processDialog);
+        AlertDialog.Builder builder;
+        int bkgResId;
+        switch (tip_theme) {
+            case THEME_LIGHT:
+                builder = new AlertDialog.Builder(context, R.style.lightMode);
+                bkgResId = R.drawable.rect_light;
+                break;
+            default:
+                builder = new AlertDialog.Builder(context, R.style.darkMode);
+                bkgResId = R.drawable.rect_dark;
+                break;
+        }
         builder.setCancelable(isCanCancel);
 
         alertDialog = builder.create();
@@ -117,15 +132,29 @@ public class TipDialog extends BaseDialog {
         image = (ImageView) window.findViewById(R.id.image);
         txtInfo = (TextView) window.findViewById(R.id.txt_info);
 
+        boxInfo.setBackgroundResource(bkgResId);
+
         switch (type) {
             case TYPE_WARNING:
-                image.setImageResource(R.mipmap.img_warning);
+                if (tip_theme == THEME_LIGHT) {
+                    image.setImageResource(R.mipmap.img_warning_dark);
+                } else {
+                    image.setImageResource(R.mipmap.img_warning);
+                }
                 break;
             case TYPE_ERROR:
-                image.setImageResource(R.mipmap.img_error);
+                if (tip_theme == THEME_LIGHT) {
+                    image.setImageResource(R.mipmap.img_error_dark);
+                } else {
+                    image.setImageResource(R.mipmap.img_error);
+                }
                 break;
             case TYPE_FINISH:
-                image.setImageResource(R.mipmap.img_finish);
+                if (tip_theme == THEME_LIGHT) {
+                    image.setImageResource(R.mipmap.img_finish_dark);
+                } else {
+                    image.setImageResource(R.mipmap.img_finish);
+                }
                 break;
             case TYPE_CUSTOM_BITMAP:
                 image.setImageBitmap(customBitmap);

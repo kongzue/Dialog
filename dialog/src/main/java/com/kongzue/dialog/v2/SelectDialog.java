@@ -2,11 +2,14 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
@@ -59,16 +62,44 @@ public class SelectDialog extends BaseDialog {
         }
     }
 
+    private LinearLayout bkg;
     private TextView txtDialogTitle;
     private TextView txtDialogTip;
+    private EditText txtInput;
+    private ImageView splitHorizontal;
     private TextView btnSelectNegative;
+    private ImageView splitVertical;
     private TextView btnSelectPositive;
 
     private void showDialog() {
         AlertDialog.Builder builder;
         switch (type) {
             case TYPE_IOS:
-                builder = new AlertDialog.Builder(context, R.style.processDialog);
+                switch (dialog_theme) {
+                    case THEME_DARK:
+                        builder = new AlertDialog.Builder(context, R.style.darkMode);
+                        break;
+                    default:
+                        builder = new AlertDialog.Builder(context, R.style.lightMode);
+                        break;
+                }
+                break;
+            case TYPE_MATERIAL:
+                if (dialog_theme == THEME_DARK) {
+                    builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
+                } else {
+                    builder = new AlertDialog.Builder(context);
+                }
+                break;
+            case TYPE_KONGZUE:
+                switch (dialog_theme) {
+                    case THEME_DARK:
+                        builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
+                        break;
+                    default:
+                        builder = new AlertDialog.Builder(context, R.style.materialDialogLight);
+                        break;
+                }
                 break;
             default:
                 builder = new AlertDialog.Builder(context);
@@ -86,6 +117,7 @@ public class SelectDialog extends BaseDialog {
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select);
 
+                bkg = (LinearLayout) window.findViewById(R.id.bkg);
                 txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
                 txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
                 btnSelectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
@@ -118,6 +150,14 @@ public class SelectDialog extends BaseDialog {
                     }
                 });
 
+                if (dialog_theme==THEME_DARK){
+                    bkg.setBackgroundResource(R.color.dlg_bkg_dark);
+                    btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_kongzue_gray_dark);
+                    btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_kongzue_blue_dark);
+                    btnSelectNegative.setTextColor(Color.rgb(255,255,255));
+                    btnSelectPositive.setTextColor(Color.rgb(255,255,255));
+                }
+
                 break;
             case TYPE_MATERIAL:
                 alertDialog.setTitle(title);
@@ -130,16 +170,18 @@ public class SelectDialog extends BaseDialog {
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select_ios);
 
+                bkg = (LinearLayout) window.findViewById(R.id.bkg);
                 txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
                 txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
+                txtInput = (EditText) window.findViewById(R.id.txt_input);
+                splitHorizontal = (ImageView) window.findViewById(R.id.split_horizontal);
                 btnSelectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
+                splitVertical = (ImageView) window.findViewById(R.id.split_vertical);
                 btnSelectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
-                ImageView splitVertical = (ImageView) window.findViewById(R.id.split_vertical);
                 splitVertical.setVisibility(View.VISIBLE);
 
                 txtDialogTitle.setText(title);
                 txtDialogTip.setText(message);
-                btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
                 btnSelectPositive.setText(okButtonCaption);
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,7 +192,6 @@ public class SelectDialog extends BaseDialog {
                     }
                 });
                 btnSelectNegative.setVisibility(View.VISIBLE);
-                btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left);
                 btnSelectNegative.setText(cancelButtonCaption);
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -160,6 +201,17 @@ public class SelectDialog extends BaseDialog {
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
                 });
+
+                if (dialog_theme == THEME_DARK) {
+                    bkg.setBackgroundResource(R.drawable.rect_dlg_dark);
+                    splitHorizontal.setBackgroundResource(R.color.ios_dialog_split_dark);
+                    splitVertical.setBackgroundResource(R.color.ios_dialog_split_dark);
+                    btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left_dark);
+                    btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right_dark);
+                }else{
+                    btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left);
+                    btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
+                }
 
                 break;
         }

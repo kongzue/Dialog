@@ -8,15 +8,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="风格"/>
+            android:text="风格" />
 
         <RadioGroup
             android:id="@+id/grp"
@@ -54,7 +54,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="普通对话框"/>
+            android:text="普通对话框" />
+
+        <RadioGroup
+            android:id="@+id/grp_dialog_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdo_dialog_theme_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Light" />
+
+            <RadioButton
+                android:id="@+id/rdo_dialog_theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dark" />
+
+        </RadioGroup>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -85,7 +110,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="进度与提示"/>
+            android:text="进度与提示" />
+
+        <RadioGroup
+            android:id="@+id/grp_tip_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdo_tip_theme_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Light" />
+
+            <RadioButton
+                android:id="@+id/rdo_tip_theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Dark" />
+
+        </RadioGroup>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -99,6 +149,7 @@
                 android:text="等待对话框" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -5,12 +5,13 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/bkg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/rect_iosdialog_bkg"
+        android:background="@drawable/rect_light"
         android:orientation="vertical">
 
         <TextView
@@ -21,7 +22,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="标题"
-            android:textColor="#000000"
+            android:textColor="?attr/colorAccent"
             android:textSize="17dp"
             android:textStyle="bold" />
 
@@ -36,7 +37,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="中文内容"
-            android:textColor="#000000"
+            android:textColor="?attr/colorAccent"
             android:textSize="13dp" />
 
         <EditText
@@ -58,10 +59,11 @@
             android:visibility="gone" />
 
         <ImageView
+            android:id="@+id/split_horizontal"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="10dp"
-            android:background="@color/split_line" />
+            android:background="@color/ios_dialog_split_light" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +87,7 @@
                 android:id="@+id/split_vertical"
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/split_line" />
+                android:background="@color/ios_dialog_split_light" />
 
             <TextView
                 android:id="@+id/btn_selectPositive"

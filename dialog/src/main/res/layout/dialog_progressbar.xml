@@ -13,9 +13,10 @@
         android:visibility="visible">
 
         <RelativeLayout
+            android:id="@+id/bkg"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:background="@drawable/rect_progressbkg"></RelativeLayout>
+            android:background="@drawable/rect_dark"></RelativeLayout>
 
         <TextView
             android:id="@+id/txt_info"
@@ -24,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="90dp"
             android:text="haha"
-            android:textColor="#fff"
+            android:textColor="?attr/colorAccent"
             android:textSize="14dp" />
 
     </RelativeLayout>
