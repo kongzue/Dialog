@@ -1,6 +1,8 @@
 # 空祖家的对话框 2.0
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
+[ ![Download](https://api.bintray.com/packages/myzchh/maven/dialog/images/download.svg?version=2.0.2) ](https://bintray.com/myzchh/maven/dialog/2.0.2/link)
+
 空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提示、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
