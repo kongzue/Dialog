@@ -32,7 +32,7 @@ implementation 'com.kongzue.dialog:dialog:2.0.1'
 ```
 
 ## 使用说明
-组件启用前请先初始化全局的风格样式，具体方法为
+1) 组件启用前请先初始化全局的风格样式，具体方法为
 ```
 DialogSettings.type = TYPE_MATERIAL;
 ```
@@ -44,6 +44,15 @@ Kongzue 风格对应 DialogSettings.TYPE_KONGZUE，
 iOS 风格对应 DialogSettings.TYPE_IOS
 
 需要注意的是风格设置仅针对对话框，提示框样式不会改变。
+
+2) 要启用 Light & Dark 黑白主题模式，请调用以下语句实现：
+```
+DialogSettings.tip_theme = THEME_LIGHT;         //设置提示框主题为亮色主题
+DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色主题
+```
+
+具体预览图如下：
+![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0_dark.png)
 
 ## 关于v2组件包
 在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
@@ -175,6 +184,9 @@ WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListene
 ```
 
 ## 更新日志：
+v2.0.2:
+- 提供Light和Dark两种黑白主题模式；
+
 v2.0.1:
 - TipDialog提供自定义提示图标；
 - WaitDialog可通过dismiss()方法关闭等待提示框；
