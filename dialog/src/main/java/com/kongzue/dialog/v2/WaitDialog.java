@@ -74,4 +74,8 @@ public class WaitDialog extends BaseDialog {
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
+
+    public void dismiss(){
+        if (alertDialog != null) alertDialog.dismiss();;
+    }
 }
