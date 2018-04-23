@@ -5,7 +5,7 @@
 <img src="https://img.shields.io/badge/Kongzue%20Dialog-2.0.2-green.svg" alt="Kongzue Dialog">
 </a> 
 <a href="https://bintray.com/myzchh/maven/dialog/2.0.2/link">
-<img src="https://api.bintray.com/packages/myzchh/maven/dialog/images/download.svg?version=2.0.2" alt="Maven">
+<img src="https://img.shields.io/badge/Maven-2.0.2-blue.svg" alt="Maven">
 </a> 
 
 空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提示、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
