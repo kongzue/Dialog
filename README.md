@@ -34,14 +34,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.0.2</version>
+  <version>2.0.3</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.0.2'
+implementation 'com.kongzue.dialog:dialog:2.0.3'
 ```
 
 ## 使用说明
@@ -179,6 +179,15 @@ WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListene
 });
 ```
 
+另外提供一些定制属性：
+```
+DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
+DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
+DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
+DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
+DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
+```
+
 ## 开源协议
 ```
    Copyright Kongzue Dialog
@@ -197,6 +206,9 @@ WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListene
 ```
 
 ## 更新日志：
+v2.0.3:
+- 提供部分文字大小和颜色修改；
+
 v2.0.2:
 - 提供Light和Dark两种黑白主题模式；
 
