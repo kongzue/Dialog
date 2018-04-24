@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -132,12 +133,12 @@ public class MessageDialog extends BaseDialog {
                     }
                 });
 
-                if (dialog_theme==THEME_DARK){
+                if (dialog_theme == THEME_DARK) {
                     bkg.setBackgroundResource(R.color.dlg_bkg_dark);
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_kongzue_gray_dark);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_kongzue_blue_dark);
-                    btnSelectNegative.setTextColor(Color.rgb(255,255,255));
-                    btnSelectPositive.setTextColor(Color.rgb(255,255,255));
+                    btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
+                    btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                 }
 
                 break;
@@ -179,11 +180,27 @@ public class MessageDialog extends BaseDialog {
                     splitHorizontal.setBackgroundResource(R.color.ios_dialog_split_dark);
                     splitVertical.setBackgroundResource(R.color.ios_dialog_split_dark);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_one_dark);
-                }else{
+                } else {
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_one);
                 }
 
+                if (ios_normal_button_color != -1) {
+                    btnSelectPositive.setTextColor(ios_normal_button_color);
+                }
+
                 break;
+        }
+
+        if (type != TYPE_MATERIAL) {
+            if (dialog_title_text_size > 0) {
+                txtDialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_title_text_size);
+            }
+            if (dialog_message_text_size > 0) {
+                txtDialogTip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_message_text_size);
+            }
+            if (dialog_button_text_size > 0) {
+                btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
+            }
         }
 
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

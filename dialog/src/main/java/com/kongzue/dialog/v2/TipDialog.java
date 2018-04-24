@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.kongzue.dialog.util.BaseDialog;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
+import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
 
 public class TipDialog extends BaseDialog {
@@ -169,6 +171,9 @@ public class TipDialog extends BaseDialog {
             txtInfo.setText(tip);
         } else {
             boxInfo.setVisibility(View.GONE);
+        }
+        if (tip_text_size > 0) {
+            txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, tip_text_size);
         }
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override

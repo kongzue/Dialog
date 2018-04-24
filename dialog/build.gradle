@@ -6,19 +6,19 @@ def siteUrl = 'https://github.com/kongzue/Dialog' //项目在github主页地址
 def gitUrl = 'https://github.com/kongzue/Dialog.git'   //Git仓库的地址
 
 group = "com.kongzue.dialog"//发布aar前缀根节点
-version = "2.0.2"//发布aar的库版本
+version = "2.0.3"//发布aar的库版本
 
 //最后生成是compile 'com.kongzue.dialog:dialog:0.0.1' 就是group + ：+module名字 + ：+version
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.3'
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 4
-        versionName "2.0.2"
+        versionCode 5
+        versionName "2.0.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

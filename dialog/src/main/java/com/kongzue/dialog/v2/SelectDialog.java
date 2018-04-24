@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -213,7 +214,25 @@ public class SelectDialog extends BaseDialog {
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
                 }
 
+                if (ios_normal_button_color != -1) {
+                    btnSelectNegative.setTextColor(ios_normal_button_color);
+                    btnSelectPositive.setTextColor(ios_normal_button_color);
+                }
+
                 break;
+        }
+
+        if (type != TYPE_MATERIAL) {
+            if (dialog_title_text_size > 0) {
+                txtDialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_title_text_size);
+            }
+            if (dialog_message_text_size > 0) {
+                txtDialogTip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_message_text_size);
+            }
+            if (dialog_button_text_size > 0) {
+                btnSelectNegative.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
+                btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
+            }
         }
 
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
