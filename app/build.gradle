@@ -21,7 +21,7 @@ android {
 
 repositories {
     maven {
-        url  "http://dl.bintray.com/myzchh/maven"
+        url "http://dl.bintray.com/myzchh/maven"
     }
 }
 

@@ -19,7 +19,7 @@ import com.kongzue.dialog.util.DialogThemeColor;
  */
 
 @Deprecated
-public class MessageDialog extends BaseDialog {
+public class MessageDialog {
 
     private static MessageDialog messageDialog;
 
@@ -115,7 +115,6 @@ public class MessageDialog extends BaseDialog {
 
     public MessageDialog show() {
         if (context == null) {
-            log("Error:context is null,please init Dialog first.");
             return null;
         }
         doShow();

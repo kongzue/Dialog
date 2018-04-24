@@ -2,6 +2,7 @@ package com.kongzue.dialogdemo;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTipOk;
     private Button btnTipWarning;
     private Button btnTipError;
+    private Button btnJumpTest;
 
     private void initViews() {
         grp = (RadioGroup) findViewById(R.id.grp);
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btnTipOk = (Button) findViewById(R.id.btn_tip_ok);
         btnTipWarning = (Button) findViewById(R.id.btn_tip_warning);
         btnTipError = (Button) findViewById(R.id.btn_tip_error);
+        btnJumpTest = (Button) findViewById(R.id.btn_jump_test);
     }
 
     @Override

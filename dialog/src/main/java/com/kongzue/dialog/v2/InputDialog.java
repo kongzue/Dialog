@@ -73,7 +73,7 @@ public class InputDialog extends BaseDialog {
     private ImageView splitVertical;
     private TextView btnSelectPositive;
 
-    private void showDialog() {
+    public void showDialog() {
         AlertDialog.Builder builder;
         switch (type) {
             case TYPE_IOS:

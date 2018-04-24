@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 
-public class BaseDialog {
+public abstract class BaseDialog {
 
     public DialogLifeCycleListener dialogLifeCycleListener;
 
@@ -16,4 +16,5 @@ public class BaseDialog {
         this.dialogLifeCycleListener = dialogLifeCycleListener;
     }
 
+    public abstract void showDialog();
 }

@@ -176,6 +176,27 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="跨Activity提示测试" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_jump_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </RelativeLayout>

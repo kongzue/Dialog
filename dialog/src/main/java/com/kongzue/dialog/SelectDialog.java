@@ -20,7 +20,7 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
  */
 
 @Deprecated
-public class SelectDialog extends BaseDialog {
+public class SelectDialog{
 
     private static SelectDialog selectDialog;
 
@@ -124,7 +124,6 @@ public class SelectDialog extends BaseDialog {
 
     public SelectDialog show() {
         if (context == null) {
-            log("Error:context is null,please init Dialog first.");
             return null;
         }
         doShow();

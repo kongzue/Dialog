@@ -2,6 +2,7 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -9,15 +10,14 @@ import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.util.BaseDialog;
 
-import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
@@ -35,8 +35,8 @@ public class TipDialog extends BaseDialog {
 
     private AlertDialog alertDialog;
     private static TipDialog tipDialog;
-    private Drawable customDrawable;
-    private Bitmap customBitmap;
+    public static Drawable customDrawable;
+    public static Bitmap customBitmap;
     private boolean isCanCancel = false;
 
     private Context context;
@@ -107,7 +107,7 @@ public class TipDialog extends BaseDialog {
     private ImageView image;
     private TextView txtInfo;
 
-    private void showDialog() {
+    public void showDialog() {
         AlertDialog.Builder builder;
         int bkgResId;
         switch (tip_theme) {

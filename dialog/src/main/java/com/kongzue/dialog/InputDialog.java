@@ -20,7 +20,7 @@ import com.kongzue.dialog.util.DialogThemeColor;
  */
 
 @Deprecated
-public class InputDialog extends BaseDialog {
+public class InputDialog{
 
     private static InputDialog inputDialog;
 
@@ -126,7 +126,6 @@ public class InputDialog extends BaseDialog {
 
     public InputDialog show() {
         if (context == null) {
-            log("Error:context is null,please init Dialog first.");
             return null;
         }
         doShow();

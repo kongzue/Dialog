@@ -2,10 +2,12 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,7 +47,7 @@ public class WaitDialog extends BaseDialog {
     private RelativeLayout bkg;
     private TextView txtInfo;
 
-    private void showDialog() {
+    public void showDialog() {
         AlertDialog.Builder builder;
         int bkgResId;
         switch (tip_theme) {
@@ -61,6 +63,7 @@ public class WaitDialog extends BaseDialog {
         builder.setCancelable(isCanCancel);
 
         alertDialog = builder.create();
+
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
