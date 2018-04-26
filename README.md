@@ -159,6 +159,7 @@ TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERRO
 ### 调用消息通知：
 
 注意，此处使用的是来自com.kongzue.dialog.v2的Notification类。
+
 通知消息（v2.Notification）与提示框（v2.TipDialog）的主要区别是提示框会打断用的操作，而消息通知不会，消息通知适合于并发需要提醒用户是否处理消息的业务场景，而提示框适用于阻断用户操作，提醒用户当前发生的情况的业务场景。
 
 ```
