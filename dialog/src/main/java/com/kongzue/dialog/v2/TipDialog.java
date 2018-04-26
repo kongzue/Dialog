@@ -50,16 +50,7 @@ public class TipDialog extends BaseDialog {
 
     //Fast Function
     public static TipDialog show(Context context, String tip) {
-        synchronized (TipDialog.class) {
-            if (tipDialog == null) tipDialog = new TipDialog();
-            tipDialog.context = context;
-            tipDialog.tip = tip;
-            tipDialog.howLong = SHOW_TIME_SHORT;
-            tipDialog.type = TYPE_WARNING;
-            tipDialog.showDialog();
-            tipDialog.log("显示等待对话框 -> " + tip);
-            return tipDialog;
-        }
+        return show(context, tip, SHOW_TIME_SHORT, TYPE_WARNING);
     }
 
     public static TipDialog show(Context context, String tip, int howLong, int type) {
@@ -109,6 +100,7 @@ public class TipDialog extends BaseDialog {
 
     public void showDialog() {
         AlertDialog.Builder builder;
+
         int bkgResId;
         switch (tip_theme) {
             case THEME_LIGHT:

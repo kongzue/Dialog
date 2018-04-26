@@ -3,200 +3,265 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.kongzue.dialogdemo.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="风格" />
-
-        <RadioGroup
-            android:id="@+id/grp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@+id/rdo_material"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="Material" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rdo_kongzue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Kongzue" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="风格" />
 
-            <RadioButton
-                android:id="@+id/rdo_ios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="iOS" />
+                <RadioGroup
+                    android:id="@+id/grp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
 
-        </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/rdo_material"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="Material" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="普通对话框" />
+                    <RadioButton
+                        android:id="@+id/rdo_kongzue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Kongzue" />
 
-        <RadioGroup
-            android:id="@+id/grp_dialog_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rdo_ios"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="iOS" />
 
-            <RadioButton
-                android:id="@+id/rdo_dialog_theme_light"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="Light" />
+                </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/rdo_dialog_theme_dark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dark" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="普通对话框" />
 
-        </RadioGroup>
+                <RadioGroup
+                    android:id="@+id/grp_dialog_theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rdo_dialog_theme_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="Light" />
 
-            <Button
-                android:id="@+id/btn_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="消息对话框" />
+                    <RadioButton
+                        android:id="@+id/rdo_dialog_theme_dark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dark" />
 
-            <Button
-                android:id="@+id/btn_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="输入对话框" />
+                </RadioGroup>
 
-            <Button
-                android:id="@+id/btn_select"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择对话框" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="消息对话框" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="进度与提示" />
+                    <Button
+                        android:id="@+id/btn_input"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="输入对话框" />
 
-        <RadioGroup
-            android:id="@+id/grp_tip_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="选择对话框" />
 
-            <RadioButton
-                android:id="@+id/rdo_tip_theme_light"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Light" />
+                </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/rdo_tip_theme_dark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="Dark" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="进度与提示" />
 
-        </RadioGroup>
+                <RadioGroup
+                    android:id="@+id/grp_tip_theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rdo_tip_theme_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Light" />
 
-            <Button
-                android:id="@+id/btn_psg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="等待对话框" />
+                    <RadioButton
+                        android:id="@+id/rdo_tip_theme_dark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="Dark" />
 
-        </LinearLayout>
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_psg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="等待对话框" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_tip_ok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="完成提示框" />
+
+                    <Button
+                        android:id="@+id/btn_tip_warning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="警告提示框" />
+
+                    <Button
+                        android:id="@+id/btn_tip_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="错误提示框" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="消息与通知" />
+
+                <RadioGroup
+                    android:id="@+id/grp_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/rdo_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="Normal" />
+
+                    <RadioButton
+                        android:id="@+id/rdo_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Finish" />
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rdo_error"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Error" />
 
-            <Button
-                android:id="@+id/btn_tip_ok"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="完成提示框" />
+                    <RadioButton
+                        android:id="@+id/rdo_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Warning" />
 
-            <Button
-                android:id="@+id/btn_tip_warning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="警告提示框" />
-
-            <Button
-                android:id="@+id/btn_tip_error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="错误提示框" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="跨Activity提示测试" />
+                </RadioGroup>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_jump_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="测试" />
+                    <Button
+                        android:id="@+id/btn_notification_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="一般消息通知" />
 
-        </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_notification_withTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="带标题通知" />
 
+                    <Button
+                        android:id="@+id/btn_notification_withTitleAndIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="带图标标题通知" />
 
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 </RelativeLayout>

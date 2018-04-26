@@ -36,4 +36,9 @@
     <style name="materialDialogLight" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/black</item>
     </style>
+
+    <style name="custom_toast_anim_view" parent="@android:style/Animation.Toast">
+        <item name="android:windowEnterAnimation">@anim/enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/exit_anim</item>
+    </style>
 </resources>

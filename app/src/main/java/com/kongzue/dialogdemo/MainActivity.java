@@ -1,6 +1,7 @@
 package com.kongzue.dialogdemo;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.ProgressbarDialog;
 import com.kongzue.dialog.v2.InputDialog;
 import com.kongzue.dialog.v2.MessageDialog;
+import com.kongzue.dialog.v2.Notification;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -28,6 +30,11 @@ import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.TYPE_IOS;
 import static com.kongzue.dialog.v2.DialogSettings.TYPE_KONGZUE;
 import static com.kongzue.dialog.v2.DialogSettings.TYPE_MATERIAL;
+import static com.kongzue.dialog.v2.Notification.SHOW_TIME_SHORT;
+import static com.kongzue.dialog.v2.Notification.TYPE_ERROR;
+import static com.kongzue.dialog.v2.Notification.TYPE_FINISH;
+import static com.kongzue.dialog.v2.Notification.TYPE_NORMAL;
+import static com.kongzue.dialog.v2.Notification.TYPE_WARNING;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTipOk;
     private Button btnTipWarning;
     private Button btnTipError;
-    private Button btnJumpTest;
+    private RadioGroup grpNotification;
+    private RadioButton rdoNormal;
+    private RadioButton rdoFinish;
+    private RadioButton rdoError;
+    private RadioButton rdoWarning;
+    private Button btnNotificationNormal;
+    private Button btnNotificationWithTitle;
+    private Button btnNotificationWithTitleAndIcon;
 
     private void initViews() {
         grp = (RadioGroup) findViewById(R.id.grp);
@@ -72,13 +86,21 @@ public class MainActivity extends AppCompatActivity {
         btnTipOk = (Button) findViewById(R.id.btn_tip_ok);
         btnTipWarning = (Button) findViewById(R.id.btn_tip_warning);
         btnTipError = (Button) findViewById(R.id.btn_tip_error);
-        btnJumpTest = (Button) findViewById(R.id.btn_jump_test);
+        grpNotification = (RadioGroup) findViewById(R.id.grp_notification);
+        rdoNormal = (RadioButton) findViewById(R.id.rdo_normal);
+        rdoFinish = (RadioButton) findViewById(R.id.rdo_finish);
+        rdoError = (RadioButton) findViewById(R.id.rdo_error);
+        rdoWarning = (RadioButton) findViewById(R.id.rdo_warning);
+        btnNotificationNormal = (Button) findViewById(R.id.btn_notification_normal);
+        btnNotificationWithTitle = (Button) findViewById(R.id.btn_notification_withTitle);
+        btnNotificationWithTitleAndIcon = (Button) findViewById(R.id.btn_notification_withTitleAndIcon);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         me = this;
 
         initViews();
@@ -102,7 +124,55 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressbarDialog progressbarDialog;
 
+    private int notifactionType = TYPE_NORMAL;
+
     private void initEvent() {
+
+        grpNotification.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (rdoNormal.getId() == checkedId) {
+                    notifactionType = TYPE_NORMAL;
+                }
+                if (rdoFinish.getId() == checkedId) {
+                    notifactionType = TYPE_FINISH;
+                }
+                if (rdoWarning.getId() == checkedId) {
+                    notifactionType = TYPE_WARNING;
+                }
+                if (rdoError.getId() == checkedId) {
+                    notifactionType = TYPE_ERROR;
+                }
+            }
+        });
+
+        btnNotificationWithTitleAndIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Notification.show(me, 2, R.mipmap.ico_wechat, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_LONG, notifactionType)
+                        .setOnNotificationClickListener(new Notification.OnNotificationClickListener() {
+                            @Override
+                            public void OnClick(int id) {
+                                Toast.makeText(me,"点击了通知",SHOW_TIME_SHORT).show();
+                            }
+                        })
+                ;
+            }
+        });
+
+        btnNotificationWithTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Notification.show(me, 1, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
+            }
+        });
+
+        btnNotificationNormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Notification.show(me, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
+            }
+        });
 
         grpDialogTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -219,5 +289,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

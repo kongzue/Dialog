@@ -30,4 +30,11 @@
 
     <color name="gray_normal_dark">#14dfdfdf</color>
     <color name="gray_press_dark">#1ec0d4f1</color>
+
+    <color name="material_tip_color">#757575</color>
+
+    <color name="notification_error">#e74e63</color>
+    <color name="notification_normal">#353535</color>
+    <color name="notification_warning">#ef8e43</color>
+    <color name="notification_finish">#53ae5d</color>
 </resources>
