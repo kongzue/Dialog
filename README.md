@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.0.3-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.0.4-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.0.3/link">
-<img src="https://img.shields.io/badge/Maven-2.0.3-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.0.4/link">
+<img src="https://img.shields.io/badge/Maven-2.0.4-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
