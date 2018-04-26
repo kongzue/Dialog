@@ -34,14 +34,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.0.3</version>
+  <version>2.0.4</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.0.3'
+implementation 'com.kongzue.dialog:dialog:2.0.4'
 ```
 
 ## 使用说明
@@ -66,6 +66,9 @@ DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色
 
 具体预览图如下：
 ![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0_dark.png)
+
+3) 从2.0.4版本开始，提供不需要悬浮窗权限，且可以跨域显示的通知功能，如下图所示：
+![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.4_notification.png)
 
 ## 关于v2组件包
 在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
@@ -153,6 +156,45 @@ TipDialog.show(me, "请输入密码", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_
 TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
 ```
 
+### 调用消息通知：
+
+注意，此处使用的是来自com.kongzue.dialog.v2的Notification类。
+
+```
+Notification.show(me, id, iconResId, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_LONG, notifactionType)
+                        .setOnNotificationClickListener(new Notification.OnNotificationClickListener() {
+                            @Override
+                            public void OnClick(int id) {
+                                Toast.makeText(me,"点击了通知",SHOW_TIME_SHORT).show();
+                            }
+                        })
+                ;
+```
+其中，id为通知消息id，在用户点击该通知后，会在OnNotificationClickListener中进行回调。
+
+字段 | 含义 | 是否必须
+---|---|---
+context | 上下文索引 | 必须
+iconResId | 图标 | 可选
+title | 通知标题 | 可选
+message | 通知内容 | 必须
+notifactionType | 消息类型 | 必须
+OnNotificationClickListener | 下载监听器 | 可选
+
+注意，此处的消息类型 notifactionType 目前仅对“Kongzue 风格”有效，且提供的风格有：
+
+字段 | 含义 | 是否默认
+---|---|---
+TYPE_NORMAL | 默认灰黑色 | 默认
+TYPE_FINISH | 绿色 | 可选
+TYPE_WARNING | 橙色 | 可选
+TYPE_ERROR | 红色 | 可选
+
+另外，可以采用快速调用方式：
+```
+Notification.show(me, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
+```
+
 ## 附加功能：
 在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
 
@@ -206,6 +248,9 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.0.4:
+- 提供消息与通知功能；
+
 v2.0.3:
 - 提供部分文字大小和颜色修改；
 
