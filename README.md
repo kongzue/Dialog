@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.0.3-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.0.4-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.0.3/link">
-<img src="https://img.shields.io/badge/Maven-2.0.3-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.0.4/link">
+<img src="https://img.shields.io/badge/Maven-2.0.4-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -159,6 +159,8 @@ TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERRO
 ### 调用消息通知：
 
 注意，此处使用的是来自com.kongzue.dialog.v2的Notification类。
+
+通知消息（v2.Notification）与提示框（v2.TipDialog）的主要区别是提示框会打断用的操作，而消息通知不会，消息通知适合于并发需要提醒用户是否处理消息的业务场景，而提示框适用于阻断用户操作，提醒用户当前发生的情况的业务场景。
 
 ```
 Notification.show(me, id, iconResId, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_LONG, notifactionType)
