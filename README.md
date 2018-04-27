@@ -34,14 +34,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.0.4</version>
+  <version>2.0.6</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.0.4'
+implementation 'com.kongzue.dialog:dialog:2.0.6'
 ```
 
 ## 使用说明
@@ -180,10 +180,10 @@ context | 上下文索引 | 必须
 iconResId | 图标 | 可选
 title | 通知标题 | 可选
 message | 通知内容 | 必须
-notifactionType | 消息类型 | 必须
+colorType | 消息类型 | 必须
 OnNotificationClickListener | 下载监听器 | 可选
 
-注意，此处的消息类型 notifactionType 目前仅对“Kongzue 风格”有效，且提供的风格有：
+注意，此处的消息类型 colorType 目前仅对“Kongzue 风格”有效，且提供的风格有：
 
 字段 | 含义 | 是否默认
 ---|---|---
@@ -191,6 +191,8 @@ TYPE_NORMAL | 默认灰黑色 | 默认
 TYPE_FINISH | 绿色 | 可选
 TYPE_WARNING | 橙色 | 可选
 TYPE_ERROR | 红色 | 可选
+
+在2.0.6版本后，若 colorType 不为上述设定值，则可以使用自选颜色值，可为 Color 类的返回值。
 
 另外，可以采用快速调用方式：
 ```
@@ -250,6 +252,12 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.0.6:
+- 修复bug；
+
+v2.0.5:
+- 新增通知消息在使用Kongzue主题时可自定义颜色；
+
 v2.0.4:
 - 提供消息与通知功能；
 
