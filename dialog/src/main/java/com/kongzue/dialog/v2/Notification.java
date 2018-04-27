@@ -49,9 +49,12 @@ public class Notification {
     }
 
     //Fast Function
-
     public static Notification show(Context context, int id, String message) {
-        return show(context, id, "", message, SHOW_TIME_SHORT, SHOW_TIME_LONG);
+        return show(context, id, "", message, SHOW_TIME_SHORT, TYPE_NORMAL);
+    }
+
+    public static Notification show(Context context, int id, String message, int type) {
+        return show(context, id, "", message, SHOW_TIME_SHORT, type);
     }
 
     public static Notification show(Context context, int id, String title, String message, int howLong, int type) {
