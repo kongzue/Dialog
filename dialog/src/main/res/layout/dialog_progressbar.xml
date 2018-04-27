@@ -13,7 +13,7 @@
         android:visibility="visible">
 
         <RelativeLayout
-            android:id="@+id/bkg"
+            android:id="@+id/tip_bkg"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:background="@drawable/rect_dark"></RelativeLayout>

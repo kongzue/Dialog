@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         btnNotificationNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notification.show(me, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
+                Notification.show(me, 0,  "这是一条消息", notifactionType);
             }
         });
 

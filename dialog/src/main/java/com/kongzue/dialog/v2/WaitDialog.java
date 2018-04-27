@@ -44,7 +44,7 @@ public class WaitDialog extends BaseDialog {
     }
 
     private RelativeLayout boxInfo;
-    private RelativeLayout bkg;
+    private RelativeLayout tipBkg;
     private TextView txtInfo;
 
     public void showDialog() {
@@ -72,10 +72,10 @@ public class WaitDialog extends BaseDialog {
         window.setContentView(R.layout.dialog_progressbar);
 
         boxInfo = (RelativeLayout) window.findViewById(R.id.box_info);
-        bkg = (RelativeLayout) window.findViewById(R.id.bkg);
+        tipBkg = (RelativeLayout) window.findViewById(R.id.tip_bkg);
         txtInfo = (TextView) window.findViewById(R.id.txt_info);
 
-        bkg.setBackgroundResource(bkgResId);
+        tipBkg.setBackgroundResource(bkgResId);
 
         if (!tip.isEmpty()) {
             boxInfo.setVisibility(View.VISIBLE);

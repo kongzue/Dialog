@@ -32,7 +32,7 @@ public class Notification {
     public static final int TYPE_ERROR = 3;
 
     private int howLong = 0;
-    private int type = 0;
+    private int colorType = 0;
 
     private static Notification notification;
     private Toast toast;
@@ -53,11 +53,11 @@ public class Notification {
         return show(context, id, "", message, SHOW_TIME_SHORT, TYPE_NORMAL);
     }
 
-    public static Notification show(Context context, int id, String message, int type) {
-        return show(context, id, "", message, SHOW_TIME_SHORT, type);
+    public static Notification show(Context context, int id, String message, int colorType) {
+        return show(context, id, "", message, SHOW_TIME_SHORT, colorType);
     }
 
-    public static Notification show(Context context, int id, String title, String message, int howLong, int type) {
+    public static Notification show(Context context, int id, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             if (notification == null) notification = new Notification();
             notification.context = context;
@@ -68,14 +68,14 @@ public class Notification {
             notification.iconDrawable = null;
             notification.iconBitmap = null;
             notification.howLong = howLong;
-            notification.type = type;
+            notification.colorType = colorType;
             notification.showDialog();
             notification.log("显示通知 -> " + message);
             return notification;
         }
     }
 
-    public static Notification show(Context context, int id, int iconResId, String title, String message, int howLong, int type) {
+    public static Notification show(Context context, int id, int iconResId, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             if (notification == null) notification = new Notification();
             notification.context = context;
@@ -85,7 +85,7 @@ public class Notification {
             notification.iconDrawable = null;
             notification.iconBitmap = null;
             notification.howLong = howLong;
-            notification.type = type;
+            notification.colorType = colorType;
             notification.message = message;
             notification.showDialog();
             notification.log("显示通知 -> " + message);
@@ -93,7 +93,7 @@ public class Notification {
         }
     }
 
-    public static Notification show(Context context, int id, Drawable iconDrawable, String title, String message, int howLong, int type) {
+    public static Notification show(Context context, int id, Drawable iconDrawable, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             if (notification == null) notification = new Notification();
             notification.context = context;
@@ -103,7 +103,7 @@ public class Notification {
             notification.iconBitmap = null;
             notification.iconDrawable = iconDrawable;
             notification.howLong = howLong;
-            notification.type = type;
+            notification.colorType = colorType;
             notification.message = message;
             notification.showDialog();
             notification.log("显示通知 -> " + message);
@@ -111,7 +111,7 @@ public class Notification {
         }
     }
 
-    public static Notification show(Context context, int id, Bitmap iconBitmap, String title, String message, int howLong, int type) {
+    public static Notification show(Context context, int id, Bitmap iconBitmap, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             if (notification == null) notification = new Notification();
             notification.context = context;
@@ -121,7 +121,7 @@ public class Notification {
             notification.iconDrawable = null;
             notification.iconBitmap = iconBitmap;
             notification.howLong = howLong;
-            notification.type = type;
+            notification.colorType = colorType;
             notification.message = message;
             notification.showDialog();
             notification.log("显示通知 -> " + message);
@@ -158,7 +158,7 @@ public class Notification {
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         txtMessage = (TextView) view.findViewById(R.id.txt_message);
 
-        btnNotic.setPadding(dip2px(context, 15), getStatusBarHeight()+dip2px(context, 15), dip2px(context, 15), dip2px(context, 15));
+        btnNotic.setPadding(dip2px(context, 15), getStatusBarHeight() + dip2px(context, 15), dip2px(context, 15), dip2px(context, 15));
 
         if (isNull(title)) {
             txtTitle.setVisibility(View.GONE);
@@ -282,7 +282,7 @@ public class Notification {
             tp.setFakeBoldText(false);
         }
 
-        switch (type) {
+        switch (colorType) {
             case TYPE_NORMAL:
                 btnNotic.setBackgroundResource(R.color.notification_normal);
                 break;
@@ -294,6 +294,9 @@ public class Notification {
                 break;
             case TYPE_ERROR:
                 btnNotic.setBackgroundResource(R.color.notification_error);
+                break;
+            default:
+                btnNotic.setBackgroundColor(colorType);
                 break;
         }
 
