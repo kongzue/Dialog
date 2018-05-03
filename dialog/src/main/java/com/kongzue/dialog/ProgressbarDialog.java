@@ -1,6 +1,5 @@
 package com.kongzue.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -59,7 +58,7 @@ public class ProgressbarDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.dialog_progressbar);
+        this.setContentView(R.layout.dialog_wait);
 
         boxInfo = (RelativeLayout) findViewById(R.id.box_info);
         txtInfo = (TextView) findViewById(R.id.txt_info);

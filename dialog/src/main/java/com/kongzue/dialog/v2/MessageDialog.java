@@ -47,8 +47,9 @@ public class MessageDialog extends BaseDialog {
             messageDialog.buttonCaption = buttonCaption;
             messageDialog.message = message;
             messageDialog.onOkButtonClickListener = onOkButtonClickListener;
-            messageDialog.showDialog();
-            messageDialog.log("显示消息对话框 -> " + message);
+            messageDialog.log("装载消息对话框 -> " + message);
+            dialogList.add(messageDialog);
+            showNextDialog();
             return messageDialog;
         }
     }
@@ -63,6 +64,7 @@ public class MessageDialog extends BaseDialog {
     private TextView btnSelectPositive;
 
     public void showDialog() {
+        log("启动消息对话框 -> " + message);
         AlertDialog.Builder builder;
         switch (type) {
             case TYPE_IOS:
@@ -207,9 +209,13 @@ public class MessageDialog extends BaseDialog {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(0);
+                showNextDialog();
             }
         });
         alertDialog.show();
+        isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
 

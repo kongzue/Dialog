@@ -2,20 +2,17 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.util.BaseDialog;
 
-import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
@@ -44,8 +41,9 @@ public class WaitDialog extends BaseDialog {
     }
 
     private RelativeLayout boxInfo;
-    private RelativeLayout tipBkg;
+    private RelativeLayout boxBkg;
     private TextView txtInfo;
+    private ProgressBar psgBar;
 
     public void showDialog() {
         AlertDialog.Builder builder;
@@ -69,13 +67,14 @@ public class WaitDialog extends BaseDialog {
         alertDialog.show();
 
         Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.dialog_progressbar);
+        window.setContentView(R.layout.dialog_wait);
 
         boxInfo = (RelativeLayout) window.findViewById(R.id.box_info);
-        tipBkg = (RelativeLayout) window.findViewById(R.id.tip_bkg);
+        boxBkg = (RelativeLayout) window.findViewById(R.id.box_bkg);
         txtInfo = (TextView) window.findViewById(R.id.txt_info);
+        psgBar = (ProgressBar) window.findViewById(R.id.psgBar);
 
-        tipBkg.setBackgroundResource(bkgResId);
+        boxBkg.setBackgroundResource(bkgResId);
 
         if (!tip.isEmpty()) {
             boxInfo.setVisibility(View.VISIBLE);

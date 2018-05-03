@@ -57,8 +57,9 @@ public class SelectDialog extends BaseDialog {
             selectDialog.cancelButtonCaption = cancelButtonCaption;
             selectDialog.onOkButtonClickListener = onOkButtonClickListener;
             selectDialog.onCancelButtonClickListener = onCancelButtonClickListener;
-            selectDialog.showDialog();
-            selectDialog.log("显示选择对话框 -> " + message);
+            selectDialog.log("装载选择对话框 -> " + message);
+            dialogList.add(selectDialog);
+            showNextDialog();
             return selectDialog;
         }
     }
@@ -239,9 +240,13 @@ public class SelectDialog extends BaseDialog {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(0);
+                showNextDialog();
             }
         });
         alertDialog.show();
+        isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
 

@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNotificationNormal;
     private Button btnNotificationWithTitle;
     private Button btnNotificationWithTitleAndIcon;
+    private Button btnShowMultipleDialogs;
+
 
     private void initViews() {
         grp = (RadioGroup) findViewById(R.id.grp);
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         btnNotificationNormal = (Button) findViewById(R.id.btn_notification_normal);
         btnNotificationWithTitle = (Button) findViewById(R.id.btn_notification_withTitle);
         btnNotificationWithTitleAndIcon = (Button) findViewById(R.id.btn_notification_withTitleAndIcon);
+        btnShowMultipleDialogs = (Button) findViewById(R.id.btn_show_multiple_dialogs);
     }
 
     @Override
@@ -127,6 +130,30 @@ public class MainActivity extends AppCompatActivity {
     private int notifactionType = TYPE_NORMAL;
 
     private void initEvent() {
+
+        btnShowMultipleDialogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessageDialog.show(me,"提示","一次启动多个对话框，他们会按顺序显示出来");
+                SelectDialog.show(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }, "选择2", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                InputDialog.show(me, "提示", "这是最后一个对话框，序列即将结束", new InputDialogOkButtonClickListener() {
+                    @Override
+                    public void onClick(Dialog dialog, String inputText) {
+
+                    }
+                });
+            }
+        });
 
         grpNotification.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

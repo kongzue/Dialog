@@ -58,8 +58,9 @@ public class InputDialog extends BaseDialog {
             inputDialog.cancelButtonCaption = cancelButtonCaption;
             inputDialog.onOkButtonClickListener = onOkButtonClickListener;
             inputDialog.onCancelButtonClickListener = onCancelButtonClickListener;
-            inputDialog.showDialog();
-            inputDialog.log("显示输入对话框 -> " + message);
+            inputDialog.log("装载输入对话框 -> " + message);
+            dialogList.add(inputDialog);
+            showNextDialog();
             return inputDialog;
         }
     }
@@ -74,6 +75,7 @@ public class InputDialog extends BaseDialog {
     private TextView btnSelectPositive;
 
     public void showDialog() {
+        log("启动输入对话框 -> " + message);
         AlertDialog.Builder builder;
         switch (type) {
             case TYPE_IOS:
@@ -287,9 +289,13 @@ public class InputDialog extends BaseDialog {
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(0);
+                showNextDialog();
             }
         });
         alertDialog.show();
+        isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
 
