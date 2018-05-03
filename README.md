@@ -252,6 +252,15 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.0.9:
+- 序列启动对话框；
+
+v2.0.8:
+- 修复bug；
+
+v2.0.7:
+- 修复bug；
+
 v2.0.6:
 - 修复bug；
 
