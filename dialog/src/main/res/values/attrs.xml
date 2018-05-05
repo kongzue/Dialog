@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomFrameLayoutAttr">
+        <attr name="layout_maxWidth" format="dimension"/>
+        <attr name="layout_maxHeight" format="dimension"/>
+    </declare-styleable>
+</resources>

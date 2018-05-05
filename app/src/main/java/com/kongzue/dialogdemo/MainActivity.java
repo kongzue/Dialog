@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
+import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.ProgressbarDialog;
 import com.kongzue.dialog.v2.InputDialog;
@@ -24,6 +26,10 @@ import com.kongzue.dialog.v2.Notification;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.kongzue.dialog.v2.BottomMenu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
@@ -67,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNotificationNormal;
     private Button btnNotificationWithTitle;
     private Button btnNotificationWithTitleAndIcon;
+    private Button btnShowBottomMenu;
     private Button btnShowMultipleDialogs;
-
 
     private void initViews() {
         grp = (RadioGroup) findViewById(R.id.grp);
@@ -96,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         btnNotificationNormal = (Button) findViewById(R.id.btn_notification_normal);
         btnNotificationWithTitle = (Button) findViewById(R.id.btn_notification_withTitle);
         btnNotificationWithTitleAndIcon = (Button) findViewById(R.id.btn_notification_withTitleAndIcon);
+        btnShowBottomMenu = (Button) findViewById(R.id.btn_show_bottom_menu);
         btnShowMultipleDialogs = (Button) findViewById(R.id.btn_show_multiple_dialogs);
     }
 
@@ -131,10 +138,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void initEvent() {
 
+        btnShowBottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> list = new ArrayList<>();
+                list.add("菜单1");
+                list.add("菜单2");
+                list.add("菜单3");
+                BottomMenu.show(me, list, new OnMenuItemClickListener() {
+                    @Override
+                    public void onClick(String text, int index) {
+                        Toast.makeText(me,"菜单 " + text + " 被点击了",SHOW_TIME_SHORT).show();
+                    }
+                },true);
+            }
+        });
+
         btnShowMultipleDialogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MessageDialog.show(me,"提示","一次启动多个对话框，他们会按顺序显示出来");
+                MessageDialog.show(me,"提示","弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示");
                 SelectDialog.show(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

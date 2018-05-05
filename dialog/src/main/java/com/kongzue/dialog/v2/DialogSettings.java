@@ -1,7 +1,5 @@
 package com.kongzue.dialog.v2;
 
-import android.graphics.Color;
-
 import com.kongzue.dialog.util.BaseDialog;
 
 import java.util.ArrayList;

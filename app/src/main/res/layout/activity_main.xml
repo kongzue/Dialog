@@ -263,6 +263,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:text="底部菜单" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_show_bottom_menu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="底部菜单" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="其他" />
 
 
@@ -276,7 +295,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="序列启动多个对话框" />
-
 
                 </LinearLayout>
             </LinearLayout>

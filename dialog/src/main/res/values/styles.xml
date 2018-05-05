@@ -29,6 +29,11 @@
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
+    <style name="iOSAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/enter_ios_anim</item>
+        <item name="android:windowExitAnimation">@anim/exit_ios_anim</item>
+    </style>
+
     <style name="materialDialogDark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/white</item>
     </style>
@@ -40,5 +45,22 @@
     <style name="custom_toast_anim_view" parent="@android:style/Animation.Toast">
         <item name="android:windowEnterAnimation">@anim/enter_anim</item>
         <item name="android:windowExitAnimation">@anim/exit_anim</item>
+    </style>
+
+    <style name="bottomMenuAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/enter_bottom_menu</item>
+        <item name="android:windowExitAnimation">@anim/exit_bottom_menu</item>
+    </style>
+
+    <style name="bottom_menu" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/dark</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
     </style>
 </resources>

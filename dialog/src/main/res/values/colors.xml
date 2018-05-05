@@ -13,6 +13,7 @@
     <color name="blue_light">#dae4f2</color>
     <color name="blue_light_d">#c0d4f1</color>
     <color name="progress_dlg_bkg">#c8000000</color>
+    <color name="ios_menu_bkg">#f2ffffff</color>
     <color name="ios_dlg_bkg">#e6ffffff</color>
     <color name="ios_dlg_text">#007aff</color>
     <color name="dark">#353535</color>
@@ -37,4 +38,9 @@
     <color name="notification_normal">#353535</color>
     <color name="notification_warning">#ef8e43</color>
     <color name="notification_finish">#53ae5d</color>
+
+    <color name="menu_split_line">#e0e3e9</color>
+    <color name="menu_split_space">#f1f2f4</color>
+    <color name="menu_split_line_ios">#dadade</color>
+    <color name="empty">#00ffffff</color>
 </resources>

@@ -12,7 +12,6 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
@@ -116,6 +115,18 @@ public class InputDialog extends BaseDialog {
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
 
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (onCancelButtonClickListener != null)
+                    onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
+                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(0);
+                showNextDialog();
+            }
+        });
+
         Window window = alertDialog.getWindow();
         switch (type) {
             case TYPE_KONGZUE:
@@ -204,6 +215,7 @@ public class InputDialog extends BaseDialog {
                 }
                 break;
             case TYPE_IOS:
+                window.setWindowAnimations(R.style.iOSAnimStyle);
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select_ios);
 
@@ -282,19 +294,6 @@ public class InputDialog extends BaseDialog {
                 btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
             }
         }
-
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (onCancelButtonClickListener != null)
-                    onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
-                isDialogShown = false;
-                dialogList.remove(0);
-                showNextDialog();
-            }
-        });
-        alertDialog.show();
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }

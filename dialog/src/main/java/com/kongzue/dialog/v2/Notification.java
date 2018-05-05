@@ -3,14 +3,13 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.IdRes;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -153,6 +152,7 @@ public class Notification {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.notification_material, null);
 
+        RelativeLayout boxBody = (RelativeLayout) view.findViewById(R.id.box_body);
         btnNotic = (LinearLayout) view.findViewById(R.id.btn_notic);
         imgIcon = (ImageView) view.findViewById(R.id.img_icon);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
@@ -188,6 +188,14 @@ public class Notification {
             TextPaint tp = txtMessage.getPaint();
             tp.setFakeBoldText(false);
         }
+
+        boxBody.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                toast.cancel();
+                return false;
+            }
+        });
 
         new kToast().show(context, view);
     }
@@ -235,6 +243,14 @@ public class Notification {
             TextPaint tp = txtMessage.getPaint();
             tp.setFakeBoldText(false);
         }
+
+        boxBody.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                toast.cancel();
+                return false;
+            }
+        });
 
         new kToast().show(context, view);
     }

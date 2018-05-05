@@ -113,6 +113,15 @@ public class SelectDialog extends BaseDialog {
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
 
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(0);
+                showNextDialog();
+            }
+        });
         Window window = alertDialog.getWindow();
         switch (type) {
             case TYPE_KONGZUE:
@@ -169,6 +178,7 @@ public class SelectDialog extends BaseDialog {
                 alertDialog.show();
                 break;
             case TYPE_IOS:
+                window.setWindowAnimations(R.style.iOSAnimStyle);
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select_ios);
 
@@ -235,17 +245,6 @@ public class SelectDialog extends BaseDialog {
                 btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
             }
         }
-
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
-                isDialogShown = false;
-                dialogList.remove(0);
-                showNextDialog();
-            }
-        });
-        alertDialog.show();
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
