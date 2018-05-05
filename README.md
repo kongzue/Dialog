@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.0.9-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.0-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.0.9/link">
-<img src="https://img.shields.io/badge/Maven-2.0.9-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.1.0/link">
+<img src="https://img.shields.io/badge/Maven-2.1.0-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -34,14 +34,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.0.9</version>
+  <version>2.1.0</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.0.9'
+implementation 'com.kongzue.dialog:dialog:2.1.0'
 ```
 
 ## 使用说明
@@ -69,6 +69,9 @@ DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色
 
 3) 从2.0.4版本开始，提供不需要悬浮窗权限，且可以跨域显示的通知功能，如下图所示：
 ![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.4_notification.png)
+
+4) 从2.1.0版本开始，提供底部菜单，可以通过 com.kongzue.dialog.v2.BottomMenu 进行使用，如下图所示：
+![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.0_bottommenu.png)
 
 ## 关于v2组件包
 在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
@@ -158,7 +161,7 @@ TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERRO
 
 ### 调用消息通知：
 
-注意，此处使用的是来自com.kongzue.dialog.v2的Notification类。
+注意，此处使用的是来自com.kongzue.dialog.v2 的 Notification 类。
 
 通知消息（v2.Notification）与提示框（v2.TipDialog）的主要区别是提示框会打断用的操作，而消息通知不会，消息通知适合于并发需要提醒用户是否处理消息的业务场景，而提示框适用于阻断用户操作，提醒用户当前发生的情况的业务场景。
 
@@ -198,6 +201,34 @@ TYPE_ERROR | 红色 | 可选
 ```
 Notification.show(me, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
 ```
+
+### 调用底部菜单：
+
+注意，此处使用的是来自com.kongzue.dialog.v2 的 BottomMenu 类。
+```
+List<String> list = new ArrayList<>();
+list.add("菜单1");
+list.add("菜单2");
+list.add("菜单3");
+BottomMenu.show(me, list, new OnMenuItemClickListener() {
+    @Override
+    public void onClick(String text, int index) {
+        Toast.makeText(me,"菜单 " + text + " 被点击了",SHOW_TIME_SHORT).show();
+    }
+},true);
+```
+包含的参数如下：
+字段 | 含义 | 是否必须
+---|---|---
+activity | 必须继承自 AppCompatActivity  | 必须
+list | 泛型为<String>的列表 | 必须
+OnMenuItemClickListener | 点击回调 | 可选
+isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风格对此无效 | 可选
+
+另外，本菜单暂时对夜间模式（THEME_DARK）不受影响，只提供Light Theme，但不排除接下来的版本对此更新。
+
+使用 iOS 主题时，DialogSettings.ios_normal_button_color 会对菜单内容文字的颜色产生影响，其他主题不受此属性影响。
+
 
 ## 附加功能：
 在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
@@ -252,6 +283,11 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.1.0:
+- 新增底部菜单（BottomMenu）;
+- 新增iOS对话框出现、消失动画；
+- 修复一些细节bug；
+
 v2.0.9:
 - 序列启动对话框；
 
