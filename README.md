@@ -218,6 +218,7 @@ BottomMenu.show(me, list, new OnMenuItemClickListener() {
 },true);
 ```
 包含的参数如下：
+
 字段 | 含义 | 是否必须
 ---|---|---
 activity | 必须继承自 AppCompatActivity  | 必须
