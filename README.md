@@ -222,7 +222,7 @@ BottomMenu.show(me, list, new OnMenuItemClickListener() {
 字段 | 含义 | 是否必须
 ---|---|---
 activity | 必须继承自 AppCompatActivity  | 必须
-list | 泛型为<String>的列表 | 必须
+list | 泛型为 String 的列表 | 必须
 OnMenuItemClickListener | 点击回调 | 可选
 isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风格对此无效 | 可选
 
