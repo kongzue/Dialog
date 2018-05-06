@@ -14,6 +14,7 @@
 <img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Maven">
 </a> 
 
+
 多语言文档：
 [English](https://github.com/kongzue/Dialog/blob/master/README-Eng.md) 
 
