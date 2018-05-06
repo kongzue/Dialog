@@ -12,13 +12,13 @@
     <color name="orange_light_d">#f9dac1</color>
     <color name="blue_light">#dae4f2</color>
     <color name="blue_light_d">#c0d4f1</color>
-    <color name="progress_dlg_bkg">#c8000000</color>
+    <color name="progress_dlg_bkg">#dc000000</color>
     <color name="ios_menu_bkg">#f2ffffff</color>
     <color name="ios_dlg_bkg">#e6ffffff</color>
     <color name="ios_dlg_text">#007aff</color>
     <color name="dark">#353535</color>
 
-    <color name="ios_dialog_button_press">#e1e1e1</color>
+    <color name="ios_dialog_button_press">#0f000000</color>
     <color name="ios_dialog_button_press_dark">#80323232</color>
 
     <color name="ios_dialog_split_light">#cdcdd1</color>

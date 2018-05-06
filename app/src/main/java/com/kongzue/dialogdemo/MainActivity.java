@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDatas() {
+        DialogSettings.use_blur = true;                 //设置是否启用模糊
+
         DialogSettings.type = TYPE_MATERIAL;
         DialogSettings.tip_theme = THEME_DARK;
         DialogSettings.dialog_theme = THEME_LIGHT;
@@ -148,17 +150,17 @@ public class MainActivity extends AppCompatActivity {
                 BottomMenu.show(me, list, new OnMenuItemClickListener() {
                     @Override
                     public void onClick(String text, int index) {
-                        Toast.makeText(me,"菜单 " + text + " 被点击了",SHOW_TIME_SHORT).show();
+                        Toast.makeText(me, "菜单 " + text + " 被点击了", SHOW_TIME_SHORT).show();
                     }
-                },true);
+                }, true);
             }
         });
 
         btnShowMultipleDialogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageDialog.show(me,"提示","一次启动多个对话框，他们会按顺序显示出来");
-                MessageDialog.show(me,"提示","弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示");
+                MessageDialog.show(me, "提示", "一次启动多个对话框，他们会按顺序显示出来");
+                MessageDialog.show(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示");
                 SelectDialog.show(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -204,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         .setOnNotificationClickListener(new Notification.OnNotificationClickListener() {
                             @Override
                             public void OnClick(int id) {
-                                Toast.makeText(me,"点击了通知",SHOW_TIME_SHORT).show();
+                                Toast.makeText(me, "点击了通知", SHOW_TIME_SHORT).show();
                             }
                         })
                 ;
@@ -221,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         btnNotificationNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notification.show(me, 0,  "这是一条消息", notifactionType);
+                Notification.show(me, 0, "这是一条消息", notifactionType);
             }
         });
 

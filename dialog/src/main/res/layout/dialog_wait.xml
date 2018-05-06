@@ -16,7 +16,7 @@
             android:id="@+id/box_bkg"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:background="@drawable/rect_dark"></RelativeLayout>
+            ></RelativeLayout>
 
         <TextView
             android:id="@+id/txt_info"

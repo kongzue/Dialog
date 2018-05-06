@@ -8,8 +8,11 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 2
-        versionName "2.0"
+        versionName "2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {

@@ -17,6 +17,11 @@ public class DialogSettings {
     public static final int TYPE_IOS = 2;
 
     /*
+     *  决定等待框、提示框以及iOS风格的对话框是否启用模糊背景
+     */
+    public static boolean use_blur = true;
+
+    /*
      *  决定对话框的样式
      *  请使用 TYPE_MATERIAL、TYPE_KONGZUE、TYPE_IOS 赋值
      */

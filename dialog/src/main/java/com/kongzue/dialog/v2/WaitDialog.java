@@ -2,9 +2,11 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -12,10 +14,12 @@ import android.widget.TextView;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BaseDialog;
+import com.kongzue.dialog.util.BlurView;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
+import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
 public class WaitDialog extends BaseDialog {
 
@@ -40,6 +44,7 @@ public class WaitDialog extends BaseDialog {
         }
     }
 
+    private BlurView blur;
     private RelativeLayout boxInfo;
     private RelativeLayout boxBkg;
     private TextView txtInfo;
@@ -48,14 +53,17 @@ public class WaitDialog extends BaseDialog {
     public void showDialog() {
         AlertDialog.Builder builder;
         int bkgResId;
+        int blur_front_color;
         switch (tip_theme) {
             case THEME_LIGHT:
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
+                blur_front_color = Color.argb(100, 255, 255, 255);
                 break;
             default:
                 builder = new AlertDialog.Builder(context, R.style.darkMode);
                 bkgResId = R.drawable.rect_dark;
+                blur_front_color = Color.argb(200, 0, 0, 0);
                 break;
         }
         builder.setCancelable(isCanCancel);
@@ -74,7 +82,14 @@ public class WaitDialog extends BaseDialog {
         txtInfo = (TextView) window.findViewById(R.id.txt_info);
         psgBar = (ProgressBar) window.findViewById(R.id.psgBar);
 
-        boxBkg.setBackgroundResource(bkgResId);
+        if (use_blur) {
+            blur = new BlurView(context, null);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            blur.setOverlayColor(blur_front_color);
+            boxBkg.addView(blur, 0, params);
+        } else {
+            boxBkg.setBackgroundResource(bkgResId);
+        }
 
         if (!tip.isEmpty()) {
             boxInfo.setVisibility(View.VISIBLE);

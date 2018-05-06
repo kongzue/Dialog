@@ -12,35 +12,49 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/list_menu"
+        <RelativeLayout
+            android:id="@+id/box_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/rect_button_bottom_menu_ios"
-            android:divider="@color/menu_split_line_ios"
-            android:dividerHeight="1px"
-            android:listSelector="@android:color/transparent"></ListView>
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/btn_cancel"
+            <ListView
+                android:id="@+id/list_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/menu_split_line_ios"
+                android:dividerHeight="1px"
+                android:listSelector="@android:color/transparent"></ListView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/box_cancel"
             android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/button_menu_ios_all"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:singleLine="true"
-            android:text="取消"
-            android:textColor="@color/ios_dlg_text"
-            android:textSize="19dp"
-            android:textStyle="bold" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="true"
+                android:background="@drawable/button_menu_ios_all"
+                android:text="取消"
+                android:textColor="@color/ios_dlg_text"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 

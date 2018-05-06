@@ -2,6 +2,7 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -19,11 +20,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
+import com.kongzue.dialog.util.BlurView;
 
 import java.util.List;
 
@@ -70,7 +73,12 @@ public class BottomMenu extends BaseDialog {
 
     private ListView listMenu;
     private TextView btnCancel;
-    private LinearLayout boxCancel;
+    private ViewGroup boxCancel;
+
+    private BlurView blurList;
+    private BlurView blurCancel;
+
+    private RelativeLayout boxList;
 
     @Override
     public void showDialog() {
@@ -131,14 +139,44 @@ public class BottomMenu extends BaseDialog {
 
             listMenu = (ListView) window.findViewById(R.id.list_menu);
             btnCancel = (TextView) window.findViewById(R.id.btn_cancel);
-            if (type == TYPE_KONGZUE)
-                boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
+            switch (type) {
+                case TYPE_KONGZUE:
+                    boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
+                    break;
+                case TYPE_IOS:
+                    boxList = (RelativeLayout) window.findViewById(R.id.box_list);
+                    boxCancel = (RelativeLayout) window.findViewById(R.id.box_cancel);
+                    if (use_blur) {
+                        boxList.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                blurList = new BlurView(activity, null);
+                                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, boxList.getHeight());
+                                blurList.setOverlayColor(Color.argb(130, 255, 255, 255));
+                                blurList.setRadius(activity, 11, 11);
+                                boxList.addView(blurList, 0, params);
+                            }
+                        });
+                        boxCancel.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                blurCancel = new BlurView(activity, null);
+                                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, boxCancel.getHeight());
+                                blurCancel.setOverlayColor(Color.argb(130, 255, 255, 255));
+                                blurCancel.setRadius(activity, 11, 11);
+                                boxCancel.addView(blurCancel, 0, params);
+                            }
+                        });
+                    } else {
+                        boxList.setBackgroundResource(R.drawable.rect_button_bottom_menu_ios);
+                        boxCancel.setBackgroundResource(R.drawable.rect_button_bottom_menu_ios);
+                    }
+                    break;
+            }
 
             if (isShowCancelButton) {
-                btnCancel.setVisibility(View.VISIBLE);
                 if (boxCancel != null) boxCancel.setVisibility(View.VISIBLE);
             } else {
-                btnCancel.setVisibility(View.GONE);
                 if (boxCancel != null) boxCancel.setVisibility(View.GONE);
             }
 

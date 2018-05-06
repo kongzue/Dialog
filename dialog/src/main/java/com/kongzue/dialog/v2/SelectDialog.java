@@ -7,14 +7,17 @@ import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BaseDialog;
+import com.kongzue.dialog.util.BlurView;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
@@ -64,7 +67,8 @@ public class SelectDialog extends BaseDialog {
         }
     }
 
-    private LinearLayout bkg;
+    private BlurView blur;
+    private ViewGroup bkg;
     private TextView txtDialogTitle;
     private TextView txtDialogTip;
     private EditText txtInput;
@@ -72,6 +76,8 @@ public class SelectDialog extends BaseDialog {
     private TextView btnSelectNegative;
     private ImageView splitVertical;
     private TextView btnSelectPositive;
+
+    int blur_front_color;
 
     public void showDialog() {
         AlertDialog.Builder builder;
@@ -182,7 +188,7 @@ public class SelectDialog extends BaseDialog {
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select_ios);
 
-                bkg = (LinearLayout) window.findViewById(R.id.bkg);
+                bkg = (RelativeLayout) window.findViewById(R.id.bkg);
                 txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
                 txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
                 txtInput = (EditText) window.findViewById(R.id.txt_input);
@@ -214,15 +220,33 @@ public class SelectDialog extends BaseDialog {
                     }
                 });
 
+                int bkgResId;
                 if (dialog_theme == THEME_DARK) {
-                    bkg.setBackgroundResource(R.drawable.rect_dlg_dark);
                     splitHorizontal.setBackgroundResource(R.color.ios_dialog_split_dark);
                     splitVertical.setBackgroundResource(R.color.ios_dialog_split_dark);
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left_dark);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right_dark);
+                    bkgResId = R.drawable.rect_dlg_dark;
+                    blur_front_color = Color.argb(200, 0, 0, 0);
                 }else{
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
+                    bkgResId = R.drawable.rect_light;
+                    blur_front_color = Color.argb(130, 255, 255, 255);
+                }
+
+                if (use_blur) {
+                    bkg.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            blur = new BlurView(context, null);
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, bkg.getHeight());
+                            blur.setOverlayColor(blur_front_color);
+                            bkg.addView(blur, 0, params);
+                        }
+                    });
+                } else {
+                    bkg.setBackgroundResource(bkgResId);
                 }
 
                 if (ios_normal_button_color != -1) {

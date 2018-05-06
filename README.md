@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.0-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.1-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.1.0/link">
-<img src="https://img.shields.io/badge/Maven-2.1.0-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.1.1/link">
+<img src="https://img.shields.io/badge/Maven-2.1.1-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -34,14 +34,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.1.0'
+implementation 'com.kongzue.dialog:dialog:2.1.1'
 ```
 
 ## 使用说明
@@ -67,16 +67,38 @@ DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色
 具体预览图如下：
 ![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0_dark.png)
 
-3) 从2.0.4版本开始，提供不需要悬浮窗权限，且可以跨域显示的通知功能，如下图所示：
-![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.4_notification.png)
+3) 从 2.0.4 版本开始，提供不需要悬浮窗权限，且可以跨域显示的通知功能，如下图所示：
+![Kongzue's Dialog Notifaction](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.4_notification.png)
 
-4) 从2.1.0版本开始，提供底部菜单，可以通过 com.kongzue.dialog.v2.BottomMenu 进行使用，如下图所示：
-![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.0_bottommenu.png)
+4) 从 2.1.0 版本开始，提供底部菜单，可以通过 com.kongzue.dialog.v2.BottomMenu 进行使用，如下图所示：
+![Kongzue's Dialog BottomMenu](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.0_bottommenu.png)
+
+5) 从 2.1.1 版本开始，iOS风格的对话框、提示框、底部菜单新增即时模糊效果：
+![Kongzue's Dialog Blur](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.1_blur.png)
 
 ## 关于v2组件包
 在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
 
 为了更有效率的开发，我们现在强烈推荐直接使用v2组件库，其包含的包地址为：com.kongzue.dialog.v2
+
+### 关于 2.1.1 版本后自带的模糊效果
+您可以通过以下属性设置开关：
+```
+DialogSettings.use_blur = true;                 //设置是否启用模糊
+```
+如果需要启动，还需要在您的 app 的 build.gradle 中添加以下代码：
+```
+android {
+    ...
+    defaultConfig {
+        ...
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+    }
+}
+```
+模糊效果目前仅对当 DialogSettings.type = TYPE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
 
 ### 调用消息对话框的方法：
 ```
@@ -283,6 +305,9 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.1.1:
+- iOS主题的对话框、等待框以及提示框、底部菜单增加即时模糊效果；
+
 v2.1.0:
 - 新增底部菜单（BottomMenu）;
 - 新增iOS对话框出现、消失动画；
