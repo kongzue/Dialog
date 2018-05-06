@@ -1,5 +1,5 @@
-# 空祖家的对话框 2.1
-献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
+# Kongzue's Dialog 2.1
+To the products that require Android to follow apple's design (XD
 
 <a href="https://github.com/kongzue/Dialog/">
 <img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.1-green.svg" alt="Kongzue Dialog">
@@ -14,22 +14,22 @@
 <img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Maven">
 </a> 
 
-空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提示、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
+Kongzue's Dialog have pop-up styles that provide the simplest way to invoke a message box, a selection box, an input box, a wait prompt, a warning prompt, a completion prompt, an error prompt, and so on. The following is a preview of all dialog styles currently included:
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
 
-试用版可以前往 http://kongzue.com/open_source/KongzueDialogDemo2.0.apk 下载
+The trial can be downloaded from http://kongzue.com/open_source/KongzueDialogDemo2.0.apk 
 
 ![Kongzue's Dialog Demo](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/KongzueDialogDemoDownload.png)
 
-本例中，包含DialogDemo（Dialog/app/）是对话框的演示项目源代码，以及Library库（Dialog/dialog/）是封装的空祖家对话框的源代码。
+For example,this repository has DialogDemo(Dialog/app/)is the demo project source code，Library（Dialog/dialog/）is source code of Kongzue's Dialog.
 
-项目托管的Maven仓库在https://bintray.com/myzchh/maven/dialog
+Maven: https://bintray.com/myzchh/maven/dialog
 
-本项目遵循Apache-2.0开源协议，具体可参考：http://www.opensource.org/licenses/apache2.0.php
+This project follows the Apache - 2.0 open source protocol, which can be referenced: http://www.opensource.org/licenses/apache2.0.php
 
-## Maven仓库或Gradle的引用方式
-Maven仓库：
+## Maven & Gradle
+Maven：
 ```
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
@@ -39,54 +39,53 @@ Maven仓库：
 </dependency>
 ```
 Gradle：
-在dependencies{}中添加引用：
 ```
 implementation 'com.kongzue.dialog:dialog:2.1.1'
 ```
 
-## 使用说明
-1) 组件启用前请先初始化全局的风格样式，具体方法为
+## Explanation
+1) Initialization style of Kongzue's Dialog:
 ```
 DialogSettings.type = TYPE_MATERIAL;
 ```
 
-Material 风格对应 DialogSettings.TYPE_MATERIAL，
+Material style: DialogSettings.TYPE_MATERIAL，
 
-Kongzue 风格对应 DialogSettings.TYPE_KONGZUE，
+Kongzue style: DialogSettings.TYPE_KONGZUE，
 
-iOS 风格对应 DialogSettings.TYPE_IOS
+iOS style: DialogSettings.TYPE_IOS
 
-需要注意的是风格设置仅针对对话框，提示框样式不会改变。
+Style settings are only for dialog boxes, not include prompt and wait boxes
 
-2) 要启用 Light & Dark 黑白主题模式，请调用以下语句实现：
+2) Light & Dark Mode：
 ```
-DialogSettings.tip_theme = THEME_LIGHT;         //设置提示框主题为亮色主题
-DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色主题
+DialogSettings.tip_theme = THEME_LIGHT;         //Set the prompt box theme to a light color theme
+DialogSettings.dialog_theme = THEME_DARK;       //Set the dialog box theme to a dark color theme
 ```
 
-具体预览图如下：
+Preview:
 ![Kongzue's Dialog Light&DarkMode](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0_dark.png)
 
-3) 从 2.0.4 版本开始，提供不需要悬浮窗权限，且可以跨域显示的通知功能，如下图所示：
+3) Starting with version 2.0.4, provides notification capabilities that do not require suspend window permissions and can be displayed across domains, as shown in the following figure:
 ![Kongzue's Dialog Notifaction](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.4_notification.png)
 
-4) 从 2.1.0 版本开始，提供底部菜单，可以通过 com.kongzue.dialog.v2.BottomMenu 进行使用，如下图所示：
+4) Starting with version 2.1.0, the bottom menu is available and is available through com.kongzue.dialog.v2.BottomMenu, as shown in the following figure:
 ![Kongzue's Dialog BottomMenu](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.0_bottommenu.png)
 
-5) 从 2.1.1 版本开始，iOS风格的对话框、提示框、底部菜单新增即时模糊效果：
+5) Starting with version 2.1.1, iOS style dialogs, prompt boxes, and bottom menus add instant blur effects:
 ![Kongzue's Dialog Blur](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.1_blur.png)
 
-## 关于v2组件包
-在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
+## About v2 packages
+In the empty ancestors dialog component, still retains the generation of component library but is no longer recommended, this is to maintain compatibility, if forced to use you will see the name of the relevant class has a strikethrough.
 
-为了更有效率的开发，我们现在强烈推荐直接使用v2组件库，其包含的包地址为：com.kongzue.dialog.v2
+For more efficient development, we now strongly recommend using the v2 component library directly, which contains package addresses of: com.kongzue.dialog.v2
 
-### 关于 2.1.1 版本后自带的模糊效果
-您可以通过以下属性设置开关：
+### About blur mode
+You can set blur mode by properties:
 ```
-DialogSettings.use_blur = true;                 //设置是否启用模糊
+DialogSettings.use_blur = true;                 //Sets whether obfuscation is enabled
 ```
-如果需要启动，还需要在您的 app 的 build.gradle 中添加以下代码：
+If you need to start, also need in your build.gradle(app) add code：
 ```
 android {
     ...
@@ -98,11 +97,11 @@ android {
     }
 }
 ```
-模糊效果目前仅对当 DialogSettings.type = TYPE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
+The blur effect is currently valid only for three dialog boxes, prompt boxes, wait boxes, and bottom menus when DialogSettings.type = TYPE_IOS.
 
-### 调用消息对话框的方法：
+### Message Dialog：
 ```
-MessageDialog.show(me, "消息提示框", "用于提示一些消息", "知道了", new DialogInterface.OnClickListener() {
+MessageDialog.show(me, "Title", "message", "ok", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
     }
@@ -110,39 +109,39 @@ MessageDialog.show(me, "消息提示框", "用于提示一些消息", "知道了
 ```
 或者可以采用快速调用方式：
 ```
-MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
+MessageDialog.show(me, "Welcome", "Welcome to the kongzu home dialog box, which provides several common dialog box styles.\nIf you have any questions can be in https://github.com/kongzue/Dialog submit feedback");
 ```
 
-### 调用选择对话框的方法：
+### Selection Dialog：
 ```
-SelectDialog.show(me, "提示", "请做出你的选择", "确定", new DialogInterface.OnClickListener() {
+SelectDialog.show(me, "Title", "message", "ok", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(me, "You click ok button.", Toast.LENGTH_SHORT).show();
     }
 }, "取消", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(me, "You click cancel button.", Toast.LENGTH_SHORT).show();
     }
 });
 ```
-或者可以采用快速调用方式：
+Fast Function：
 ```
-SelectDialog.show(me, "提示", "请做出你的选择", new DialogInterface.OnClickListener() {
+SelectDialog.show(me, "Title", "message", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(me, "You click ok button.", Toast.LENGTH_SHORT).show();
     }
 });
 ```
 
-### 调用输入对话框：
+### Input Dialog：
 ```
-InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", "确定", new InputDialogOkButtonClickListener() {
+InputDialog.show(me, "Set a nickname", "Set a nice name", "ok", new InputDialogOkButtonClickListener() {
     @Override
     public void onClick(Dialog dialog, String inputText) {
-        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+        Toast.makeText(me, "You entered:" + inputText, Toast.LENGTH_SHORT).show();
     }
 }, "取消", new DialogInterface.OnClickListener() {
     @Override
@@ -151,152 +150,134 @@ InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", "确定",
     }
 });
 ```
-或者可以采用快速调用方式：
+Fast Function：
 ```
-InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", new InputDialogOkButtonClickListener() {
+InputDialog.show(me, "Set a nickname", "Set a nice name", new InputDialogOkButtonClickListener() {
                     @Override
                     public void onClick(Dialog dialog, String inputText) {
-                        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(me, "You entered:" + inputText, Toast.LENGTH_SHORT).show();
                     }
                 });
 ```
 
-### 调用等待提示框：
+### Wait Dialog：
 ```
-WaitDialog.show(me, "载入中...");
-```
-
-### 调用完成提示框：
-```
-TipDialog.show(me, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+WaitDialog.show(me, "Loading...");
 ```
 
-### 调用警告提示框：
+### Tip Dialog - Finish：
 ```
-TipDialog.show(me, "请输入密码", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
-```
-
-### 调用错误提示框：
-```
-TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
+TipDialog.show(me, "Finish", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
 ```
 
-### 调用消息通知：
+### Tip Dialog - Warning：
+```
+TipDialog.show(me, "Warning", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+```
 
-注意，此处使用的是来自com.kongzue.dialog.v2 的 Notification 类。
+### Tip Dialog - Error：
+```
+TipDialog.show(me, "Error", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
+```
 
-通知消息（v2.Notification）与提示框（v2.TipDialog）的主要区别是提示框会打断用的操作，而消息通知不会，消息通知适合于并发需要提醒用户是否处理消息的业务场景，而提示框适用于阻断用户操作，提醒用户当前发生的情况的业务场景。
+### Notifaction：
+
+Note: that the notification class from com.kongzue.dialog.v2 is used here.
+
+The main difference between the notification message and the prompt frame is that the prompt frame will interrupt the operation used, and the message notification will not. the message notification is suitable for the business scenario in which the user needs to be reminded whether to process the message or not, and the prompt frame is suitable for the business scenario in which the user operation is blocked and the user is reminded of the current situation.
 
 ```
-Notification.show(me, id, iconResId, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_LONG, notifactionType)
+Notification.show(me, id, iconResId, getString(R.string.app_name), "This is a message", Notification.SHOW_TIME_LONG, notifactionType)
                         .setOnNotificationClickListener(new Notification.OnNotificationClickListener() {
                             @Override
                             public void OnClick(int id) {
-                                Toast.makeText(me,"点击了通知",SHOW_TIME_SHORT).show();
+                                Toast.makeText(me,"Click the notification",SHOW_TIME_SHORT).show();
                             }
                         })
                 ;
 ```
-其中，id为通知消息id，在用户点击该通知后，会在OnNotificationClickListener中进行回调。
+Where the id is the notification message id and is called back in the OnNotificationClickListener after the user clicks on the notification.
 
-字段 | 含义 | 是否必须
+Note: that the message type colorType here is currently valid only for the Kongzue Style, and the styles provided are:
+
+type | color | Default
 ---|---|---
-context | 上下文索引 | 必须
-iconResId | 图标 | 可选
-title | 通知标题 | 可选
-message | 通知内容 | 必须
-colorType | 消息类型 | 必须
-OnNotificationClickListener | 下载监听器 | 可选
+TYPE_NORMAL | Grey black | Yes
+TYPE_FINISH | Green | No
+TYPE_WARNING | Orange | No
+TYPE_ERROR | Red | No
 
-注意，此处的消息类型 colorType 目前仅对“Kongzue 风格”有效，且提供的风格有：
+After version 2.0.6, if the colorType is not the above setting, you can use the autoshape value, which is the return value of the Color class.
 
-字段 | 含义 | 是否默认
----|---|---
-TYPE_NORMAL | 默认灰黑色 | 默认
-TYPE_FINISH | 绿色 | 可选
-TYPE_WARNING | 橙色 | 可选
-TYPE_ERROR | 红色 | 可选
-
-在2.0.6版本后，若 colorType 不为上述设定值，则可以使用自选颜色值，可为 Color 类的返回值。
-
-另外，可以采用快速调用方式：
+Fast Function：
 ```
-Notification.show(me, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
+Notification.show(me, 0, "", "This is a message", Notification.SHOW_TIME_SHORT, notifactionType);
 ```
 
-### 调用底部菜单：
+### Bottom Menu：
 
-注意，此处使用的是来自com.kongzue.dialog.v2 的 BottomMenu 类。
+Note: that the BottomMenu class from com.kongzue.dialog.v2 is used here.
 ```
 List<String> list = new ArrayList<>();
-list.add("菜单1");
-list.add("菜单2");
-list.add("菜单3");
+list.add("Menu 1");
+list.add("Menu 2");
+list.add("Menu 3");
 BottomMenu.show(me, list, new OnMenuItemClickListener() {
     @Override
     public void onClick(String text, int index) {
-        Toast.makeText(me,"菜单 " + text + " 被点击了",SHOW_TIME_SHORT).show();
+        Toast.makeText(me,"Menu " + text + " be click.",SHOW_TIME_SHORT).show();
     }
 },true);
 ```
-包含的参数如下：
 
-字段 | 含义 | 是否必须
----|---|---
-activity | 必须继承自 AppCompatActivity  | 必须
-list | 泛型为 String 的列表 | 必须
-OnMenuItemClickListener | 点击回调 | 可选
-isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风格对此无效 | 可选
+Note: This menu is temporarily unaffected by night mode (THEME_DARK) and only provides light theme, but does not preclude subsequent versions from updating it.
 
-另外，本菜单暂时对夜间模式（THEME_DARK）不受影响，只提供Light Theme，但不排除接下来的版本对此更新。
+When using iOS style,DialogSettings.ios_normal_button_color affects the color of the menu content text, and other topics are not affected by this property.
 
-使用 iOS 主题时，DialogSettings.ios_normal_button_color 会对菜单内容文字的颜色产生影响，其他主题不受此属性影响。
-
-或可以使用快速调用：
+Fast Function：
 ```
 List<String> list = new ArrayList<>();
-list.add("菜单1");
-list.add("菜单2");
-list.add("菜单3");
+list.add("Menu 1");
+list.add("Menu 2");
+list.add("Menu 3");
 BottomMenu.show(me, list);
 ```
 
-## 附加功能：
-在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
+## additional function：
+In any kind of dialog box can use .setCanCancel(boolean) to set whether you can click on the dialog box outside the area closed dialog box, prompt class is prohibited by default, select, input dialog box is prohibited by default, the message dialog box is allowed by default.
 
-使用方法可以参考以下代码：
+Use the method to refer to the following code:
 ```
-WaitDialog.show(me, "载入中...").setCanCancel(true);
+WaitDialog.show(me, "Loading...").setCanCancel(true);
 ```
-
-在空祖家的对话框组件中，您可以使用监听器来监听对话框的生命周期，Demo如下：
+In the empty ancestors dialog component, you can use the listener to listen to the dialog lifecycle, demo is as follows:
 ```
-WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListener(new DialogLifeCycleListener() {
+WaitDialog.show(me, "Loading...").setCanCancel(true).setDialogLifeCycleListener(new DialogLifeCycleListener() {
     @Override
     public void onCreate(AlertDialog alertDialog) {
-        //此时对话框创建
+        //dialog building
     }
     @Override
     public void onShow(AlertDialog alertDialog) {
-        //此时对话框显示
+        //dialog show
     }
     @Override
     public void onDismiss() {
-        //此时对话框关闭
+        //dialog close
     }
 });
 ```
 
-另外提供一些定制属性：
+Additional custom properties are available:
 ```
-DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
-DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
-DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
-DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
-DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
+DialogSettings.dialog_title_text_size = -1;     //Set dialog title text size, <= 0 is not enabled
+DialogSettings.dialog_message_text_size = -1;   //Set dialog box content text size, <= 0 is not enabled
+DialogSettings.dialog_button_text_size = -1;    //Set dialog button text size, <= 0 is not enabled
+DialogSettings.tip_text_size = -1;              //Set prompt box text size, <= 0 is not enabled
+DialogSettings.ios_normal_button_color = -1;    //Set IOs style default button text color, = -1 not enabled
 ```
 
-## 开源协议
+## License
 ```
    Copyright Kongzue Dialog
 
@@ -312,43 +293,3 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
    See the License for the specific language governing permissions and
    limitations under the License.
 ```
-
-## 更新日志：
-v2.1.1:
-- iOS主题的对话框、等待框以及提示框、底部菜单增加即时模糊效果；
-
-v2.1.0:
-- 新增底部菜单（BottomMenu）;
-- 新增iOS对话框出现、消失动画；
-- 修复一些细节bug；
-
-v2.0.9:
-- 序列启动对话框；
-
-v2.0.8:
-- 修复bug；
-
-v2.0.7:
-- 修复bug；
-
-v2.0.6:
-- 修复bug；
-
-v2.0.5:
-- 新增通知消息在使用Kongzue主题时可自定义颜色；
-
-v2.0.4:
-- 提供消息与通知功能；
-
-v2.0.3:
-- 提供部分文字大小和颜色修改；
-
-v2.0.2:
-- 提供Light和Dark两种黑白主题模式；
-
-v2.0.1:
-- TipDialog提供自定义提示图标；
-- WaitDialog可通过dismiss()方法关闭等待提示框；
-
-v2.0.0:
-- 新增v2组件库；
