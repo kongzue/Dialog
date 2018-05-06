@@ -107,7 +107,7 @@ MessageDialog.show(me, "Title", "message", "ok", new DialogInterface.OnClickList
     }
 });
 ```
-或者可以采用快速调用方式：
+Fast Function：
 ```
 MessageDialog.show(me, "Welcome", "Welcome to the kongzu home dialog box, which provides several common dialog box styles.\nIf you have any questions can be in https://github.com/kongzue/Dialog submit feedback");
 ```
@@ -119,7 +119,7 @@ SelectDialog.show(me, "Title", "message", "ok", new DialogInterface.OnClickListe
     public void onClick(DialogInterface dialog, int which) {
         Toast.makeText(me, "You click ok button.", Toast.LENGTH_SHORT).show();
     }
-}, "取消", new DialogInterface.OnClickListener() {
+}, "Cancel", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
         Toast.makeText(me, "You click cancel button.", Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ InputDialog.show(me, "Set a nickname", "Set a nice name", "ok", new InputDialogO
     public void onClick(Dialog dialog, String inputText) {
         Toast.makeText(me, "You entered:" + inputText, Toast.LENGTH_SHORT).show();
     }
-}, "取消", new DialogInterface.OnClickListener() {
+}, "Cancel", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
 
