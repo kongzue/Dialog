@@ -1,4 +1,4 @@
-# 空祖家的对话框 2.0
+# 空祖家的对话框 2.1
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
@@ -240,10 +240,11 @@ BottomMenu.show(me, list, new OnMenuItemClickListener() {
 },true);
 ```
 包含的参数如下：
+
 字段 | 含义 | 是否必须
 ---|---|---
 activity | 必须继承自 AppCompatActivity  | 必须
-list | 泛型为<String>的列表 | 必须
+list | 泛型为 String 的列表 | 必须
 OnMenuItemClickListener | 点击回调 | 可选
 isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风格对此无效 | 可选
 
@@ -251,6 +252,14 @@ isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风
 
 使用 iOS 主题时，DialogSettings.ios_normal_button_color 会对菜单内容文字的颜色产生影响，其他主题不受此属性影响。
 
+或可以使用快速调用：
+```
+List<String> list = new ArrayList<>();
+list.add("菜单1");
+list.add("菜单2");
+list.add("菜单3");
+BottomMenu.show(me, list);
+```
 
 ## 附加功能：
 在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
