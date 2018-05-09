@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.ProgressView;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
@@ -48,7 +50,7 @@ public class WaitDialog extends BaseDialog {
     private RelativeLayout boxInfo;
     private RelativeLayout boxBkg;
     private TextView txtInfo;
-    private ProgressBar psgBar;
+    private ProgressView progress;
 
     public void showDialog() {
         AlertDialog.Builder builder;
@@ -77,10 +79,16 @@ public class WaitDialog extends BaseDialog {
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog_wait);
 
-        boxInfo = (RelativeLayout) window.findViewById(R.id.box_info);
-        boxBkg = (RelativeLayout) window.findViewById(R.id.box_bkg);
-        txtInfo = (TextView) window.findViewById(R.id.txt_info);
-        psgBar = (ProgressBar) window.findViewById(R.id.psgBar);
+        boxInfo = window.findViewById(R.id.box_info);
+        boxBkg = window.findViewById(R.id.box_bkg);
+        txtInfo = window.findViewById(R.id.txt_info);
+        progress = window.findViewById(R.id.progress);
+
+        if (tip_theme ==THEME_LIGHT){
+            progress.setStrokeColors(new int[] {Color.rgb(0,0,0)});
+        }else{
+            progress.setStrokeColors(new int[] {Color.rgb(255,255,255)});
+        }
 
         if (use_blur) {
             blur = new BlurView(context, null);
@@ -118,9 +126,16 @@ public class WaitDialog extends BaseDialog {
 
     public static void dismiss() {
         synchronized (WaitDialog.class) {
-            if (waitDialog != null) {
-                if (waitDialog.alertDialog != null) waitDialog.alertDialog.dismiss();
-            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (waitDialog != null) {
+                        if (waitDialog.alertDialog != null) {
+                            waitDialog.alertDialog.dismiss();
+                        }
+                    }
+                }
+            }, 500);
         }
     }
 }

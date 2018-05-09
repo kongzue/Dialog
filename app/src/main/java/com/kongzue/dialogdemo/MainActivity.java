@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -314,7 +315,14 @@ public class MainActivity extends AppCompatActivity {
         btnPsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WaitDialog.show(me, "载入中...").setCanCancel(true);
+                WaitDialog.show(me, "载入中...");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        WaitDialog.dismiss();
+                        TipDialog.show(me, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                    }
+                },3000);
             }
         });
 

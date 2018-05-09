@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/box_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="visible">
+        android:layout_centerInParent="true">
 
         <RelativeLayout
-            android:id="@+id/box_bkg"
+            android:id="@+id/box_info"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            ></RelativeLayout>
+            android:visibility="visible">
 
-        <TextView
-            android:id="@+id/txt_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
-            android:text="haha"
-            android:textColor="?attr/colorAccent"
-            android:textSize="14dp" />
+            <RelativeLayout
+                android:id="@+id/box_bkg"
+                android:layout_width="125dp"
+                android:layout_height="125dp"></RelativeLayout>
+
+            <com.kongzue.dialog.util.ProgressView
+                android:id="@+id/progress"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp" />
+
+            <TextView
+                android:id="@+id/txt_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:text="Tip"
+                android:textColor="?attr/colorAccent"
+                android:textSize="14dp"
+                />
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/psgBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="30dp"
-        android:layout_centerVertical="true" />
 
 </RelativeLayout>

@@ -53,7 +53,6 @@ public class ProgressbarDialog extends Dialog {
 
     private RelativeLayout boxInfo;
     private TextView txtInfo;
-    private ProgressBar progressBar1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class ProgressbarDialog extends Dialog {
 
         boxInfo = (RelativeLayout) findViewById(R.id.box_info);
         txtInfo = (TextView) findViewById(R.id.txt_info);
-        progressBar1 = (ProgressBar) findViewById(R.id.psgBar);
 
         if (!info.isEmpty()){
             boxInfo.setVisibility(View.VISIBLE);
