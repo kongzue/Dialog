@@ -152,7 +152,7 @@ public class BottomMenu extends BaseDialog {
                             public void run() {
                                 blurList = new BlurView(activity, null);
                                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, boxList.getHeight());
-                                blurList.setOverlayColor(Color.argb(130, 255, 255, 255));
+                                blurList.setOverlayColor(Color.argb(185, 255, 255, 255));
                                 blurList.setRadius(activity, 11, 11);
                                 boxList.addView(blurList, 0, params);
                             }
@@ -162,7 +162,7 @@ public class BottomMenu extends BaseDialog {
                             public void run() {
                                 blurCancel = new BlurView(activity, null);
                                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, boxCancel.getHeight());
-                                blurCancel.setOverlayColor(Color.argb(130, 255, 255, 255));
+                                blurCancel.setOverlayColor(Color.argb(185, 255, 255, 255));
                                 blurCancel.setRadius(activity, 11, 11);
                                 boxCancel.addView(blurCancel, 0, params);
                             }

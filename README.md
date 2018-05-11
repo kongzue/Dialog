@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.3-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.4-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.1.3/link">
-<img src="https://img.shields.io/badge/Maven-2.1.3-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.1.4/link">
+<img src="https://img.shields.io/badge/Maven-2.1.4-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.1.3</version>
+  <version>2.1.4</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.1.3'
+implementation 'com.kongzue.dialog:dialog:2.1.4'
 ```
 
 ## 使用说明
@@ -318,6 +318,9 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.1.4:
+- 底部菜单iOS风格时的透明度优化；
+
 v2.1.3:
 - WaitDialog和TipDialog现在可以衔接了；
 - 优化iOS模式下对话框的透明度和模糊程度；
