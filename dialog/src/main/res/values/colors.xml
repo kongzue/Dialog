@@ -21,7 +21,7 @@
     <color name="ios_dialog_button_press">#0f000000</color>
     <color name="ios_dialog_button_press_dark">#80323232</color>
 
-    <color name="ios_dialog_split_light">#cdcdd1</color>
+    <color name="ios_dialog_split_light">#2c000000</color>
     <color name="ios_dialog_split_dark">#4e4e50</color>
 
     <color name="dlg_bkg_dark">#f0181818</color>
@@ -41,6 +41,6 @@
 
     <color name="menu_split_line">#e0e3e9</color>
     <color name="menu_split_space">#f1f2f4</color>
-    <color name="menu_split_line_ios">#dadade</color>
+    <color name="menu_split_line_ios">#2c000000</color>
     <color name="empty">#00ffffff</color>
 </resources>

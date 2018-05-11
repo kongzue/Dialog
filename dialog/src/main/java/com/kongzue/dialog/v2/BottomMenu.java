@@ -87,8 +87,8 @@ public class BottomMenu extends BaseDialog {
             bottomSheetDialog = new MyBottomSheetDialog(activity);
             View box_view = LayoutInflater.from(activity).inflate(R.layout.bottom_menu_material, null);
 
-            listMenu = (ListView) box_view.findViewById(R.id.list_menu);
-            btnCancel = (TextView) box_view.findViewById(R.id.btn_cancel);
+            listMenu = box_view.findViewById(R.id.list_menu);
+            btnCancel = box_view.findViewById(R.id.btn_cancel);
 
             ArrayAdapter arrayAdapter = new ArrayAdapter(activity, R.layout.item_bottom_menu_material, menuText);
             listMenu.setAdapter(arrayAdapter);
@@ -137,14 +137,14 @@ public class BottomMenu extends BaseDialog {
             }
             window.setContentView(resId);
 
-            listMenu = (ListView) window.findViewById(R.id.list_menu);
-            btnCancel = (TextView) window.findViewById(R.id.btn_cancel);
+            listMenu = window.findViewById(R.id.list_menu);
+            btnCancel = window.findViewById(R.id.btn_cancel);
             switch (type) {
                 case TYPE_KONGZUE:
                     boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
                     break;
                 case TYPE_IOS:
-                    boxList = (RelativeLayout) window.findViewById(R.id.box_list);
+                    boxList = window.findViewById(R.id.box_list);
                     boxCancel = (RelativeLayout) window.findViewById(R.id.box_cancel);
                     if (use_blur) {
                         boxList.post(new Runnable() {
@@ -251,7 +251,7 @@ public class BottomMenu extends BaseDialog {
                 viewHolder = new ViewHolder();
                 LayoutInflater mInflater = LayoutInflater.from(context);
                 convertView = mInflater.inflate(resoureId, null);
-                viewHolder.textView = (TextView) convertView.findViewById(R.id.text);
+                viewHolder.textView = convertView.findViewById(R.id.text);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
