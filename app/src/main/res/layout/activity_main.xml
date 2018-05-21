@@ -276,6 +276,12 @@
                         android:layout_height="wrap_content"
                         android:text="底部菜单" />
 
+                    <Button
+                        android:id="@+id/btn_show_bottom_menu_with_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="代表提的底部菜单" />
+
                 </LinearLayout>
 
                 <TextView

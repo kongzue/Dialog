@@ -75,36 +75,38 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNotificationWithTitle;
     private Button btnNotificationWithTitleAndIcon;
     private Button btnShowBottomMenu;
+    private Button btnShowBottomMenuWithTitle;
     private Button btnShowMultipleDialogs;
 
     private void initViews() {
-        grp = (RadioGroup) findViewById(R.id.grp);
-        rdoMaterial = (RadioButton) findViewById(R.id.rdo_material);
-        rdoKongzue = (RadioButton) findViewById(R.id.rdo_kongzue);
-        rdoIos = (RadioButton) findViewById(R.id.rdo_ios);
-        grpDialogTheme = (RadioGroup) findViewById(R.id.grp_dialog_theme);
-        rdoDialogThemeLight = (RadioButton) findViewById(R.id.rdo_dialog_theme_light);
-        rdoDialogThemeDark = (RadioButton) findViewById(R.id.rdo_dialog_theme_dark);
-        btnMsg = (Button) findViewById(R.id.btn_msg);
-        btnInput = (Button) findViewById(R.id.btn_input);
-        btnSelect = (Button) findViewById(R.id.btn_select);
-        grpTipTheme = (RadioGroup) findViewById(R.id.grp_tip_theme);
-        rdoTipThemeLight = (RadioButton) findViewById(R.id.rdo_tip_theme_light);
-        rdoTipThemeDark = (RadioButton) findViewById(R.id.rdo_tip_theme_dark);
-        btnPsg = (Button) findViewById(R.id.btn_psg);
-        btnTipOk = (Button) findViewById(R.id.btn_tip_ok);
-        btnTipWarning = (Button) findViewById(R.id.btn_tip_warning);
-        btnTipError = (Button) findViewById(R.id.btn_tip_error);
-        grpNotification = (RadioGroup) findViewById(R.id.grp_notification);
-        rdoNormal = (RadioButton) findViewById(R.id.rdo_normal);
-        rdoFinish = (RadioButton) findViewById(R.id.rdo_finish);
-        rdoError = (RadioButton) findViewById(R.id.rdo_error);
-        rdoWarning = (RadioButton) findViewById(R.id.rdo_warning);
-        btnNotificationNormal = (Button) findViewById(R.id.btn_notification_normal);
-        btnNotificationWithTitle = (Button) findViewById(R.id.btn_notification_withTitle);
-        btnNotificationWithTitleAndIcon = (Button) findViewById(R.id.btn_notification_withTitleAndIcon);
-        btnShowBottomMenu = (Button) findViewById(R.id.btn_show_bottom_menu);
-        btnShowMultipleDialogs = (Button) findViewById(R.id.btn_show_multiple_dialogs);
+        grp = findViewById(R.id.grp);
+        rdoMaterial = findViewById(R.id.rdo_material);
+        rdoKongzue = findViewById(R.id.rdo_kongzue);
+        rdoIos = findViewById(R.id.rdo_ios);
+        grpDialogTheme = findViewById(R.id.grp_dialog_theme);
+        rdoDialogThemeLight = findViewById(R.id.rdo_dialog_theme_light);
+        rdoDialogThemeDark = findViewById(R.id.rdo_dialog_theme_dark);
+        btnMsg = findViewById(R.id.btn_msg);
+        btnInput = findViewById(R.id.btn_input);
+        btnSelect = findViewById(R.id.btn_select);
+        grpTipTheme = findViewById(R.id.grp_tip_theme);
+        rdoTipThemeLight = findViewById(R.id.rdo_tip_theme_light);
+        rdoTipThemeDark = findViewById(R.id.rdo_tip_theme_dark);
+        btnPsg = findViewById(R.id.btn_psg);
+        btnTipOk = findViewById(R.id.btn_tip_ok);
+        btnTipWarning = findViewById(R.id.btn_tip_warning);
+        btnTipError = findViewById(R.id.btn_tip_error);
+        grpNotification = findViewById(R.id.grp_notification);
+        rdoNormal = findViewById(R.id.rdo_normal);
+        rdoFinish = findViewById(R.id.rdo_finish);
+        rdoError = findViewById(R.id.rdo_error);
+        rdoWarning = findViewById(R.id.rdo_warning);
+        btnNotificationNormal = findViewById(R.id.btn_notification_normal);
+        btnNotificationWithTitle = findViewById(R.id.btn_notification_withTitle);
+        btnNotificationWithTitleAndIcon = findViewById(R.id.btn_notification_withTitleAndIcon);
+        btnShowBottomMenu = findViewById(R.id.btn_show_bottom_menu);
+        btnShowBottomMenuWithTitle = findViewById(R.id.btn_show_bottom_menu_with_title);
+        btnShowMultipleDialogs = findViewById(R.id.btn_show_multiple_dialogs);
     }
 
     @Override
@@ -140,6 +142,22 @@ public class MainActivity extends AppCompatActivity {
     private int notifactionType = TYPE_NORMAL;
 
     private void initEvent() {
+
+        btnShowBottomMenuWithTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> list = new ArrayList<>();
+                list.add("菜单1");
+                list.add("菜单2");
+                list.add("菜单3");
+                BottomMenu.show(me, list, new OnMenuItemClickListener() {
+                    @Override
+                    public void onClick(String text, int index) {
+                        Toast.makeText(me, "菜单 " + text + " 被点击了", SHOW_TIME_SHORT).show();
+                    }
+                }, true).setTitle("这里是标题测试");
+            }
+        });
 
         btnShowBottomMenu.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -43,4 +43,6 @@
     <color name="menu_split_space">#f1f2f4</color>
     <color name="menu_split_line_ios">#2c000000</color>
     <color name="empty">#00ffffff</color>
+
+    <color name="tip_color">#8f8f8f</color>
 </resources>

@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -40,6 +41,7 @@ public class BottomMenu extends BaseDialog {
     private AppCompatActivity activity;
     private boolean isShowCancelButton = false;
     private OnMenuItemClickListener onMenuItemClickListener;
+    private String title;
 
     private BottomMenu() {
     }
@@ -71,9 +73,11 @@ public class BottomMenu extends BaseDialog {
 
     private MyBottomSheetDialog bottomSheetDialog;
 
+    private TextView txtTitle;
     private ListView listMenu;
     private TextView btnCancel;
     private ViewGroup boxCancel;
+    private ImageView splitLine;
 
     private BlurView blurList;
     private BlurView blurCancel;
@@ -89,6 +93,14 @@ public class BottomMenu extends BaseDialog {
 
             listMenu = box_view.findViewById(R.id.list_menu);
             btnCancel = box_view.findViewById(R.id.btn_cancel);
+            txtTitle = box_view.findViewById(R.id.title);
+
+            if (title != null && !title.trim().isEmpty()) {
+                txtTitle.setText(title);
+                txtTitle.setVisibility(View.VISIBLE);
+            } else {
+                txtTitle.setVisibility(View.GONE);
+            }
 
             ArrayAdapter arrayAdapter = new ArrayAdapter(activity, R.layout.item_bottom_menu_material, menuText);
             listMenu.setAdapter(arrayAdapter);
@@ -139,6 +151,18 @@ public class BottomMenu extends BaseDialog {
 
             listMenu = window.findViewById(R.id.list_menu);
             btnCancel = window.findViewById(R.id.btn_cancel);
+            txtTitle = window.findViewById(R.id.title);
+            splitLine = window.findViewById(R.id.title_split_line);
+
+            if (title != null && !title.trim().isEmpty()) {
+                txtTitle.setText(title);
+                txtTitle.setVisibility(View.VISIBLE);
+                splitLine.setVisibility(View.VISIBLE);
+            } else {
+                txtTitle.setVisibility(View.GONE);
+                splitLine.setVisibility(View.GONE);
+            }
+
             switch (type) {
                 case TYPE_KONGZUE:
                     boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
@@ -277,6 +301,38 @@ public class BottomMenu extends BaseDialog {
 
             return convertView;
         }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public BottomMenu setTitle(String title) {
+        this.title = title;
+        switch (type) {
+            case TYPE_MATERIAL:
+                if (bottomSheetDialog != null && txtTitle != null) {
+                    if (title != null && !title.trim().isEmpty()) {
+                        txtTitle.setText(title);
+                        txtTitle.setVisibility(View.VISIBLE);
+                    } else {
+                        txtTitle.setVisibility(View.GONE);
+                    }
+                }
+                break;
+            default:
+                if (alertDialog != null && txtTitle != null) {
+                    if (title != null && !title.trim().isEmpty()) {
+                        txtTitle.setText(title);
+                        txtTitle.setVisibility(View.VISIBLE);
+                        splitLine.setVisibility(View.VISIBLE);
+                    } else {
+                        txtTitle.setVisibility(View.GONE);
+                    }
+                }
+                break;
+        }
+        return this;
     }
 
     class MyBottomSheetDialog extends BottomSheetDialog {

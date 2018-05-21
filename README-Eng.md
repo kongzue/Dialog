@@ -2,10 +2,10 @@
 To the products that require Android to follow apple's design (XD
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.6-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.7-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.1.6/link">
-<img src="https://img.shields.io/badge/Maven-2.1.6-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.1.7/link">
+<img src="https://img.shields.io/badge/Maven-2.1.7-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -34,13 +34,13 @@ Maven：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.1.6</version>
+  <version>2.1.7</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 ```
-implementation 'com.kongzue.dialog:dialog:2.1.6'
+implementation 'com.kongzue.dialog:dialog:2.1.7'
 ```
 
 ## Explanation
@@ -228,6 +228,11 @@ BottomMenu.show(me, list, new OnMenuItemClickListener() {
         Toast.makeText(me,"Menu " + text + " be click.",SHOW_TIME_SHORT).show();
     }
 },true);
+```
+
+Add title:
+```
+BottomMenu.show(me, list).setTitle("这里是标题测试");
 ```
 
 Note: This menu is temporarily unaffected by night mode (THEME_DARK) and only provides light theme, but does not preclude subsequent versions from updating it.

@@ -11,6 +11,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:textSize="12dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/tip_color"
+            android:layout_marginVertical="10dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/title_split_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/menu_split_line"/>
+
         <ListView
             android:id="@+id/list_menu"
             android:layout_width="match_parent"
