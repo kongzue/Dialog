@@ -72,6 +72,7 @@ public class BottomMenu extends BaseDialog {
     }
 
     private MyBottomSheetDialog bottomSheetDialog;
+    private MenuArrayAdapter menuArrayAdapter;
 
     private TextView txtTitle;
     private ListView listMenu;
@@ -213,7 +214,7 @@ public class BottomMenu extends BaseDialog {
                     if (ios_normal_button_color != -1) {
                         btnCancel.setTextColor(ios_normal_button_color);
                     }
-                    MenuArrayAdapter menuArrayAdapter = new MenuArrayAdapter(activity, item_resId, menuText);
+                    menuArrayAdapter = new MenuArrayAdapter(activity, item_resId, menuText);
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
             }
@@ -287,10 +288,18 @@ public class BottomMenu extends BaseDialog {
                     viewHolder.textView.setTextColor(ios_normal_button_color);
                 }
                 if (objects.size() == 1) {
-                    viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
+                    if (title != null && !title.trim().isEmpty()) {
+                        viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
+                    }else{
+                        viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
+                    }
                 } else {
                     if (position == 0) {
-                        viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_top);
+                        if (title != null && !title.trim().isEmpty()) {
+                            viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_middle);
+                        }else{
+                            viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_top);
+                        }
                     } else if (position == objects.size() - 1) {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
                     } else {
@@ -332,6 +341,7 @@ public class BottomMenu extends BaseDialog {
                 }
                 break;
         }
+        if (menuArrayAdapter!=null)menuArrayAdapter.notifyDataSetChanged();
         return this;
     }
 
