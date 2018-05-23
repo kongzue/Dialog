@@ -18,7 +18,7 @@ Kongzue's Dialog have pop-up styles that provide the simplest way to invoke a me
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
 
-The trial can be downloaded from http://kongzue.com/open_source/KongzueDialogDemo2.0.apk 
+The trial can be downloaded from http://fir.im/kongzueDial
 
 ![Kongzue's Dialog Demo](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/KongzueDialogDemoDownload.png)
 
