@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.8-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.9-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.1.8/link">
-<img src="https://img.shields.io/badge/Maven-2.1.8-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.1.9/link">
+<img src="https://img.shields.io/badge/Maven-2.1.9-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.1.8</version>
+  <version>2.1.9</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.1.8'
+implementation 'com.kongzue.dialog:dialog:2.1.9'
 ```
 
 ## 使用说明
@@ -323,6 +323,9 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.1.9:
+- Android Support 支持库升级到 27.1.0；
+
 v2.1.8:
 - 修复显示标题的底部菜单情况下第一位菜单按下状态不符的bug；
 
