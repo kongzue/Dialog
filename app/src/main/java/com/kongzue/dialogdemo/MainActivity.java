@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
         DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
         DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
+        DialogSettings.dialog_menu_text_size = -1;      //设置菜单默认字号，<=0不启用
 
         MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
     }

@@ -1,11 +1,11 @@
-# Kongzue's Dialog 2.1
+# Kongzue's Dialog 2.2
 To the products that require Android to follow apple's design (XD
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.9-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.0-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.1.9/link">
-<img src="https://img.shields.io/badge/Maven-2.1.9-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.0/link">
+<img src="https://img.shields.io/badge/Maven-2.2.0-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -34,13 +34,13 @@ Maven：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.1.9</version>
+  <version>2.2.0</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 ```
-implementation 'com.kongzue.dialog:dialog:2.1.9'
+implementation 'com.kongzue.dialog:dialog:2.2.0'
 ```
 
 ## Explanation
@@ -278,6 +278,7 @@ Additional custom properties are available:
 DialogSettings.dialog_title_text_size = -1;     //Set dialog title text size, <= 0 is not enabled
 DialogSettings.dialog_message_text_size = -1;   //Set dialog box content text size, <= 0 is not enabled
 DialogSettings.dialog_button_text_size = -1;    //Set dialog button text size, <= 0 is not enabled
+DialogSettings.dialog_menu_text_size = -1;      //Set bottom menu text size, <= 0 is not enabled
 DialogSettings.tip_text_size = -1;              //Set prompt box text size, <= 0 is not enabled
 DialogSettings.ios_normal_button_color = -1;    //Set IOs style default button text color, = -1 not enabled
 ```

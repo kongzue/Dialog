@@ -1,17 +1,17 @@
-# 空祖家的对话框 2.1
+# 空祖家的对话框 2.2
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.1.9-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.0-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.1.9/link">
-<img src="https://img.shields.io/badge/Maven-2.1.9-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.0/link">
+<img src="https://img.shields.io/badge/Maven-2.2.0-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
-<img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
+<img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
 </a> 
 <a href="http://www.kongzue.com">
-<img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Maven">
+<img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Homepage">
 </a> 
 
 多语言文档：
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.1.9</version>
+  <version>2.2.0</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.1.9'
+implementation 'com.kongzue.dialog:dialog:2.2.0'
 ```
 
 ## 使用说明
@@ -251,6 +251,7 @@ activity | 必须继承自 AppCompatActivity  | 必须
 list | 泛型为 String 的列表 | 必须
 OnMenuItemClickListener | 点击回调 | 可选
 isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风格对此无效 | 可选
+cancelButtonCaption | 设置“取消”按钮的文字 | 可选
 
 另外，本菜单暂时对夜间模式（THEME_DARK）不受影响，只提供Light Theme，但不排除接下来的版本对此更新。
 
@@ -301,6 +302,7 @@ WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListene
 DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
 DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
 DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
+DialogSettings.dialog_menu_text_size = -1;      //设置菜单默认字号，<=0不启用
 DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
 DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
 ```
@@ -323,6 +325,11 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.2.0:
+- 修复bug；
+- 底部菜单支持取消按钮文字设置；
+- 底部菜单支持菜单字号设置（dialog_menu_text_size）；
+
 v2.1.9:
 - Android Support 支持库升级到 27.1.0；
 

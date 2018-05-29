@@ -68,6 +68,11 @@ public class DialogSettings {
      *  当值<=0时使用默认大小
      */
     public static int tip_text_size = 0;
+    /*
+     *  决定菜单文字字样大小
+     *  当值<=0时使用默认大小
+     */
+    public static int dialog_menu_text_size = 0;
 
     /*
      *  决定iOS风格时，默认按钮文字颜色(Color)

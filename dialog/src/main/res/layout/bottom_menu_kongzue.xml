@@ -67,7 +67,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:singleLine="true"
-                android:text="取消"
+                android:text=""
                 android:textColor="@color/dark"
                 android:textSize="16dp" />
 

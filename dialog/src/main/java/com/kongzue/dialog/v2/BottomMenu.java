@@ -9,6 +9,7 @@ import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,26 +43,32 @@ public class BottomMenu extends BaseDialog {
     private boolean isShowCancelButton = false;
     private OnMenuItemClickListener onMenuItemClickListener;
     private String title;
+    private String cancelButtonCaption = "取消";
 
     private BottomMenu() {
     }
 
     //Fast Function
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText) {
-        return show(activity, menuText, null, true);
+        return show(activity, menuText, null, true, "取消");
     }
 
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener) {
-        return show(activity, menuText, onMenuItemClickListener, true);
+        return show(activity, menuText, onMenuItemClickListener, true, "取消");
     }
 
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton) {
+        return show(activity, menuText, onMenuItemClickListener, isShowCancelButton, "取消");
+    }
+
+    public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
             if (bottomMenu == null) bottomMenu = new BottomMenu();
             bottomMenu.activity = activity;
             bottomMenu.menuText = menuText;
             bottomMenu.isShowCancelButton = isShowCancelButton;
             bottomMenu.onMenuItemClickListener = onMenuItemClickListener;
+            bottomMenu.cancelButtonCaption = cancelButtonCaption;
             if (menuText.isEmpty()) {
                 bottomMenu.log("未启动底部菜单 -> 没有可显示的内容");
                 return bottomMenu;
@@ -72,7 +79,7 @@ public class BottomMenu extends BaseDialog {
     }
 
     private MyBottomSheetDialog bottomSheetDialog;
-    private MenuArrayAdapter menuArrayAdapter;
+    private ArrayAdapter menuArrayAdapter;
 
     private TextView txtTitle;
     private ListView listMenu;
@@ -96,6 +103,11 @@ public class BottomMenu extends BaseDialog {
             btnCancel = box_view.findViewById(R.id.btn_cancel);
             txtTitle = box_view.findViewById(R.id.title);
 
+            if (dialog_menu_text_size > 0) {
+                btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+            }
+            btnCancel.setText(cancelButtonCaption);
+
             if (title != null && !title.trim().isEmpty()) {
                 txtTitle.setText(title);
                 txtTitle.setVisibility(View.VISIBLE);
@@ -103,8 +115,8 @@ public class BottomMenu extends BaseDialog {
                 txtTitle.setVisibility(View.GONE);
             }
 
-            ArrayAdapter arrayAdapter = new ArrayAdapter(activity, R.layout.item_bottom_menu_material, menuText);
-            listMenu.setAdapter(arrayAdapter);
+            menuArrayAdapter = new NormalMenuArrayAdapter(activity, R.layout.item_bottom_menu_material, menuText);
+            listMenu.setAdapter(menuArrayAdapter);
 
             listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -164,6 +176,11 @@ public class BottomMenu extends BaseDialog {
                 splitLine.setVisibility(View.GONE);
             }
 
+            if (dialog_menu_text_size > 0) {
+                btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+            }
+            btnCancel.setText(cancelButtonCaption);
+
             switch (type) {
                 case TYPE_KONGZUE:
                     boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
@@ -207,14 +224,14 @@ public class BottomMenu extends BaseDialog {
 
             switch (type) {
                 case TYPE_KONGZUE:
-                    ArrayAdapter arrayAdapter = new ArrayAdapter(activity, item_resId, menuText);
-                    listMenu.setAdapter(arrayAdapter);
+                    menuArrayAdapter = new NormalMenuArrayAdapter(activity, item_resId, menuText);
+                    listMenu.setAdapter(menuArrayAdapter);
                     break;
                 case TYPE_IOS:
                     if (ios_normal_button_color != -1) {
                         btnCancel.setTextColor(ios_normal_button_color);
                     }
-                    menuArrayAdapter = new MenuArrayAdapter(activity, item_resId, menuText);
+                    menuArrayAdapter = new IOSMenuArrayAdapter(activity, item_resId, menuText);
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
             }
@@ -237,20 +254,19 @@ public class BottomMenu extends BaseDialog {
         }
     }
 
-    class MenuArrayAdapter extends ArrayAdapter {
+    class NormalMenuArrayAdapter extends ArrayAdapter {
+        public int resoureId;
+        public List<String> objects;
+        public Context context;
 
-        private int resoureId;
-        private List<String> objects;
-        private Context context;
-
-        public MenuArrayAdapter(Context context, int resourceId, List<String> objects) {
+        public NormalMenuArrayAdapter(Context context, int resourceId, List<String> objects) {
             super(context, resourceId, objects);
             this.objects = objects;
             this.resoureId = resourceId;
             this.context = context;
         }
 
-        private class ViewHolder {
+        public class ViewHolder {
             TextView textView;
         }
 
@@ -284,20 +300,55 @@ public class BottomMenu extends BaseDialog {
             String text = objects.get(position);
             if (null != text) {
                 viewHolder.textView.setText(text);
+                if (dialog_menu_text_size > 0) {
+                    viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+                }
+            }
+
+            return convertView;
+        }
+    }
+
+    class IOSMenuArrayAdapter extends NormalMenuArrayAdapter {
+
+        public IOSMenuArrayAdapter(Context context, int resourceId, List<String> objects) {
+            super(context, resourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder = null;
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                LayoutInflater mInflater = LayoutInflater.from(context);
+                convertView = mInflater.inflate(resoureId, null);
+                viewHolder.textView = convertView.findViewById(R.id.text);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            String text = objects.get(position);
+            if (null != text) {
+                viewHolder.textView.setText(text);
+
+                if (dialog_menu_text_size > 0) {
+                    viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+                }
+
                 if (ios_normal_button_color != -1) {
                     viewHolder.textView.setTextColor(ios_normal_button_color);
                 }
                 if (objects.size() == 1) {
                     if (title != null && !title.trim().isEmpty()) {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
-                    }else{
+                    } else {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
                     }
                 } else {
                     if (position == 0) {
                         if (title != null && !title.trim().isEmpty()) {
                             viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_middle);
-                        }else{
+                        } else {
                             viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_top);
                         }
                     } else if (position == objects.size() - 1) {
@@ -341,7 +392,7 @@ public class BottomMenu extends BaseDialog {
                 }
                 break;
         }
-        if (menuArrayAdapter!=null)menuArrayAdapter.notifyDataSetChanged();
+        if (menuArrayAdapter != null) menuArrayAdapter.notifyDataSetChanged();
         return this;
     }
 
@@ -382,6 +433,11 @@ public class BottomMenu extends BaseDialog {
             int height = wm.getDefaultDisplay().getHeight();
             return height;
         }
+    }
+
+    private int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
 }
