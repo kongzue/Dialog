@@ -53,6 +53,12 @@ public class WaitDialog extends BaseDialog {
     private ProgressView progress;
 
     public void showDialog() {
+        if (waitDialog != null) {
+            if (waitDialog.alertDialog != null) {
+                waitDialog.alertDialog.dismiss();
+            }
+        }
+
         AlertDialog.Builder builder;
         int bkgResId;
         int blur_front_color;
@@ -84,10 +90,10 @@ public class WaitDialog extends BaseDialog {
         txtInfo = window.findViewById(R.id.txt_info);
         progress = window.findViewById(R.id.progress);
 
-        if (tip_theme ==THEME_LIGHT){
-            progress.setStrokeColors(new int[] {Color.rgb(0,0,0)});
-        }else{
-            progress.setStrokeColors(new int[] {Color.rgb(255,255,255)});
+        if (tip_theme == THEME_LIGHT) {
+            progress.setStrokeColors(new int[]{Color.rgb(0, 0, 0)});
+        } else {
+            progress.setStrokeColors(new int[]{Color.rgb(255, 255, 255)});
         }
 
         if (use_blur) {
@@ -111,7 +117,10 @@ public class WaitDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                if (dialogLifeCycleListener != null) {
+                    dialogLifeCycleListener.onDismiss();
+                    alertDialog = null;
+                }
             }
         });
         alertDialog.show();

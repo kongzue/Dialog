@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.0-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.1-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.0/link">
-<img src="https://img.shields.io/badge/Maven-2.2.0-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.1/link">
+<img src="https://img.shields.io/badge/Maven-2.2.1-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.0</version>
+  <version>2.2.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.0'
+implementation 'com.kongzue.dialog:dialog:2.2.1'
 ```
 
 ## 使用说明
@@ -325,6 +325,11 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.2.1:
+- 修复多次重复调用 WaitDialog 和 TipDialog 时可能存在的叠加问题；
+- 底部菜单 BottomMenu 现已全部拒绝使用margin\padding - Horizontal\Vertical以避免部分设备上的兼容问题导致的布局显示错误；
+- 统一背景遮罩层 40% 不透明度；
+
 v2.2.0:
 - 修复bug；
 - 底部菜单支持取消按钮文字设置；

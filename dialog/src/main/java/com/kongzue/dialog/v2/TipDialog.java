@@ -102,6 +102,12 @@ public class TipDialog extends BaseDialog {
     private TextView txtInfo;
 
     public void showDialog() {
+        if (tipDialog != null) {
+            if (tipDialog.alertDialog != null) {
+                tipDialog.alertDialog.dismiss();
+            }
+        }
+
         AlertDialog.Builder builder;
 
         int bkgResId;
@@ -183,7 +189,10 @@ public class TipDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                if (dialogLifeCycleListener != null) {
+                    dialogLifeCycleListener.onDismiss();
+                    alertDialog = null;
+                }
             }
         });
         alertDialog.show();

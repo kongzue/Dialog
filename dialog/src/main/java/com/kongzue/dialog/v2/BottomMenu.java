@@ -69,6 +69,7 @@ public class BottomMenu extends BaseDialog {
             bottomMenu.isShowCancelButton = isShowCancelButton;
             bottomMenu.onMenuItemClickListener = onMenuItemClickListener;
             bottomMenu.cancelButtonCaption = cancelButtonCaption;
+            bottomMenu.title = "";
             if (menuText.isEmpty()) {
                 bottomMenu.log("未启动底部菜单 -> 没有可显示的内容");
                 return bottomMenu;

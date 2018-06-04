@@ -2,10 +2,10 @@
 To the products that require Android to follow apple's design (XD
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.0-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.1-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.0/link">
-<img src="https://img.shields.io/badge/Maven-2.2.0-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.1/link">
+<img src="https://img.shields.io/badge/Maven-2.2.1-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -34,13 +34,13 @@ Maven：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.0</version>
+  <version>2.2.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.0'
+implementation 'com.kongzue.dialog:dialog:2.2.1'
 ```
 
 ## Explanation
