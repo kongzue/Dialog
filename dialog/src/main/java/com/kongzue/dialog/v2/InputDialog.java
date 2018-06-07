@@ -3,12 +3,14 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -140,11 +142,11 @@ public class InputDialog extends BaseDialog {
                 window.setContentView(R.layout.dialog_select);
 
                 bkg = (LinearLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-                txtInput = (EditText) window.findViewById(R.id.txt_input);
-                btnSelectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
-                btnSelectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
+                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
+                txtInput = window.findViewById(R.id.txt_input);
+                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
+                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
 
                 txtDialogTitle.setText(title);
                 txtDialogTip.setText(message);
@@ -162,7 +164,6 @@ public class InputDialog extends BaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
                     }
@@ -207,12 +208,18 @@ public class InputDialog extends BaseDialog {
                 alertDialog.setButton(BUTTON_POSITIVE, okButtonCaption, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (onOkButtonClickListener != null)
-                            onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
+
                     }
                 });
                 alertDialog.setButton(BUTTON_NEGATIVE, cancelButtonCaption, onCancelButtonClickListener);
                 alertDialog.show();
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onOkButtonClickListener != null)
+                            onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
+                    }
+                });
 
                 if (dialog_theme == THEME_DARK) {
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
@@ -246,7 +253,6 @@ public class InputDialog extends BaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
                     }
@@ -350,4 +356,5 @@ public class InputDialog extends BaseDialog {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
 }

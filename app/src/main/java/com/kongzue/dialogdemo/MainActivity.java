@@ -290,10 +290,16 @@ public class MainActivity extends AppCompatActivity {
         btnInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", new InputDialogOkButtonClickListener() {
+                InputDialog.show(me, "验证", "请出入正确的用户名：", new InputDialogOkButtonClickListener() {
                     @Override
                     public void onClick(Dialog dialog, String inputText) {
-                        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+                        if (!inputText.equals("kongzue")){
+                            TipDialog.show(me,"错误的用户名",TipDialog.SHOW_TIME_SHORT,TipDialog.TYPE_ERROR);
+                            Notification.show(me,0,"小提示：用户名是：kongzue");
+                        }else{
+                            TipDialog.show(me,"您已通过",TipDialog.SHOW_TIME_SHORT,TipDialog.TYPE_FINISH);
+                            dialog.dismiss();
+                        }
                     }
                 });
             }
