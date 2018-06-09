@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.2-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.3-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.2/link">
-<img src="https://img.shields.io/badge/Maven-2.2.2-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.3/link">
+<img src="https://img.shields.io/badge/Maven-2.2.3-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.2</version>
+  <version>2.2.3</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.2'
+implementation 'com.kongzue.dialog:dialog:2.2.3'
 ```
 
 ## 使用说明
@@ -80,12 +80,17 @@ DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色
 5) 从 2.1.1 版本开始，iOS风格的对话框、提示框、底部菜单新增即时模糊效果：
 ![Kongzue's Dialog Blur](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.1.1_blur.png)
 
+6) 从 2.2.3 版本开始，MessageDialog、SelectDialog、InputDialog和BottomMenu 支持自定义布局：
+![Kongzue's Dialog CustomView](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.2.3_customView.png)
+
 ## 关于v2组件包
 在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
 
 为了更有效率的开发，我们现在强烈推荐直接使用v2组件库，其包含的包地址为：com.kongzue.dialog.v2
 
-### 关于 2.1.1 版本后自带的模糊效果
+### 关于模糊效果
+从2.1.1版本起可使用即时模糊效果。
+
 您可以通过以下属性设置开关：
 ```
 DialogSettings.use_blur = true;                 //设置是否启用模糊
@@ -271,6 +276,22 @@ BottomMenu.show(me, list);
 BottomMenu.show(me, list).setTitle("这里是标题测试");
 ```
 
+## 自定义布局：
+从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局，因为一些原因，选择 Material 风格时仅支持对话框全部使用自定义布局。
+
+使用方法举例：
+```
+//初始化布局：
+View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
+//启动对话框
+MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setCustomView(customView);
+```
+
 ## 附加功能：
 在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
 
@@ -325,6 +346,10 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.2.3:
+- 修复bug；
+- 新增添加自定义布局，目前支持 MessageDialog、SelectDialog、InputDialog和BottomMenu，因为一些原因，选择 Material 风格时仅支持对话框全部使用自定义布局。
+
 v2.2.2:
 - InputDialog 点击确定后默认不关闭对话框，可以作出判断后再使用 dialog.dismiss() 关闭；
 

@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,28 +25,29 @@ import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class MessageDialog extends BaseDialog {
-
+    
     private AlertDialog alertDialog;
     private static MessageDialog messageDialog;
     private boolean isCanCancel = true;
-
+    
     private Context context;
     private String title;
     private String message;
     private String buttonCaption = "确定";
     private DialogInterface.OnClickListener onOkButtonClickListener;
-
+    
     private MessageDialog() {
     }
-
+    
     //Fast Function
     public static MessageDialog show(Context context, String title, String message) {
         return show(context, title, message, "确定", null);
     }
-
+    
     public static MessageDialog show(Context context, String title, String message, String buttonCaption, DialogInterface.OnClickListener onOkButtonClickListener) {
         synchronized (MessageDialog.class) {
-            if (messageDialog == null) messageDialog = new MessageDialog();
+            messageDialog = new MessageDialog();
+            messageDialog.alertDialog = null;
             messageDialog.context = context;
             messageDialog.title = title;
             messageDialog.buttonCaption = buttonCaption;
@@ -56,7 +59,7 @@ public class MessageDialog extends BaseDialog {
             return messageDialog;
         }
     }
-
+    
     private BlurView blur;
     private ViewGroup bkg;
     private TextView txtDialogTitle;
@@ -66,9 +69,10 @@ public class MessageDialog extends BaseDialog {
     private TextView btnSelectNegative;
     private ImageView splitVertical;
     private TextView btnSelectPositive;
-
+    private RelativeLayout customView;
+    
     int blur_front_color;
-
+    
     public void showDialog() {
         log("启动消息对话框 -> " + message);
         AlertDialog.Builder builder;
@@ -105,41 +109,55 @@ public class MessageDialog extends BaseDialog {
                 break;
         }
         builder.setCancelable(isCanCancel);
-
+        
         alertDialog = builder.create();
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
-
+        
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (customView != null) customView.removeAllViews();
+                customView = null;
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
                 isDialogShown = false;
                 dialogList.remove(0);
                 showNextDialog();
             }
         });
-
+        
         Window window = alertDialog.getWindow();
         switch (type) {
             case TYPE_KONGZUE:
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select);
-
+                
                 bkg = (LinearLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-                txtInput = (EditText) window.findViewById(R.id.txt_input);
-                btnSelectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
-                btnSelectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
-
-                txtDialogTitle.setText(title);
-                txtDialogTip.setText(message);
-                if (message.contains("\n")) {
-                    txtDialogTip.setGravity(Gravity.LEFT);
+                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
+                txtInput = window.findViewById(R.id.txt_input);
+                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
+                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
+                customView = window.findViewById(R.id.box_custom);
+                
+                if (isNull(title)) {
+                    txtDialogTitle.setVisibility(View.GONE);
                 } else {
-                    txtDialogTip.setGravity(Gravity.CENTER_HORIZONTAL);
+                    txtDialogTitle.setVisibility(View.VISIBLE);
+                    txtDialogTitle.setText(title);
                 }
+                if (isNull(message)) {
+                    txtDialogTip.setVisibility(View.GONE);
+                } else {
+                    txtDialogTip.setVisibility(View.VISIBLE);
+                    txtDialogTip.setText(message);
+                    if (message.contains("\n")) {
+                        txtDialogTip.setGravity(Gravity.LEFT);
+                    } else {
+                        txtDialogTip.setGravity(Gravity.CENTER_HORIZONTAL);
+                    }
+                }
+                
                 btnSelectNegative.setVisibility(View.GONE);
                 btnSelectPositive.setText(buttonCaption);
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +168,7 @@ public class MessageDialog extends BaseDialog {
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
                 });
-
+                
                 if (dialog_theme == THEME_DARK) {
                     bkg.setBackgroundResource(R.color.dlg_bkg_dark);
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_kongzue_gray_dark);
@@ -158,7 +176,7 @@ public class MessageDialog extends BaseDialog {
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
                     btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                 }
-
+                
                 break;
             case TYPE_MATERIAL:
                 alertDialog.setTitle(title);
@@ -170,18 +188,30 @@ public class MessageDialog extends BaseDialog {
                 window.setWindowAnimations(R.style.iOSAnimStyle);
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select_ios);
-
+                
                 bkg = (RelativeLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-                txtInput = (EditText) window.findViewById(R.id.txt_input);
-                splitHorizontal = (ImageView) window.findViewById(R.id.split_horizontal);
-                btnSelectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
-                splitVertical = (ImageView) window.findViewById(R.id.split_vertical);
-                btnSelectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
-
-                txtDialogTitle.setText(title);
-                txtDialogTip.setText(message);
+                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
+                txtInput = window.findViewById(R.id.txt_input);
+                splitHorizontal = window.findViewById(R.id.split_horizontal);
+                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
+                splitVertical = window.findViewById(R.id.split_vertical);
+                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
+                customView = window.findViewById(R.id.box_custom);
+                
+                if (isNull(title)) {
+                    txtDialogTitle.setVisibility(View.GONE);
+                } else {
+                    txtDialogTitle.setVisibility(View.VISIBLE);
+                    txtDialogTitle.setText(title);
+                }
+                if (isNull(message)) {
+                    txtDialogTip.setVisibility(View.GONE);
+                } else {
+                    txtDialogTip.setVisibility(View.VISIBLE);
+                    txtDialogTip.setText(message);
+                }
+                
                 btnSelectNegative.setVisibility(View.GONE);
                 splitVertical.setVisibility(View.GONE);
                 btnSelectPositive.setText(buttonCaption);
@@ -193,7 +223,7 @@ public class MessageDialog extends BaseDialog {
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
                 });
-
+                
                 int bkgResId;
                 if (dialog_theme == THEME_DARK) {
                     splitHorizontal.setBackgroundResource(R.color.ios_dialog_split_dark);
@@ -206,7 +236,7 @@ public class MessageDialog extends BaseDialog {
                     bkgResId = R.drawable.rect_light;
                     blur_front_color = Color.argb(185, 255, 255, 255);
                 }
-
+                
                 if (use_blur) {
                     bkg.post(new Runnable() {
                         @Override
@@ -220,14 +250,14 @@ public class MessageDialog extends BaseDialog {
                 } else {
                     bkg.setBackgroundResource(bkgResId);
                 }
-
+                
                 if (ios_normal_button_color != -1) {
                     btnSelectPositive.setTextColor(ios_normal_button_color);
                 }
-
+                
                 break;
         }
-
+        
         if (type != TYPE_MATERIAL) {
             if (dialog_title_text_size > 0) {
                 txtDialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_title_text_size);
@@ -242,10 +272,32 @@ public class MessageDialog extends BaseDialog {
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
-
+    
     public MessageDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
+    
+    public MessageDialog setCustomView(View view) {
+        if (type == TYPE_MATERIAL) {
+            customView = new RelativeLayout(context);
+            customView.addView(view);
+            alertDialog.setContentView(customView);
+        } else {
+            if (alertDialog != null && view != null) {
+                customView.setVisibility(View.VISIBLE);
+                customView.addView(view);
+            }
+        }
+        return this;
+    }
+    
+    private boolean isNull(String s) {
+        if (s == null || s.trim().isEmpty() || s.equals("null")) {
+            return true;
+        }
+        return false;
+    }
+    
 }

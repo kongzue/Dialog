@@ -122,6 +122,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:text="带自定义布局的对话框" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_msg_withCustom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="消息对话框" />
+
+                    <Button
+                        android:id="@+id/btn_input_withCustom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="输入对话框" />
+
+                    <Button
+                        android:id="@+id/btn_select_withCustom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="选择对话框" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="进度与提示" />
 
                 <RadioGroup
@@ -278,6 +309,31 @@
 
                     <Button
                         android:id="@+id/btn_show_bottom_menu_with_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="带标题的底部菜单" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="带自定义布局的底部菜单" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_show_bottom_menu_withCustom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="底部菜单" />
+
+                    <Button
+                        android:id="@+id/btn_show_bottom_menu_with_title_withCustom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="带标题的底部菜单" />

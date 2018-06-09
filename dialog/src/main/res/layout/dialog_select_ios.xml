@@ -43,6 +43,12 @@
                 android:textColor="?attr/colorAccent"
                 android:textSize="13dp" />
 
+            <RelativeLayout
+                android:id="@+id/box_custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"></RelativeLayout>
+
             <EditText
                 android:id="@+id/txt_input"
                 android:layout_width="match_parent"

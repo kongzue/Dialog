@@ -27,11 +27,11 @@ import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class InputDialog extends BaseDialog {
-
+    
     private AlertDialog alertDialog;
     private static InputDialog inputDialog;
     private boolean isCanCancel = false;
-
+    
     private Context context;
     private String title;
     private String message;
@@ -41,19 +41,20 @@ public class InputDialog extends BaseDialog {
     private String cancelButtonCaption = "取消";
     private InputDialogOkButtonClickListener onOkButtonClickListener;
     private DialogInterface.OnClickListener onCancelButtonClickListener;
-
+    
     private InputDialog() {
     }
-
+    
     //Fast Function
     public static InputDialog show(Context context, String title, String message, InputDialogOkButtonClickListener onOkButtonClickListener) {
         return show(context, title, message, "确定", onOkButtonClickListener, "取消", null);
     }
-
+    
     public static InputDialog show(Context context, String title, String message, String okButtonCaption, InputDialogOkButtonClickListener onOkButtonClickListener,
                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (InputDialog.class) {
-            if (inputDialog == null) inputDialog = new InputDialog();
+            inputDialog = new InputDialog();
+            inputDialog.alertDialog = null;
             inputDialog.context = context;
             inputDialog.title = title;
             inputDialog.message = message;
@@ -67,7 +68,7 @@ public class InputDialog extends BaseDialog {
             return inputDialog;
         }
     }
-
+    
     private BlurView blur;
     private ViewGroup bkg;
     private TextView txtDialogTitle;
@@ -77,13 +78,14 @@ public class InputDialog extends BaseDialog {
     private TextView btnSelectNegative;
     private ImageView splitVertical;
     private TextView btnSelectPositive;
-
+    private RelativeLayout customView;
+    
     int blur_front_color;
-
+    
     public void showDialog() {
         log("启动输入对话框 -> " + message);
         AlertDialog.Builder builder;
-
+        
         switch (type) {
             case TYPE_IOS:
                 switch (dialog_theme) {
@@ -117,15 +119,16 @@ public class InputDialog extends BaseDialog {
                 break;
         }
         builder.setCancelable(isCanCancel);
-
+        
         alertDialog = builder.create();
         alertDialog.setView(new EditText(context));
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
-
+        
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
@@ -134,31 +137,43 @@ public class InputDialog extends BaseDialog {
                 showNextDialog();
             }
         });
-
+        
         Window window = alertDialog.getWindow();
         switch (type) {
             case TYPE_KONGZUE:
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select);
-
+                
                 bkg = (LinearLayout) window.findViewById(R.id.bkg);
                 txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
                 txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
                 txtInput = window.findViewById(R.id.txt_input);
                 btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
                 btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
-
-                txtDialogTitle.setText(title);
-                txtDialogTip.setText(message);
-                if (message.contains("\n")) {
-                    txtDialogTip.setGravity(Gravity.LEFT);
-                } else {
-                    txtDialogTip.setGravity(Gravity.CENTER_HORIZONTAL);
+                customView = window.findViewById(R.id.box_custom);
+    
+                if (isNull(title)){
+                    txtDialogTitle.setVisibility(View.GONE);
+                }else{
+                    txtDialogTitle.setVisibility(View.VISIBLE);
+                    txtDialogTitle.setText(title);
                 }
+                if (isNull(message)){
+                    txtDialogTip.setVisibility(View.GONE);
+                }else{
+                    txtDialogTip.setVisibility(View.VISIBLE);
+                    txtDialogTip.setText(message);
+                    if (message.contains("\n")) {
+                        txtDialogTip.setGravity(Gravity.LEFT);
+                    } else {
+                        txtDialogTip.setGravity(Gravity.CENTER_HORIZONTAL);
+                    }
+                }
+                
                 txtInput.setVisibility(View.VISIBLE);
                 txtInput.setText(defaultInputText);
                 txtInput.setHint(defaultInputHint);
-
+                
                 btnSelectNegative.setVisibility(View.VISIBLE);
                 btnSelectPositive.setText(okButtonCaption);
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +192,7 @@ public class InputDialog extends BaseDialog {
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
                 });
-
+                
                 if (dialog_theme == THEME_DARK) {
                     bkg.setBackgroundResource(R.color.dlg_bkg_dark);
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_kongzue_gray_dark);
@@ -187,7 +202,7 @@ public class InputDialog extends BaseDialog {
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
                     txtInput.setBackgroundResource(R.drawable.editbox_bkg_dark);
                 }
-
+                
                 break;
             case TYPE_MATERIAL:
                 txtInput = new EditText(context);
@@ -201,17 +216,18 @@ public class InputDialog extends BaseDialog {
                 });
                 txtInput.setText(defaultInputText);
                 txtInput.setHint(defaultInputHint);
-
+                
                 alertDialog.setTitle(title);
                 alertDialog.setMessage(message);
                 alertDialog.setView(txtInput);
                 alertDialog.setButton(BUTTON_POSITIVE, okButtonCaption, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                    
                     }
                 });
                 alertDialog.setButton(BUTTON_NEGATIVE, cancelButtonCaption, onCancelButtonClickListener);
+                
                 alertDialog.show();
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -220,7 +236,7 @@ public class InputDialog extends BaseDialog {
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
                     }
                 });
-
+                
                 if (dialog_theme == THEME_DARK) {
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
                 } else {
@@ -231,24 +247,37 @@ public class InputDialog extends BaseDialog {
                 window.setWindowAnimations(R.style.iOSAnimStyle);
                 alertDialog.show();
                 window.setContentView(R.layout.dialog_select_ios);
-
+                
                 bkg = (RelativeLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = (TextView) window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = (TextView) window.findViewById(R.id.txt_dialog_tip);
-                txtInput = (EditText) window.findViewById(R.id.txt_input);
-                splitHorizontal = (ImageView) window.findViewById(R.id.split_horizontal);
-                btnSelectNegative = (TextView) window.findViewById(R.id.btn_selectNegative);
-                splitVertical = (ImageView) window.findViewById(R.id.split_vertical);
-                btnSelectPositive = (TextView) window.findViewById(R.id.btn_selectPositive);
-                txtInput = (EditText) window.findViewById(R.id.txt_input);
-                ImageView splitVertical = (ImageView) window.findViewById(R.id.split_vertical);
+                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
+                txtInput = window.findViewById(R.id.txt_input);
+                splitHorizontal = window.findViewById(R.id.split_horizontal);
+                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
+                splitVertical = window.findViewById(R.id.split_vertical);
+                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
+                txtInput = window.findViewById(R.id.txt_input);
+                customView = window.findViewById(R.id.box_custom);
+                
+                ImageView splitVertical = window.findViewById(R.id.split_vertical);
                 splitVertical.setVisibility(View.VISIBLE);
                 txtInput.setVisibility(View.VISIBLE);
                 txtInput.setText(defaultInputText);
                 txtInput.setHint(defaultInputHint);
-
-                txtDialogTitle.setText(title);
-                txtDialogTip.setText(message);
+    
+                if (isNull(title)){
+                    txtDialogTitle.setVisibility(View.GONE);
+                }else{
+                    txtDialogTitle.setVisibility(View.VISIBLE);
+                    txtDialogTitle.setText(title);
+                }
+                if (isNull(message)){
+                    txtDialogTip.setVisibility(View.GONE);
+                }else{
+                    txtDialogTip.setVisibility(View.VISIBLE);
+                    txtDialogTip.setText(message);
+                }
+                
                 btnSelectPositive.setText(okButtonCaption);
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -267,7 +296,7 @@ public class InputDialog extends BaseDialog {
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
                 });
-
+                
                 int bkgResId;
                 if (dialog_theme == THEME_DARK) {
                     splitHorizontal.setBackgroundResource(R.color.ios_dialog_split_dark);
@@ -286,7 +315,7 @@ public class InputDialog extends BaseDialog {
                     bkgResId = R.drawable.rect_light;
                     blur_front_color = Color.argb(185, 255, 255, 255);
                 }
-
+                
                 if (use_blur) {
                     bkg.post(new Runnable() {
                         @Override
@@ -300,13 +329,13 @@ public class InputDialog extends BaseDialog {
                 } else {
                     bkg.setBackgroundResource(bkgResId);
                 }
-
+                
                 log(ios_normal_button_color);
                 if (ios_normal_button_color != -1) {
                     btnSelectNegative.setTextColor(ios_normal_button_color);
                     btnSelectPositive.setTextColor(ios_normal_button_color);
                 }
-
+                
                 break;
         }
         if (type != TYPE_MATERIAL) {
@@ -327,13 +356,13 @@ public class InputDialog extends BaseDialog {
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
-
+    
     public InputDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
-
+    
     public InputDialog setDefaultInputText(String defaultInputText) {
         this.defaultInputText = defaultInputText;
         if (alertDialog != null) {
@@ -342,7 +371,7 @@ public class InputDialog extends BaseDialog {
         }
         return this;
     }
-
+    
     public InputDialog setDefaultInputHint(String defaultInputHint) {
         this.defaultInputHint = defaultInputHint;
         if (alertDialog != null) {
@@ -351,10 +380,30 @@ public class InputDialog extends BaseDialog {
         }
         return this;
     }
-
+    
     private int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
+    
+    public InputDialog setCustomView(View view) {
+        if (type == TYPE_MATERIAL) {
+            customView = new RelativeLayout(context);
+            customView.addView(view);
+            alertDialog.setContentView(customView);
+        } else {
+            if (alertDialog != null && view != null) {
+                customView.setVisibility(View.VISIBLE);
+                customView.addView(view);
+            }
+        }
+        return this;
+    }
+    
+    private boolean isNull(String s) {
+        if (s == null || s.trim().isEmpty() || s.equals("null")) {
+            return true;
+        }
+        return false;
+    }
 }

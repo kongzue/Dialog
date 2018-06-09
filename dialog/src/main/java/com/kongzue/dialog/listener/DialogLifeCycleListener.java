@@ -1,12 +1,12 @@
 package com.kongzue.dialog.listener;
 
-import android.support.v7.app.AlertDialog;
+import android.app.Dialog;
 
 public interface DialogLifeCycleListener {
 
-    void onCreate(AlertDialog alertDialog);
+    void onCreate(Dialog alertDialog);
 
-    void onShow(AlertDialog alertDialog);
+    void onShow(Dialog alertDialog);
 
     void onDismiss();
 

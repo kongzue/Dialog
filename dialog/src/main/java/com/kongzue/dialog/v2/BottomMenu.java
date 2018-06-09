@@ -87,6 +87,7 @@ public class BottomMenu extends BaseDialog {
     private TextView btnCancel;
     private ViewGroup boxCancel;
     private ImageView splitLine;
+    private RelativeLayout customView;
 
     private BlurView blurList;
     private BlurView blurCancel;
@@ -103,6 +104,7 @@ public class BottomMenu extends BaseDialog {
             listMenu = box_view.findViewById(R.id.list_menu);
             btnCancel = box_view.findViewById(R.id.btn_cancel);
             txtTitle = box_view.findViewById(R.id.title);
+            customView = box_view.findViewById(R.id.box_custom);
 
             if (dialog_menu_text_size > 0) {
                 btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
@@ -132,13 +134,32 @@ public class BottomMenu extends BaseDialog {
             bottomSheetDialog.setContentView(box_view);
             bottomSheetDialog.setCancelable(true);
             bottomSheetDialog.setCanceledOnTouchOutside(true);
+            bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (customView != null) customView.removeAllViews();
+                    if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                    isDialogShown = false;
+                }
+            });
+            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(bottomSheetDialog);
             bottomSheetDialog.show();
+            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(bottomSheetDialog);
         } else {
             AlertDialog.Builder builder;
             builder = new AlertDialog.Builder(activity, R.style.bottom_menu);
             builder.setCancelable(true);
             alertDialog = builder.create();
             alertDialog.setCanceledOnTouchOutside(true);
+            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
+            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (customView != null) customView.removeAllViews();
+                    if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                    isDialogShown = false;
+                }
+            });
             alertDialog.show();
             Window window = alertDialog.getWindow();
             WindowManager windowManager = activity.getWindowManager();
@@ -167,6 +188,7 @@ public class BottomMenu extends BaseDialog {
             btnCancel = window.findViewById(R.id.btn_cancel);
             txtTitle = window.findViewById(R.id.title);
             splitLine = window.findViewById(R.id.title_split_line);
+            customView = window.findViewById(R.id.box_custom);
 
             if (title != null && !title.trim().isEmpty()) {
                 txtTitle.setText(title);
@@ -252,6 +274,7 @@ public class BottomMenu extends BaseDialog {
                     alertDialog.dismiss();
                 }
             });
+            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
         }
     }
 
@@ -343,14 +366,22 @@ public class BottomMenu extends BaseDialog {
                     if (title != null && !title.trim().isEmpty()) {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
                     } else {
-                        viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
+                        if (customView.getVisibility()==View.VISIBLE){
+                            viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
+                        }else {
+                            viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
+                        }
                     }
                 } else {
                     if (position == 0) {
                         if (title != null && !title.trim().isEmpty()) {
                             viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_middle);
                         } else {
-                            viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_top);
+                            if (customView.getVisibility()==View.VISIBLE){
+                                viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_middle);
+                            }else {
+                                viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_top);
+                            }
                         }
                     } else if (position == objects.size() - 1) {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
@@ -439,6 +470,16 @@ public class BottomMenu extends BaseDialog {
     private int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+    
+    public BottomMenu setCustomView(View view) {
+        if (alertDialog != null && view != null) {
+            customView.setVisibility(View.VISIBLE);
+            splitLine.setVisibility(View.VISIBLE);
+            customView.addView(view);
+            menuArrayAdapter.notifyDataSetChanged();
+        }
+        return this;
     }
 
 }

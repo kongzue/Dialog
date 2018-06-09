@@ -24,6 +24,13 @@
             android:layout_marginBottom="10dp"
             android:visibility="gone"/>
 
+        <RelativeLayout
+            android:id="@+id/box_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"></RelativeLayout>
+
         <ImageView
             android:id="@+id/title_split_line"
             android:layout_width="match_parent"

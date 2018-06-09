@@ -2,10 +2,10 @@
 To the products that require Android to follow apple's design (XD
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.2-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.3-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.2/link">
-<img src="https://img.shields.io/badge/Maven-2.2.2-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.3/link">
+<img src="https://img.shields.io/badge/Maven-2.2.3-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="Maven">
@@ -34,13 +34,13 @@ Maven：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.2</version>
+  <version>2.2.3</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.2'
+implementation 'com.kongzue.dialog:dialog:2.2.3'
 ```
 
 ## Explanation
@@ -246,6 +246,22 @@ list.add("Menu 1");
 list.add("Menu 2");
 list.add("Menu 3");
 BottomMenu.show(me, list);
+```
+
+## Custom Layout：
+Custom layouts for message dialog, select dialog, input dialog, and bottom menu are supported from version 2.2.3. for some reasons, only dialog boxes using custom layouts are supported when selecting the material style.
+
+exp.
+```
+//initViews：
+View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
+//startDialog
+MessageDialog.show(me, null, null, "Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setCustomView(customView);
 ```
 
 ## additional function：
