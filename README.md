@@ -276,7 +276,7 @@ BottomMenu.show(me, list);
 BottomMenu.show(me, list).setTitle("这里是标题测试");
 ```
 
-## 自定义布局：
+### 自定义布局：
 从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局，因为一些原因，选择 Material 风格时仅支持对话框全部使用自定义布局。
 
 使用方法举例：
