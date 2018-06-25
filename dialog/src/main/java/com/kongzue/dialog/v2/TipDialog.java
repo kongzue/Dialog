@@ -100,6 +100,7 @@ public class TipDialog extends BaseDialog {
     private RelativeLayout boxInfo;
     private ImageView image;
     private TextView txtInfo;
+    private int blur_front_color;
 
     public void showDialog() {
         if (tipDialog != null) {
@@ -111,12 +112,11 @@ public class TipDialog extends BaseDialog {
         AlertDialog.Builder builder;
 
         int bkgResId;
-        int blur_front_color;
         switch (tip_theme) {
             case THEME_LIGHT:
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
-                blur_front_color = Color.argb(100, 255, 255, 255);
+                blur_front_color = Color.argb(150, 255, 255, 255);
                 break;
             default:
                 builder = new AlertDialog.Builder(context, R.style.darkMode);
@@ -140,9 +140,17 @@ public class TipDialog extends BaseDialog {
 
         if (use_blur) {
             blur = new BlurView(context, null);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            blur.setOverlayColor(blur_front_color);
-            boxInfo.addView(blur, 0, params);
+            boxInfo.post(new Runnable() {
+                @Override
+                public void run() {
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.width = boxInfo.getWidth();
+                    params.height = boxInfo.getHeight();
+                    blur.setOverlayColor(blur_front_color);
+                    boxInfo.addView(blur, 0, params);
+                }
+            });
+            
         } else {
             boxInfo.setBackgroundResource(bkgResId);
         }

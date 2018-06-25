@@ -260,7 +260,7 @@ public class SelectDialog extends BaseDialog {
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
                     bkgResId = R.drawable.rect_light;
-                    blur_front_color = Color.argb(185, 255, 255, 255);
+                    blur_front_color = Color.argb(200, 255, 255, 255);      //白
                 }
                 
                 if (use_blur) {

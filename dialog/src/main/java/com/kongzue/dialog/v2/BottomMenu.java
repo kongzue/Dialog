@@ -35,7 +35,7 @@ import java.util.List;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class BottomMenu extends BaseDialog {
-
+    
     private List<String> menuText;
     private static BottomMenu bottomMenu;
     private AlertDialog alertDialog;
@@ -44,23 +44,23 @@ public class BottomMenu extends BaseDialog {
     private OnMenuItemClickListener onMenuItemClickListener;
     private String title;
     private String cancelButtonCaption = "取消";
-
+    
     private BottomMenu() {
     }
-
+    
     //Fast Function
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText) {
         return show(activity, menuText, null, true, "取消");
     }
-
+    
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener) {
         return show(activity, menuText, onMenuItemClickListener, true, "取消");
     }
-
+    
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton) {
         return show(activity, menuText, onMenuItemClickListener, isShowCancelButton, "取消");
     }
-
+    
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
             if (bottomMenu == null) bottomMenu = new BottomMenu();
@@ -78,49 +78,49 @@ public class BottomMenu extends BaseDialog {
             return bottomMenu;
         }
     }
-
+    
     private MyBottomSheetDialog bottomSheetDialog;
     private ArrayAdapter menuArrayAdapter;
-
+    
     private TextView txtTitle;
     private ListView listMenu;
     private TextView btnCancel;
     private ViewGroup boxCancel;
     private ImageView splitLine;
     private RelativeLayout customView;
-
+    
     private BlurView blurList;
     private BlurView blurCancel;
-
+    
     private RelativeLayout boxList;
-
+    
     @Override
     public void showDialog() {
         log("启动底部菜单 -> " + menuText.toString());
         if (type == TYPE_MATERIAL) {
             bottomSheetDialog = new MyBottomSheetDialog(activity);
             View box_view = LayoutInflater.from(activity).inflate(R.layout.bottom_menu_material, null);
-
+            
             listMenu = box_view.findViewById(R.id.list_menu);
             btnCancel = box_view.findViewById(R.id.btn_cancel);
             txtTitle = box_view.findViewById(R.id.title);
             customView = box_view.findViewById(R.id.box_custom);
-
+            
             if (dialog_menu_text_size > 0) {
                 btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
             }
             btnCancel.setText(cancelButtonCaption);
-
+            
             if (title != null && !title.trim().isEmpty()) {
                 txtTitle.setText(title);
                 txtTitle.setVisibility(View.VISIBLE);
             } else {
                 txtTitle.setVisibility(View.GONE);
             }
-
+            
             menuArrayAdapter = new NormalMenuArrayAdapter(activity, R.layout.item_bottom_menu_material, menuText);
             listMenu.setAdapter(menuArrayAdapter);
-
+            
             listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -129,7 +129,7 @@ public class BottomMenu extends BaseDialog {
                     bottomSheetDialog.dismiss();
                 }
             });
-
+            
             bottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             bottomSheetDialog.setContentView(box_view);
             bottomSheetDialog.setCancelable(true);
@@ -142,7 +142,8 @@ public class BottomMenu extends BaseDialog {
                     isDialogShown = false;
                 }
             });
-            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(bottomSheetDialog);
+            if (dialogLifeCycleListener != null)
+                dialogLifeCycleListener.onCreate(bottomSheetDialog);
             bottomSheetDialog.show();
             if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(bottomSheetDialog);
         } else {
@@ -169,7 +170,7 @@ public class BottomMenu extends BaseDialog {
             window.setGravity(Gravity.BOTTOM);
             window.setAttributes(lp);
             window.setWindowAnimations(R.style.bottomMenuAnimStyle);
-
+            
             int resId = R.layout.bottom_menu_kongzue;
             int item_resId = R.layout.item_bottom_menu_kongzue;
             switch (type) {
@@ -183,13 +184,13 @@ public class BottomMenu extends BaseDialog {
                     break;
             }
             window.setContentView(resId);
-
+            
             listMenu = window.findViewById(R.id.list_menu);
             btnCancel = window.findViewById(R.id.btn_cancel);
             txtTitle = window.findViewById(R.id.title);
             splitLine = window.findViewById(R.id.title_split_line);
             customView = window.findViewById(R.id.box_custom);
-
+            
             if (title != null && !title.trim().isEmpty()) {
                 txtTitle.setText(title);
                 txtTitle.setVisibility(View.VISIBLE);
@@ -198,12 +199,12 @@ public class BottomMenu extends BaseDialog {
                 txtTitle.setVisibility(View.GONE);
                 splitLine.setVisibility(View.GONE);
             }
-
+            
             if (dialog_menu_text_size > 0) {
                 btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
             }
             btnCancel.setText(cancelButtonCaption);
-
+            
             switch (type) {
                 case TYPE_KONGZUE:
                     boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
@@ -217,7 +218,7 @@ public class BottomMenu extends BaseDialog {
                             public void run() {
                                 blurList = new BlurView(activity, null);
                                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, boxList.getHeight());
-                                blurList.setOverlayColor(Color.argb(185, 255, 255, 255));
+                                blurList.setOverlayColor(Color.argb(200, 255, 255, 255));
                                 blurList.setRadius(activity, 11, 11);
                                 boxList.addView(blurList, 0, params);
                             }
@@ -227,7 +228,7 @@ public class BottomMenu extends BaseDialog {
                             public void run() {
                                 blurCancel = new BlurView(activity, null);
                                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, boxCancel.getHeight());
-                                blurCancel.setOverlayColor(Color.argb(185, 255, 255, 255));
+                                blurCancel.setOverlayColor(Color.argb(200, 255, 255, 255));
                                 blurCancel.setRadius(activity, 11, 11);
                                 boxCancel.addView(blurCancel, 0, params);
                             }
@@ -238,13 +239,13 @@ public class BottomMenu extends BaseDialog {
                     }
                     break;
             }
-
+            
             if (isShowCancelButton) {
                 if (boxCancel != null) boxCancel.setVisibility(View.VISIBLE);
             } else {
                 if (boxCancel != null) boxCancel.setVisibility(View.GONE);
             }
-
+            
             switch (type) {
                 case TYPE_KONGZUE:
                     menuArrayAdapter = new NormalMenuArrayAdapter(activity, item_resId, menuText);
@@ -258,7 +259,7 @@ public class BottomMenu extends BaseDialog {
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
             }
-
+            
             listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -267,7 +268,7 @@ public class BottomMenu extends BaseDialog {
                     alertDialog.dismiss();
                 }
             });
-
+            
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -277,38 +278,38 @@ public class BottomMenu extends BaseDialog {
             if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
         }
     }
-
+    
     class NormalMenuArrayAdapter extends ArrayAdapter {
         public int resoureId;
         public List<String> objects;
         public Context context;
-
+        
         public NormalMenuArrayAdapter(Context context, int resourceId, List<String> objects) {
             super(context, resourceId, objects);
             this.objects = objects;
             this.resoureId = resourceId;
             this.context = context;
         }
-
+        
         public class ViewHolder {
             TextView textView;
         }
-
+        
         @Override
         public int getCount() {
             return objects.size();
         }
-
+        
         @Override
         public String getItem(int position) {
             return objects.get(position);
         }
-
+        
         @Override
         public long getItemId(int position) {
             return position;
         }
-
+        
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
@@ -328,17 +329,17 @@ public class BottomMenu extends BaseDialog {
                     viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
                 }
             }
-
+            
             return convertView;
         }
     }
-
+    
     class IOSMenuArrayAdapter extends NormalMenuArrayAdapter {
-
+        
         public IOSMenuArrayAdapter(Context context, int resourceId, List<String> objects) {
             super(context, resourceId, objects);
         }
-
+        
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
@@ -354,11 +355,11 @@ public class BottomMenu extends BaseDialog {
             String text = objects.get(position);
             if (null != text) {
                 viewHolder.textView.setText(text);
-
+                
                 if (dialog_menu_text_size > 0) {
                     viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
                 }
-
+                
                 if (ios_normal_button_color != -1) {
                     viewHolder.textView.setTextColor(ios_normal_button_color);
                 }
@@ -366,9 +367,9 @@ public class BottomMenu extends BaseDialog {
                     if (title != null && !title.trim().isEmpty()) {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
                     } else {
-                        if (customView.getVisibility()==View.VISIBLE){
+                        if (customView.getVisibility() == View.VISIBLE) {
                             viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
-                        }else {
+                        } else {
                             viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_all);
                         }
                     }
@@ -377,9 +378,9 @@ public class BottomMenu extends BaseDialog {
                         if (title != null && !title.trim().isEmpty()) {
                             viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_middle);
                         } else {
-                            if (customView.getVisibility()==View.VISIBLE){
+                            if (customView.getVisibility() == View.VISIBLE) {
                                 viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_middle);
-                            }else {
+                            } else {
                                 viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_top);
                             }
                         }
@@ -390,15 +391,15 @@ public class BottomMenu extends BaseDialog {
                     }
                 }
             }
-
+            
             return convertView;
         }
     }
-
+    
     public String getTitle() {
         return title;
     }
-
+    
     public BottomMenu setTitle(String title) {
         this.title = title;
         switch (type) {
@@ -427,21 +428,21 @@ public class BottomMenu extends BaseDialog {
         if (menuArrayAdapter != null) menuArrayAdapter.notifyDataSetChanged();
         return this;
     }
-
+    
     class MyBottomSheetDialog extends BottomSheetDialog {
-
+        
         public MyBottomSheetDialog(@NonNull Context context) {
             super(context);
         }
-
+        
         public MyBottomSheetDialog(@NonNull Context context, @StyleRes int theme) {
             super(context, theme);
         }
-
+        
         protected MyBottomSheetDialog(@NonNull Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
             super(context, cancelable, cancelListener);
         }
-
+        
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -450,7 +451,7 @@ public class BottomMenu extends BaseDialog {
             int dialogHeight = screenHeight;//- statusBarHeight;
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : dialogHeight);
         }
-
+        
         public int getStatusBarHeight(Context context) {
             int result = 0;
             int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -459,14 +460,14 @@ public class BottomMenu extends BaseDialog {
             }
             return result;
         }
-
+        
         public int getScreenHeight(Context context) {
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             int height = wm.getDefaultDisplay().getHeight();
             return height;
         }
     }
-
+    
     private int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -481,5 +482,5 @@ public class BottomMenu extends BaseDialog {
         }
         return this;
     }
-
+    
 }

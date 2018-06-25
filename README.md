@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.3-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.4-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.3/link">
-<img src="https://img.shields.io/badge/Maven-2.2.3-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.4/link">
+<img src="https://img.shields.io/badge/Maven-2.2.4-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.3</version>
+  <version>2.2.4</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.3'
+implementation 'com.kongzue.dialog:dialog:2.2.4'
 ```
 
 ## 使用说明
@@ -346,6 +346,10 @@ DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文
 ```
 
 ## 更新日志：
+v2.2.4:
+- TipDialog 和 WaitDialog 现在可以支持更多文字的扩展了，且最大行数限定为3行；
+- 调整白色界面时模糊不透明度 180 → 200；
+
 v2.2.3:
 - 修复bug；
 - 新增添加自定义布局，目前支持 MessageDialog、SelectDialog、InputDialog和BottomMenu，因为一些原因，选择 Material 风格时仅支持对话框全部使用自定义布局。

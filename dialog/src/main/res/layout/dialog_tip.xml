@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,8 +12,10 @@
 
         <RelativeLayout
             android:id="@+id/box_info"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="125dp"
+            android:minWidth="125dp"
             android:visibility="visible">
 
             <ImageView
@@ -29,11 +31,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="90dp"
+                android:gravity="center"
+                android:maxLines="3"
                 android:text="Tip"
                 android:textColor="?attr/colorAccent"
-                android:textSize="14dp"
-                />
+                android:textSize="14dp" />
 
         </RelativeLayout>
 

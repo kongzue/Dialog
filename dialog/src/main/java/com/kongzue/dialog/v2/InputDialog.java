@@ -313,7 +313,7 @@ public class InputDialog extends BaseDialog {
                     txtInput.setTextColor(Color.rgb(0, 0, 0));
                     txtInput.setBackgroundResource(R.drawable.editbox_bkg_ios);
                     bkgResId = R.drawable.rect_light;
-                    blur_front_color = Color.argb(185, 255, 255, 255);
+                    blur_front_color = Color.argb(200, 255, 255, 255);      //白
                 }
                 
                 if (use_blur) {

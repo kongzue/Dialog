@@ -234,7 +234,7 @@ public class MessageDialog extends BaseDialog {
                 } else {
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_one);
                     bkgResId = R.drawable.rect_light;
-                    blur_front_color = Color.argb(185, 255, 255, 255);
+                    blur_front_color = Color.argb(200, 255, 255, 255);      //白
                 }
                 
                 if (use_blur) {
