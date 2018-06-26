@@ -279,6 +279,11 @@ public class BottomMenu extends BaseDialog {
         }
     }
     
+    @Override
+    public void doDismiss() {
+        if (alertDialog!=null)alertDialog.dismiss();
+    }
+    
     class NormalMenuArrayAdapter extends ArrayAdapter {
         public int resoureId;
         public List<String> objects;

@@ -21,6 +21,7 @@ import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
 
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
@@ -76,38 +77,38 @@ public class MessageDialog extends BaseDialog {
     public void showDialog() {
         log("启动消息对话框 -> " + message);
         AlertDialog.Builder builder;
-        switch (type) {
-            case TYPE_IOS:
-                switch (dialog_theme) {
-                    case THEME_DARK:
-                        builder = new AlertDialog.Builder(context, R.style.darkMode);
-                        break;
-                    default:
-                        builder = new AlertDialog.Builder(context, R.style.lightMode);
-                        break;
-                }
-                break;
-            case TYPE_MATERIAL:
-                if (dialog_theme == THEME_DARK) {
-                    builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
-                } else {
-                    builder = new AlertDialog.Builder(context);
-                }
-                break;
-            case TYPE_KONGZUE:
-                switch (dialog_theme) {
-                    case THEME_DARK:
+            switch (type) {
+                case TYPE_IOS:
+                    switch (dialog_theme) {
+                        case THEME_DARK:
+                            builder = new AlertDialog.Builder(context, R.style.darkMode);
+                            break;
+                        default:
+                            builder = new AlertDialog.Builder(context, R.style.lightMode);
+                            break;
+                    }
+                    break;
+                case TYPE_MATERIAL:
+                    if (dialog_theme == THEME_DARK) {
                         builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
-                        break;
-                    default:
-                        builder = new AlertDialog.Builder(context, R.style.materialDialogLight);
-                        break;
-                }
-                break;
-            default:
-                builder = new AlertDialog.Builder(context);
-                break;
-        }
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    break;
+                case TYPE_KONGZUE:
+                    switch (dialog_theme) {
+                        case THEME_DARK:
+                            builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
+                            break;
+                        default:
+                            builder = new AlertDialog.Builder(context, R.style.materialDialogLight);
+                            break;
+                    }
+                    break;
+                default:
+                    builder = new AlertDialog.Builder(context);
+                    break;
+            }
         builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
@@ -121,7 +122,19 @@ public class MessageDialog extends BaseDialog {
                 customView = null;
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
                 isDialogShown = false;
-                dialogList.remove(0);
+                dialogList.remove(MessageDialog.this);
+                showNextDialog();
+            }
+        });
+    
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (customView != null) customView.removeAllViews();
+                customView = null;
+                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(MessageDialog.this);
                 showNextDialog();
             }
         });
@@ -176,12 +189,18 @@ public class MessageDialog extends BaseDialog {
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
                     btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                 }
+                if (dialog_background_color != -1) {
+                    bkg.setBackgroundResource(dialog_background_color);
+                }
                 
                 break;
             case TYPE_MATERIAL:
                 alertDialog.setTitle(title);
                 alertDialog.setMessage(message);
                 alertDialog.setButton(BUTTON_POSITIVE, buttonCaption, onOkButtonClickListener);
+                if (dialog_background_color != -1) {
+                    alertDialog.getWindow().getDecorView().setBackgroundResource(dialog_background_color);
+                }
                 alertDialog.show();
                 break;
             case TYPE_IOS:
@@ -254,6 +273,9 @@ public class MessageDialog extends BaseDialog {
                 if (ios_normal_button_color != -1) {
                     btnSelectPositive.setTextColor(ios_normal_button_color);
                 }
+                if (dialog_background_color != -1) {
+                    bkg.setBackgroundResource(dialog_background_color);
+                }
                 
                 break;
         }
@@ -271,6 +293,11 @@ public class MessageDialog extends BaseDialog {
         }
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+    }
+    
+    @Override
+    public void doDismiss() {
+        if (alertDialog!=null)alertDialog.dismiss();
     }
     
     public MessageDialog setCanCancel(boolean canCancel) {

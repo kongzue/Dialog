@@ -19,4 +19,6 @@ public abstract class BaseDialog {
     }
 
     public abstract void showDialog();
+    
+    public abstract void doDismiss();
 }

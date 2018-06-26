@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     private int notifactionType = TYPE_NORMAL;
     
     private void setEvents() {
-    
+        
         btnShowBottomMenuWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,14 +190,14 @@ public class MainActivity extends AppCompatActivity {
                 }, true).setTitle("这里是标题测试").setCustomView(customView);
             }
         });
-    
+        
         btnMsgWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-            
+                    
                     }
                 }).setCustomView(customView).setCanCancel(true);
             }
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                 InputDialog.show(me, "提示", "这是最后一个对话框，序列即将结束", new InputDialogOkButtonClickListener() {
                     @Override
                     public void onClick(Dialog dialog, String inputText) {
-                    
+                        dialog.dismiss();
                     }
                 });
             }
@@ -468,5 +468,11 @@ public class MainActivity extends AppCompatActivity {
                 TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
             }
         });
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DialogSettings.unloadAllDialog();           //卸载掉所有对话框
     }
 }

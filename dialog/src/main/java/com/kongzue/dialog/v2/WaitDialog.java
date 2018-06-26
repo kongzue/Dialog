@@ -133,7 +133,12 @@ public class WaitDialog extends BaseDialog {
         alertDialog.show();
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
     }
-
+    
+    @Override
+    public void doDismiss() {
+        if (alertDialog!=null)alertDialog.dismiss();
+    }
+    
     public WaitDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);

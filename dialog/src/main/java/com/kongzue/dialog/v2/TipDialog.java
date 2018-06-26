@@ -222,7 +222,12 @@ public class TipDialog extends BaseDialog {
             }
         }, time);
     }
-
+    
+    @Override
+    public void doDismiss() {
+        if (alertDialog!=null)alertDialog.dismiss();
+    }
+    
     public TipDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);

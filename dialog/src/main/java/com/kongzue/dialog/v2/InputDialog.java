@@ -2,8 +2,10 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -128,12 +130,27 @@ public class InputDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (alertDialog != null) alertDialog.dismiss();
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
                 isDialogShown = false;
-                dialogList.remove(0);
+                dialogList.remove(InputDialog.this);
+                showNextDialog();
+            }
+        });
+        
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (alertDialog != null) alertDialog.dismiss();
+                if (customView != null) customView.removeAllViews();
+                if (onCancelButtonClickListener != null)
+                    onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
+                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(InputDialog.this);
                 showNextDialog();
             }
         });
@@ -151,16 +168,16 @@ public class InputDialog extends BaseDialog {
                 btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
                 btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
                 customView = window.findViewById(R.id.box_custom);
-    
-                if (isNull(title)){
+                
+                if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTitle.setVisibility(View.VISIBLE);
                     txtDialogTitle.setText(title);
                 }
-                if (isNull(message)){
+                if (isNull(message)) {
                     txtDialogTip.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTip.setVisibility(View.VISIBLE);
                     txtDialogTip.setText(message);
                     if (message.contains("\n")) {
@@ -194,13 +211,17 @@ public class InputDialog extends BaseDialog {
                 });
                 
                 if (dialog_theme == THEME_DARK) {
-                    bkg.setBackgroundResource(R.color.dlg_bkg_dark);
+                    //bkg.setBackgroundResource(R.color.dlg_bkg_dark);
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_kongzue_gray_dark);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_kongzue_blue_dark);
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
                     btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
                     txtInput.setBackgroundResource(R.drawable.editbox_bkg_dark);
+                }
+                
+                if (dialog_background_color != -1) {
+                    bkg.setBackgroundResource(dialog_background_color);
                 }
                 
                 break;
@@ -242,6 +263,9 @@ public class InputDialog extends BaseDialog {
                 } else {
                     txtInput.setTextColor(Color.rgb(0, 0, 0));
                 }
+                if (dialog_background_color != -1) {
+                    alertDialog.getWindow().getDecorView().setBackgroundResource(dialog_background_color);
+                }
                 break;
             case TYPE_IOS:
                 window.setWindowAnimations(R.style.iOSAnimStyle);
@@ -264,16 +288,16 @@ public class InputDialog extends BaseDialog {
                 txtInput.setVisibility(View.VISIBLE);
                 txtInput.setText(defaultInputText);
                 txtInput.setHint(defaultInputHint);
-    
-                if (isNull(title)){
+                
+                if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTitle.setVisibility(View.VISIBLE);
                     txtDialogTitle.setText(title);
                 }
-                if (isNull(message)){
+                if (isNull(message)) {
                     txtDialogTip.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTip.setVisibility(View.VISIBLE);
                     txtDialogTip.setText(message);
                 }
@@ -329,6 +353,9 @@ public class InputDialog extends BaseDialog {
                 } else {
                     bkg.setBackgroundResource(bkgResId);
                 }
+                if (dialog_background_color != -1) {
+                    bkg.setBackgroundResource(dialog_background_color);
+                }
                 
                 log(ios_normal_button_color);
                 if (ios_normal_button_color != -1) {
@@ -355,6 +382,11 @@ public class InputDialog extends BaseDialog {
         }
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+    }
+    
+    @Override
+    public void doDismiss() {
+        if (alertDialog!=null)alertDialog.dismiss();
     }
     
     public InputDialog setCanCancel(boolean canCancel) {
@@ -406,4 +438,5 @@ public class InputDialog extends BaseDialog {
         }
         return false;
     }
+    
 }

@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.4-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.5-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.4/link">
-<img src="https://img.shields.io/badge/Maven-2.2.4-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.5/link">
+<img src="https://img.shields.io/badge/Maven-2.2.5-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.4</version>
+  <version>2.2.5</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.4'
+implementation 'com.kongzue.dialog:dialog:2.2.5'
 ```
 
 ## 使用说明
@@ -320,32 +320,43 @@ WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListene
 
 另外提供一些定制属性：
 ```
-DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
-DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
-DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
-DialogSettings.dialog_menu_text_size = -1;      //设置菜单默认字号，<=0不启用
-DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
-DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
+DialogSettings.dialog_title_text_size = -1;                 //设置对话框标题文字大小，<=0不启用
+DialogSettings.dialog_message_text_size = -1;               //设置对话框内容文字大小，<=0不启用
+DialogSettings.dialog_button_text_size = -1;                //设置对话框按钮文字大小，<=0不启用
+DialogSettings.dialog_menu_text_size = -1;                  //设置菜单默认字号，<=0不启用
+DialogSettings.tip_text_size = -1;                          //设置提示框文字大小，<=0不启用
+DialogSettings.ios_normal_button_color = -1;                //设置iOS风格默认按钮文字颜色，=-1不启用
+DialogSettings.dialog_background_color = R.color.white;     //控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色，=-1时不启用
 ```
 
 ## 开源协议
 ```
-   Copyright Kongzue Dialog
+Copyright Kongzue Dialog
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.5:
+- 优化执行流程，修复可能出现的死锁问题：
+```
+经测试，在 Dialog 显示的情况下，遇到 Activity 被 finish() 掉后导致出现问题：android.view.WindowLeaked
+此问题导致接下来用户程序在未结束掉全部进程的情况下，再无法重新启动任何对话框
+在 2.2.5 版本中我们将提供方法 DialogSettings.unloadAllDialog()，您可以在 Activity 的 onDestroy() 事件执行此方法来关闭所有在队列中的 Dialog。
+```
+- 新增 DialogSettings.dialog_background_color 可控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色。
+
+
 v2.2.4:
 - TipDialog 和 WaitDialog 现在可以支持更多文字的扩展了，且最大行数限定为3行；
 - 调整白色界面时模糊不透明度 180 → 200；

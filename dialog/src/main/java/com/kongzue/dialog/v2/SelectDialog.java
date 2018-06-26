@@ -127,10 +127,22 @@ public class SelectDialog extends BaseDialog {
                 if (customView != null) customView.removeAllViews();
                 if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
                 isDialogShown = false;
-                dialogList.remove(0);
+                dialogList.remove(SelectDialog.this);
                 showNextDialog();
             }
         });
+    
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (customView != null) customView.removeAllViews();
+                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                isDialogShown = false;
+                dialogList.remove(SelectDialog.this);
+                showNextDialog();
+            }
+        });
+        
         Window window = alertDialog.getWindow();
         switch (type) {
             case TYPE_KONGZUE:
@@ -144,15 +156,15 @@ public class SelectDialog extends BaseDialog {
                 btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
                 customView = window.findViewById(R.id.box_custom);
                 
-                if (isNull(title)){
+                if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTitle.setVisibility(View.VISIBLE);
                     txtDialogTitle.setText(title);
                 }
-                if (isNull(message)){
+                if (isNull(message)) {
                     txtDialogTip.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTip.setVisibility(View.VISIBLE);
                     txtDialogTip.setText(message);
                     if (message.contains("\n")) {
@@ -189,13 +201,19 @@ public class SelectDialog extends BaseDialog {
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
                     btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                 }
-                
+    
+                if (dialog_background_color != -1) {
+                    bkg.setBackgroundResource(dialog_background_color);
+                }
                 break;
             case TYPE_MATERIAL:
                 alertDialog.setTitle(title);
                 alertDialog.setMessage(message);
                 alertDialog.setButton(BUTTON_POSITIVE, okButtonCaption, onOkButtonClickListener);
                 alertDialog.setButton(BUTTON_NEGATIVE, cancelButtonCaption, onCancelButtonClickListener);
+                if (dialog_background_color != -1) {
+                    alertDialog.getWindow().getDecorView().setBackgroundResource(dialog_background_color);
+                }
                 alertDialog.show();
                 break;
             case TYPE_IOS:
@@ -214,16 +232,16 @@ public class SelectDialog extends BaseDialog {
                 customView = window.findViewById(R.id.box_custom);
                 
                 splitVertical.setVisibility(View.VISIBLE);
-    
-                if (isNull(title)){
+                
+                if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTitle.setVisibility(View.VISIBLE);
                     txtDialogTitle.setText(title);
                 }
-                if (isNull(message)){
+                if (isNull(message)) {
                     txtDialogTip.setVisibility(View.GONE);
-                }else{
+                } else {
                     txtDialogTip.setVisibility(View.VISIBLE);
                     txtDialogTip.setText(message);
                 }
@@ -281,7 +299,10 @@ public class SelectDialog extends BaseDialog {
                     btnSelectNegative.setTextColor(ios_normal_button_color);
                     btnSelectPositive.setTextColor(ios_normal_button_color);
                 }
-                
+    
+                if (dialog_background_color != -1) {
+                    bkg.setBackgroundResource(dialog_background_color);
+                }
                 break;
         }
         
@@ -299,6 +320,11 @@ public class SelectDialog extends BaseDialog {
         }
         isDialogShown = true;
         if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+    }
+    
+    @Override
+    public void doDismiss() {
+        if (alertDialog!=null)alertDialog.dismiss();
     }
     
     public SelectDialog setCanCancel(boolean canCancel) {
