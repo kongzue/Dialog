@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.5-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.6-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.5/link">
-<img src="https://img.shields.io/badge/Maven-2.2.5-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.6/link">
+<img src="https://img.shields.io/badge/Maven-2.2.6-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.5</version>
+  <version>2.2.6</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.5'
+implementation 'com.kongzue.dialog:dialog:2.2.6'
 ```
 
 ## 使用说明
@@ -347,6 +347,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.6:
+- DialogSettings 新增属性 DEBUGMODE 以决定框架是否打印 log 日志；
+- InputDialog 在点击确定后自动关闭输入法；
+
 v2.2.5:
 - 优化执行流程，修复可能出现的死锁问题：
 ```

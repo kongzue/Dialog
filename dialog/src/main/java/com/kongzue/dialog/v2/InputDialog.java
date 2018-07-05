@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -196,6 +197,7 @@ public class InputDialog extends BaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        setIMMStatus(false, txtInput);
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
                     }
@@ -386,7 +388,7 @@ public class InputDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog!=null)alertDialog.dismiss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public InputDialog setCanCancel(boolean canCancel) {
@@ -439,4 +441,15 @@ public class InputDialog extends BaseDialog {
         return false;
     }
     
+    private void setIMMStatus(boolean show, EditText editText) {
+        if (show) {
+            editText.requestFocus();
+            editText.setFocusableInTouchMode(true);
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
+        } else {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        }
+    }
 }

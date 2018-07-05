@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 
+import static com.kongzue.dialog.v2.DialogSettings.DEBUGMODE;
+
 public abstract class BaseDialog {
 
     public boolean isDialogShown = false;
@@ -11,7 +13,7 @@ public abstract class BaseDialog {
     public DialogLifeCycleListener dialogLifeCycleListener;
 
     public void log(Object o) {
-        Log.i("DialogSDK >>>", o.toString());
+        if (DEBUGMODE)Log.i("DialogSDK >>>", o.toString());
     }
 
     public void setDialogLifeCycleListener(DialogLifeCycleListener dialogLifeCycleListener) {
