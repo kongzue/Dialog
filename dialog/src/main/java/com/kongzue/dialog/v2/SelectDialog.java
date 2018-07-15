@@ -53,6 +53,7 @@ public class SelectDialog extends BaseDialog {
                                     String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (SelectDialog.class) {
             selectDialog = new SelectDialog();
+            cleanDialogLifeCycleListener();
             selectDialog.alertDialog = null;
             selectDialog.context = context;
             selectDialog.title = title;
@@ -118,14 +119,14 @@ public class SelectDialog extends BaseDialog {
         builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 if (customView != null) customView.removeAllViews();
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(SelectDialog.this);
                 showNextDialog();
@@ -136,7 +137,7 @@ public class SelectDialog extends BaseDialog {
             @Override
             public void onCancel(DialogInterface dialog) {
                 if (customView != null) customView.removeAllViews();
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(SelectDialog.this);
                 showNextDialog();
@@ -319,7 +320,7 @@ public class SelectDialog extends BaseDialog {
             }
         }
         isDialogShown = true;
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
     }
     
     @Override

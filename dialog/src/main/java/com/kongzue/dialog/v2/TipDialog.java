@@ -25,39 +25,44 @@ import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
 import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
 public class TipDialog extends BaseDialog {
-
+    
     public static final int SHOW_TIME_SHORT = 0;
     public static final int SHOW_TIME_LONG = 1;
-
+    
     public static final int TYPE_CUSTOM_DRAWABLE = -2;
     public static final int TYPE_CUSTOM_BITMAP = -1;
     public static final int TYPE_WARNING = 0;
     public static final int TYPE_ERROR = 1;
     public static final int TYPE_FINISH = 2;
-
+    
     private AlertDialog alertDialog;
     private static TipDialog tipDialog;
     public static Drawable customDrawable;
     public static Bitmap customBitmap;
     private boolean isCanCancel = false;
-
+    
     private Context context;
     private String tip;
-
+    
     private TipDialog() {
     }
-
+    
     private int howLong = 0;
     private int type = 0;
-
+    
     //Fast Function
     public static TipDialog show(Context context, String tip) {
         return show(context, tip, SHOW_TIME_SHORT, TYPE_WARNING);
     }
-
+    
+    public static TipDialog show(Context context, String tip, int type) {
+        return show(context, tip, SHOW_TIME_SHORT, type);
+    }
+    
     public static TipDialog show(Context context, String tip, int howLong, int type) {
         synchronized (TipDialog.class) {
             if (tipDialog == null) tipDialog = new TipDialog();
+            cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.howLong = howLong;
@@ -67,9 +72,10 @@ public class TipDialog extends BaseDialog {
             return tipDialog;
         }
     }
-
+    
     public static TipDialog show(Context context, String tip, int howLong, Drawable customDrawable) {
         synchronized (TipDialog.class) {
+            cleanDialogLifeCycleListener();
             if (tipDialog == null) tipDialog = new TipDialog();
             tipDialog.context = context;
             tipDialog.tip = tip;
@@ -81,9 +87,10 @@ public class TipDialog extends BaseDialog {
             return tipDialog;
         }
     }
-
+    
     public static TipDialog show(Context context, String tip, int howLong, Bitmap customBitmap) {
         synchronized (TipDialog.class) {
+            cleanDialogLifeCycleListener();
             if (tipDialog == null) tipDialog = new TipDialog();
             tipDialog.context = context;
             tipDialog.tip = tip;
@@ -95,22 +102,24 @@ public class TipDialog extends BaseDialog {
             return tipDialog;
         }
     }
-
-    private BlurView blur;
+    
     private RelativeLayout boxInfo;
+    private RelativeLayout boxBkg;
     private ImageView image;
     private TextView txtInfo;
+    
+    private BlurView blur;
     private int blur_front_color;
-
+    
     public void showDialog() {
         if (tipDialog != null) {
             if (tipDialog.alertDialog != null) {
                 tipDialog.alertDialog.dismiss();
             }
         }
-
+        
         AlertDialog.Builder builder;
-
+        
         int bkgResId;
         switch (tip_theme) {
             case THEME_LIGHT:
@@ -125,19 +134,22 @@ public class TipDialog extends BaseDialog {
                 break;
         }
         builder.setCancelable(isCanCancel);
-
+        
         alertDialog = builder.create();
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
-
+        
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog_tip);
-
-        boxInfo = (RelativeLayout) window.findViewById(R.id.box_info);
-        image = (ImageView) window.findViewById(R.id.image);
-        txtInfo = (TextView) window.findViewById(R.id.txt_info);
-
+        
+        boxInfo = window.findViewById(R.id.box_info);
+        boxBkg = window.findViewById(R.id.box_bkg);
+        image = window.findViewById(R.id.image);
+        txtInfo = window.findViewById(R.id.txt_info);
+    
+        boxBkg.removeAllViews();
+    
         if (use_blur) {
             blur = new BlurView(context, null);
             boxInfo.post(new Runnable() {
@@ -147,14 +159,14 @@ public class TipDialog extends BaseDialog {
                     params.width = boxInfo.getWidth();
                     params.height = boxInfo.getHeight();
                     blur.setOverlayColor(blur_front_color);
-                    boxInfo.addView(blur, 0, params);
+                    boxBkg.addView(blur, 0, params);
                 }
             });
             
         } else {
             boxInfo.setBackgroundResource(bkgResId);
         }
-
+        
         switch (type) {
             case TYPE_WARNING:
                 if (tip_theme == THEME_LIGHT) {
@@ -184,7 +196,7 @@ public class TipDialog extends BaseDialog {
                 image.setImageDrawable(customDrawable);
                 break;
         }
-
+        
         if (!tip.isEmpty()) {
             boxInfo.setVisibility(View.VISIBLE);
             txtInfo.setText(tip);
@@ -197,15 +209,15 @@ public class TipDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (dialogLifeCycleListener != null) {
-                    dialogLifeCycleListener.onDismiss();
+                if (getDialogLifeCycleListener() != null) {
+                    getDialogLifeCycleListener().onDismiss();
                     alertDialog = null;
                 }
             }
         });
         alertDialog.show();
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
-
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        
         int time = 1500;
         switch (howLong) {
             case SHOW_TIME_SHORT:
@@ -225,7 +237,7 @@ public class TipDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog!=null)alertDialog.dismiss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public TipDialog setCanCancel(boolean canCancel) {
@@ -233,5 +245,5 @@ public class TipDialog extends BaseDialog {
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
-
+    
 }

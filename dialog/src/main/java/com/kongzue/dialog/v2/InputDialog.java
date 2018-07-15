@@ -57,6 +57,7 @@ public class InputDialog extends BaseDialog {
                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (InputDialog.class) {
             inputDialog = new InputDialog();
+            cleanDialogLifeCycleListener();
             inputDialog.alertDialog = null;
             inputDialog.context = context;
             inputDialog.title = title;
@@ -125,7 +126,7 @@ public class InputDialog extends BaseDialog {
         
         alertDialog = builder.create();
         alertDialog.setView(new EditText(context));
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -135,7 +136,7 @@ public class InputDialog extends BaseDialog {
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(InputDialog.this);
                 showNextDialog();
@@ -149,7 +150,7 @@ public class InputDialog extends BaseDialog {
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
-                if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(InputDialog.this);
                 showNextDialog();
@@ -383,7 +384,7 @@ public class InputDialog extends BaseDialog {
             }
         }
         isDialogShown = true;
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
     }
     
     @Override

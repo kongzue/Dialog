@@ -64,6 +64,7 @@ public class BottomMenu extends BaseDialog {
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
             if (bottomMenu == null) bottomMenu = new BottomMenu();
+            cleanDialogLifeCycleListener();
             bottomMenu.activity = activity;
             bottomMenu.menuText = menuText;
             bottomMenu.isShowCancelButton = isShowCancelButton;
@@ -138,26 +139,26 @@ public class BottomMenu extends BaseDialog {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     if (customView != null) customView.removeAllViews();
-                    if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                    if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                     isDialogShown = false;
                 }
             });
-            if (dialogLifeCycleListener != null)
-                dialogLifeCycleListener.onCreate(bottomSheetDialog);
+            if (getDialogLifeCycleListener() != null)
+                getDialogLifeCycleListener().onCreate(bottomSheetDialog);
             bottomSheetDialog.show();
-            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(bottomSheetDialog);
+            if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(bottomSheetDialog);
         } else {
             AlertDialog.Builder builder;
             builder = new AlertDialog.Builder(activity, R.style.bottom_menu);
             builder.setCancelable(true);
             alertDialog = builder.create();
             alertDialog.setCanceledOnTouchOutside(true);
-            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
+            if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
             alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     if (customView != null) customView.removeAllViews();
-                    if (dialogLifeCycleListener != null) dialogLifeCycleListener.onDismiss();
+                    if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                     isDialogShown = false;
                 }
             });
@@ -275,7 +276,7 @@ public class BottomMenu extends BaseDialog {
                     alertDialog.dismiss();
                 }
             });
-            if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+            if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
         }
     }
     

@@ -38,6 +38,7 @@ public class WaitDialog extends BaseDialog {
     public static WaitDialog show(Context context, String tip) {
         synchronized (WaitDialog.class) {
             if (waitDialog == null) waitDialog = new WaitDialog();
+            cleanDialogLifeCycleListener();
             waitDialog.context = context;
             waitDialog.tip = tip;
             waitDialog.showDialog();
@@ -54,6 +55,7 @@ public class WaitDialog extends BaseDialog {
     private int blur_front_color;
 
     public void showDialog() {
+        
         if (waitDialog != null) {
             if (waitDialog.alertDialog != null) {
                 waitDialog.alertDialog.dismiss();
@@ -78,7 +80,7 @@ public class WaitDialog extends BaseDialog {
 
         alertDialog = builder.create();
 
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
@@ -89,6 +91,8 @@ public class WaitDialog extends BaseDialog {
         boxBkg = window.findViewById(R.id.box_bkg);
         txtInfo = window.findViewById(R.id.txt_info);
         progress = window.findViewById(R.id.progress);
+        
+        boxBkg.removeAllViews();
 
         if (tip_theme == THEME_LIGHT) {
             progress.setStrokeColors(new int[]{Color.rgb(0, 0, 0)});
@@ -124,14 +128,14 @@ public class WaitDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (dialogLifeCycleListener != null) {
-                    dialogLifeCycleListener.onDismiss();
+                if (getDialogLifeCycleListener() != null) {
+                    getDialogLifeCycleListener().onDismiss();
                     alertDialog = null;
                 }
             }
         });
         alertDialog.show();
-        if (dialogLifeCycleListener != null) dialogLifeCycleListener.onShow(alertDialog);
+        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
     }
     
     @Override
@@ -147,16 +151,15 @@ public class WaitDialog extends BaseDialog {
 
     public static void dismiss() {
         synchronized (WaitDialog.class) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (waitDialog != null) {
-                        if (waitDialog.alertDialog != null) {
-                            waitDialog.alertDialog.dismiss();
-                        }
+            if (waitDialog != null) {
+                if (waitDialog.alertDialog != null) {
+                    try {
+                        waitDialog.alertDialog.dismiss();
+                    }catch (Exception e){
+                
                     }
                 }
-            }, 500);
+            }
         }
     }
 }
