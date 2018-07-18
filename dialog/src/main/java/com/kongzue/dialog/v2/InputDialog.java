@@ -57,7 +57,6 @@ public class InputDialog extends BaseDialog {
                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (InputDialog.class) {
             inputDialog = new InputDialog();
-            cleanDialogLifeCycleListener();
             inputDialog.alertDialog = null;
             inputDialog.context = context;
             inputDialog.title = title;

@@ -62,7 +62,6 @@ public class TipDialog extends BaseDialog {
     public static TipDialog show(Context context, String tip, int howLong, int type) {
         synchronized (TipDialog.class) {
             if (tipDialog == null) tipDialog = new TipDialog();
-            cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.howLong = howLong;
@@ -75,7 +74,6 @@ public class TipDialog extends BaseDialog {
     
     public static TipDialog show(Context context, String tip, int howLong, Drawable customDrawable) {
         synchronized (TipDialog.class) {
-            cleanDialogLifeCycleListener();
             if (tipDialog == null) tipDialog = new TipDialog();
             tipDialog.context = context;
             tipDialog.tip = tip;
@@ -90,7 +88,6 @@ public class TipDialog extends BaseDialog {
     
     public static TipDialog show(Context context, String tip, int howLong, Bitmap customBitmap) {
         synchronized (TipDialog.class) {
-            cleanDialogLifeCycleListener();
             if (tipDialog == null) tipDialog = new TipDialog();
             tipDialog.context = context;
             tipDialog.tip = tip;
@@ -244,6 +241,20 @@ public class TipDialog extends BaseDialog {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
+    }
+    
+    public static void dismiss() {
+        synchronized (WaitDialog.class) {
+            if (tipDialog != null) {
+                if (tipDialog.alertDialog != null) {
+                    try {
+                        tipDialog.alertDialog.dismiss();
+                    }catch (Exception e){
+                    
+                    }
+                }
+            }
+        }
     }
     
 }

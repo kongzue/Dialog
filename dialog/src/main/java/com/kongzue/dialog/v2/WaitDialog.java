@@ -38,7 +38,6 @@ public class WaitDialog extends BaseDialog {
     public static WaitDialog show(Context context, String tip) {
         synchronized (WaitDialog.class) {
             if (waitDialog == null) waitDialog = new WaitDialog();
-            cleanDialogLifeCycleListener();
             waitDialog.context = context;
             waitDialog.tip = tip;
             waitDialog.showDialog();

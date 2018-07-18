@@ -10,21 +10,21 @@ public abstract class BaseDialog {
     
     public boolean isDialogShown = false;
     
-    private static DialogLifeCycleListener dialogLifeCycleListener;
+    private DialogLifeCycleListener dialogLifeCycleListener;
     
     public void log(Object o) {
         if (DEBUGMODE) Log.i("DialogSDK >>>", o.toString());
     }
     
-    public static void setDialogLifeCycleListener(DialogLifeCycleListener listener) {
+    public void setDialogLifeCycleListener(DialogLifeCycleListener listener) {
         dialogLifeCycleListener = listener;
     }
     
-    public static DialogLifeCycleListener getDialogLifeCycleListener() {
+    public DialogLifeCycleListener getDialogLifeCycleListener() {
         return dialogLifeCycleListener;
     }
     
-    public static void cleanDialogLifeCycleListener() {
+    public void cleanDialogLifeCycleListener() {
         dialogLifeCycleListener = null;
     }
     

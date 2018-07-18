@@ -64,7 +64,6 @@ public class BottomMenu extends BaseDialog {
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
             if (bottomMenu == null) bottomMenu = new BottomMenu();
-            cleanDialogLifeCycleListener();
             bottomMenu.activity = activity;
             bottomMenu.menuText = menuText;
             bottomMenu.isShowCancelButton = isShowCancelButton;

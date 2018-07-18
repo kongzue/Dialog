@@ -97,9 +97,15 @@ public class DialogSettings {
     }
     
     public static void unloadAllDialog(){
-        for (BaseDialog baseDialog:dialogList){
-            baseDialog.doDismiss();
+        try{
+            for (BaseDialog baseDialog:dialogList){
+                baseDialog.doDismiss();
+            }
+            dialogList = new ArrayList<>();
+            TipDialog.dismiss();
+            WaitDialog.dismiss();
+        }catch (Exception e){
+            if (DEBUGMODE)e.printStackTrace();
         }
-        dialogList = new ArrayList<>();
     }
 }

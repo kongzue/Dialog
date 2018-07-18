@@ -53,7 +53,6 @@ public class SelectDialog extends BaseDialog {
                                     String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (SelectDialog.class) {
             selectDialog = new SelectDialog();
-            cleanDialogLifeCycleListener();
             selectDialog.alertDialog = null;
             selectDialog.context = context;
             selectDialog.title = title;

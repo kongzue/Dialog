@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.7-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.8-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.7/link">
-<img src="https://img.shields.io/badge/Maven-2.2.7-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.8/link">
+<img src="https://img.shields.io/badge/Maven-2.2.8-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.7</version>
+  <version>2.2.8</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.7'
+implementation 'com.kongzue.dialog:dialog:2.2.8'
 ```
 
 ## 使用说明
@@ -347,6 +347,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.8:
+- 修复了对话框生命周期 dialogLifeCycleListener 存在的问题；
+
 v2.2.7:
 - 暂时移除了 WaitDialog.dismiss(); 后的延迟，该延迟可能导致 WindowLeaked 异常，解决方案后续版本更新；
 - 修复对话框生命周期监听器不会重置的问题，现在在启动一个新的对话框时监听器会重置；
