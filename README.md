@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.8-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.9-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.8/link">
-<img src="https://img.shields.io/badge/Maven-2.2.8-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.2.9/link">
+<img src="https://img.shields.io/badge/Maven-2.2.9-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,15 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.8</version>
+  <version>2.2.9</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.8'
+implementation 'com.kongzue.dialog:dialog:2.2.9'
+//警告：2.2.9版本起不再支持兼容之前是空祖对话框v1库，仅支持使用最新的v2库，如果仍需使用v1库，请引用2.2.8之前的版本
 ```
 
 ## 使用说明
@@ -347,6 +348,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.9:
+- 不再支持v1版本对话框库；
+
 v2.2.8:
 - 修复了对话框生命周期 dialogLifeCycleListener 存在的问题；
 

@@ -21,7 +21,6 @@ import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.v2.DialogSettings;
-import com.kongzue.dialog.ProgressbarDialog;
 import com.kongzue.dialog.v2.InputDialog;
 import com.kongzue.dialog.v2.MessageDialog;
 import com.kongzue.dialog.v2.Notification;
@@ -152,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
         
         customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
     }
-    
-    private ProgressbarDialog progressbarDialog;
     
     private int notifactionType = TYPE_NORMAL;
     
