@@ -423,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }).setCanCancel(true);
             }
         });
         

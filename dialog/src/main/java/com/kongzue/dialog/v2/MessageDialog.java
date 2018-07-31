@@ -48,6 +48,7 @@ public class MessageDialog extends BaseDialog {
     public static MessageDialog show(Context context, String title, String message, String buttonCaption, DialogInterface.OnClickListener onOkButtonClickListener) {
         synchronized (MessageDialog.class) {
             messageDialog = new MessageDialog();
+            messageDialog.cleanDialogLifeCycleListener();
             messageDialog.alertDialog = null;
             messageDialog.context = context;
             messageDialog.title = title;
@@ -77,64 +78,55 @@ public class MessageDialog extends BaseDialog {
     public void showDialog() {
         log("启动消息对话框 -> " + message);
         AlertDialog.Builder builder;
-            switch (type) {
-                case TYPE_IOS:
-                    switch (dialog_theme) {
-                        case THEME_DARK:
-                            builder = new AlertDialog.Builder(context, R.style.darkMode);
-                            break;
-                        default:
-                            builder = new AlertDialog.Builder(context, R.style.lightMode);
-                            break;
-                    }
-                    break;
-                case TYPE_MATERIAL:
-                    if (dialog_theme == THEME_DARK) {
-                        builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
-                    } else {
-                        builder = new AlertDialog.Builder(context);
-                    }
-                    break;
-                case TYPE_KONGZUE:
-                    switch (dialog_theme) {
-                        case THEME_DARK:
-                            builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
-                            break;
-                        default:
-                            builder = new AlertDialog.Builder(context, R.style.materialDialogLight);
-                            break;
-                    }
-                    break;
-                default:
+        switch (type) {
+            case TYPE_IOS:
+                switch (dialog_theme) {
+                    case THEME_DARK:
+                        builder = new AlertDialog.Builder(context, R.style.darkMode);
+                        break;
+                    default:
+                        builder = new AlertDialog.Builder(context, R.style.lightMode);
+                        break;
+                }
+                break;
+            case TYPE_MATERIAL:
+                if (dialog_theme == THEME_DARK) {
+                    builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
+                } else {
                     builder = new AlertDialog.Builder(context);
-                    break;
-            }
+                }
+                break;
+            case TYPE_KONGZUE:
+                switch (dialog_theme) {
+                    case THEME_DARK:
+                        builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
+                        break;
+                    default:
+                        builder = new AlertDialog.Builder(context, R.style.materialDialogLight);
+                        break;
+                }
+                break;
+            default:
+                builder = new AlertDialog.Builder(context);
+                break;
+        }
         builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null)
+            getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
                 customView = null;
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(MessageDialog.this);
-                showNextDialog();
-            }
-        });
-    
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (customView != null) customView.removeAllViews();
-                customView = null;
-                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
-                isDialogShown = false;
-                dialogList.remove(MessageDialog.this);
+                context = null;
                 showNextDialog();
             }
         });
@@ -297,7 +289,7 @@ public class MessageDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog!=null)alertDialog.dismiss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public MessageDialog setCanCancel(boolean canCancel) {

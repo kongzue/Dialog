@@ -64,6 +64,7 @@ public class BottomMenu extends BaseDialog {
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
             if (bottomMenu == null) bottomMenu = new BottomMenu();
+            bottomMenu.cleanDialogLifeCycleListener();
             bottomMenu.activity = activity;
             bottomMenu.menuText = menuText;
             bottomMenu.isShowCancelButton = isShowCancelButton;
@@ -140,6 +141,12 @@ public class BottomMenu extends BaseDialog {
                     if (customView != null) customView.removeAllViews();
                     if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                     isDialogShown = false;
+                    activity = null;
+                    try {
+                        finalize();
+                    }catch (Throwable throwable){
+                        if (DEBUGMODE) throwable.printStackTrace();
+                    }
                 }
             });
             if (getDialogLifeCycleListener() != null)
@@ -159,6 +166,7 @@ public class BottomMenu extends BaseDialog {
                     if (customView != null) customView.removeAllViews();
                     if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                     isDialogShown = false;
+                    activity = null;
                 }
             });
             alertDialog.show();

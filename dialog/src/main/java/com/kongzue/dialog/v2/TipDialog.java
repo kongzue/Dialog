@@ -62,6 +62,7 @@ public class TipDialog extends BaseDialog {
     public static TipDialog show(Context context, String tip, int howLong, int type) {
         synchronized (TipDialog.class) {
             if (tipDialog == null) tipDialog = new TipDialog();
+            tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.howLong = howLong;
@@ -75,6 +76,7 @@ public class TipDialog extends BaseDialog {
     public static TipDialog show(Context context, String tip, int howLong, Drawable customDrawable) {
         synchronized (TipDialog.class) {
             if (tipDialog == null) tipDialog = new TipDialog();
+            tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.customDrawable = customDrawable;
@@ -89,6 +91,7 @@ public class TipDialog extends BaseDialog {
     public static TipDialog show(Context context, String tip, int howLong, Bitmap customBitmap) {
         synchronized (TipDialog.class) {
             if (tipDialog == null) tipDialog = new TipDialog();
+            tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.customBitmap = customBitmap;
@@ -133,7 +136,8 @@ public class TipDialog extends BaseDialog {
         builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null)
+            getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
         
@@ -144,9 +148,9 @@ public class TipDialog extends BaseDialog {
         boxBkg = window.findViewById(R.id.box_bkg);
         image = window.findViewById(R.id.image);
         txtInfo = window.findViewById(R.id.txt_info);
-    
+        
         boxBkg.removeAllViews();
-    
+        
         if (use_blur) {
             blur = new BlurView(context, null);
             boxInfo.post(new Runnable() {
@@ -206,9 +210,10 @@ public class TipDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (boxBkg != null) boxBkg.removeAllViews();
                 if (getDialogLifeCycleListener() != null) {
                     getDialogLifeCycleListener().onDismiss();
-                    alertDialog = null;
+                    dismiss();
                 }
             }
         });
@@ -249,8 +254,10 @@ public class TipDialog extends BaseDialog {
                 if (tipDialog.alertDialog != null) {
                     try {
                         tipDialog.alertDialog.dismiss();
-                    }catch (Exception e){
-                    
+                        tipDialog.context = null;
+                        tipDialog = null;
+                    } catch (Throwable throwable) {
+                        if (DialogSettings.DEBUGMODE) throwable.printStackTrace();
                     }
                 }
             }

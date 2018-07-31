@@ -57,6 +57,7 @@ public class InputDialog extends BaseDialog {
                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (InputDialog.class) {
             inputDialog = new InputDialog();
+            inputDialog.cleanDialogLifeCycleListener();
             inputDialog.alertDialog = null;
             inputDialog.context = context;
             inputDialog.title = title;
@@ -131,6 +132,7 @@ public class InputDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (bkg!=null)bkg.removeAllViews();
                 if (alertDialog != null) alertDialog.dismiss();
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
@@ -138,20 +140,7 @@ public class InputDialog extends BaseDialog {
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(InputDialog.this);
-                showNextDialog();
-            }
-        });
-        
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (alertDialog != null) alertDialog.dismiss();
-                if (customView != null) customView.removeAllViews();
-                if (onCancelButtonClickListener != null)
-                    onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
-                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
-                isDialogShown = false;
-                dialogList.remove(InputDialog.this);
+                context = null;
                 showNextDialog();
             }
         });

@@ -53,6 +53,7 @@ public class SelectDialog extends BaseDialog {
                                     String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (SelectDialog.class) {
             selectDialog = new SelectDialog();
+            selectDialog.cleanDialogLifeCycleListener();
             selectDialog.alertDialog = null;
             selectDialog.context = context;
             selectDialog.title = title;
@@ -118,27 +119,20 @@ public class SelectDialog extends BaseDialog {
         builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null)
+            getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 dialogList.remove(SelectDialog.this);
-                showNextDialog();
-            }
-        });
-    
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (customView != null) customView.removeAllViews();
-                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
-                isDialogShown = false;
-                dialogList.remove(SelectDialog.this);
+                context = null;
+           
                 showNextDialog();
             }
         });
@@ -201,7 +195,7 @@ public class SelectDialog extends BaseDialog {
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
                     btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                 }
-    
+                
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
@@ -299,7 +293,7 @@ public class SelectDialog extends BaseDialog {
                     btnSelectNegative.setTextColor(ios_normal_button_color);
                     btnSelectPositive.setTextColor(ios_normal_button_color);
                 }
-    
+                
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
@@ -324,7 +318,7 @@ public class SelectDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog!=null)alertDialog.dismiss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public SelectDialog setCanCancel(boolean canCancel) {

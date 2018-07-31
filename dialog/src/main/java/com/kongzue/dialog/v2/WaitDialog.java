@@ -24,20 +24,21 @@ import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
 import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
 public class WaitDialog extends BaseDialog {
-
+    
     private AlertDialog alertDialog;
     private static WaitDialog waitDialog;
     private boolean isCanCancel = false;
-
+    
     private Context context;
     private String tip;
-
+    
     private WaitDialog() {
     }
-
+    
     public static WaitDialog show(Context context, String tip) {
         synchronized (WaitDialog.class) {
             if (waitDialog == null) waitDialog = new WaitDialog();
+            waitDialog.cleanDialogLifeCycleListener();
             waitDialog.context = context;
             waitDialog.tip = tip;
             waitDialog.showDialog();
@@ -45,14 +46,14 @@ public class WaitDialog extends BaseDialog {
             return waitDialog;
         }
     }
-
+    
     private BlurView blur;
     private RelativeLayout boxInfo;
     private RelativeLayout boxBkg;
     private TextView txtInfo;
     private ProgressView progress;
     private int blur_front_color;
-
+    
     public void showDialog() {
         
         if (waitDialog != null) {
@@ -60,7 +61,7 @@ public class WaitDialog extends BaseDialog {
                 waitDialog.alertDialog.dismiss();
             }
         }
-
+        
         AlertDialog.Builder builder;
         int bkgResId;
         switch (tip_theme) {
@@ -76,29 +77,30 @@ public class WaitDialog extends BaseDialog {
                 break;
         }
         builder.setCancelable(isCanCancel);
-
+        
         alertDialog = builder.create();
-
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
+        
+        if (getDialogLifeCycleListener() != null)
+            getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
-
+        
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog_wait);
-
+        
         boxInfo = window.findViewById(R.id.box_info);
         boxBkg = window.findViewById(R.id.box_bkg);
         txtInfo = window.findViewById(R.id.txt_info);
         progress = window.findViewById(R.id.progress);
         
         boxBkg.removeAllViews();
-
+        
         if (tip_theme == THEME_LIGHT) {
             progress.setStrokeColors(new int[]{Color.rgb(0, 0, 0)});
         } else {
             progress.setStrokeColors(new int[]{Color.rgb(255, 255, 255)});
         }
-
+        
         if (use_blur) {
             blur = new BlurView(context, null);
             boxBkg.post(new Runnable() {
@@ -114,7 +116,7 @@ public class WaitDialog extends BaseDialog {
         } else {
             boxBkg.setBackgroundResource(bkgResId);
         }
-
+        
         if (!tip.isEmpty()) {
             boxInfo.setVisibility(View.VISIBLE);
             txtInfo.setText(tip);
@@ -127,6 +129,7 @@ public class WaitDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                if (boxBkg != null) boxBkg.removeAllViews();
                 if (getDialogLifeCycleListener() != null) {
                     getDialogLifeCycleListener().onDismiss();
                     alertDialog = null;
@@ -139,7 +142,7 @@ public class WaitDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog!=null)alertDialog.dismiss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public WaitDialog setCanCancel(boolean canCancel) {
@@ -147,15 +150,17 @@ public class WaitDialog extends BaseDialog {
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
-
+    
     public static void dismiss() {
         synchronized (WaitDialog.class) {
             if (waitDialog != null) {
                 if (waitDialog.alertDialog != null) {
                     try {
                         waitDialog.alertDialog.dismiss();
-                    }catch (Exception e){
-                
+                        waitDialog.context = null;
+                        waitDialog = null;
+                    } catch (Throwable throwable) {
+                        if (DialogSettings.DEBUGMODE) throwable.printStackTrace();
                     }
                 }
             }
