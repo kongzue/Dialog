@@ -37,7 +37,6 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 public class BottomMenu extends BaseDialog {
     
     private List<String> menuText;
-    private static BottomMenu bottomMenu;
     private AlertDialog alertDialog;
     private AppCompatActivity activity;
     private boolean isShowCancelButton = false;
@@ -63,7 +62,7 @@ public class BottomMenu extends BaseDialog {
     
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
-            if (bottomMenu == null) bottomMenu = new BottomMenu();
+            BottomMenu bottomMenu = new BottomMenu();
             bottomMenu.cleanDialogLifeCycleListener();
             bottomMenu.activity = activity;
             bottomMenu.menuText = menuText;

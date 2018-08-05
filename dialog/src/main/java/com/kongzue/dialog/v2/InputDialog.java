@@ -32,7 +32,6 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 public class InputDialog extends BaseDialog {
     
     private AlertDialog alertDialog;
-    private static InputDialog inputDialog;
     private boolean isCanCancel = false;
     
     private Context context;
@@ -56,7 +55,7 @@ public class InputDialog extends BaseDialog {
     public static InputDialog show(Context context, String title, String message, String okButtonCaption, InputDialogOkButtonClickListener onOkButtonClickListener,
                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (InputDialog.class) {
-            inputDialog = new InputDialog();
+            InputDialog inputDialog = new InputDialog();
             inputDialog.cleanDialogLifeCycleListener();
             inputDialog.alertDialog = null;
             inputDialog.context = context;
@@ -126,13 +125,14 @@ public class InputDialog extends BaseDialog {
         
         alertDialog = builder.create();
         alertDialog.setView(new EditText(context));
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
+        if (getDialogLifeCycleListener() != null)
+            getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (bkg!=null)bkg.removeAllViews();
+                if (bkg != null) bkg.removeAllViews();
                 if (alertDialog != null) alertDialog.dismiss();
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)

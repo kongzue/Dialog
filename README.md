@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.9.4</version>
+  <version>2.2.9.5</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.9.4'
+implementation 'com.kongzue.dialog:dialog:2.2.9.5'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -357,8 +357,11 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.9.5:
+- 修复对话框的内存释放问题，提升健壮性；
+
 v2.2.9.4:
-- 修复释放问题，提升健壮性；
+- 修复TipDialog、WaitDialog释放问题，提升健壮性；
 
 v2.2.9.3:
 - 修复bug；

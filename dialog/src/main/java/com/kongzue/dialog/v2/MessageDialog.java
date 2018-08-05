@@ -28,7 +28,6 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 public class MessageDialog extends BaseDialog {
     
     private AlertDialog alertDialog;
-    private static MessageDialog messageDialog;
     private boolean isCanCancel = true;
     
     private Context context;
@@ -47,7 +46,7 @@ public class MessageDialog extends BaseDialog {
     
     public static MessageDialog show(Context context, String title, String message, String buttonCaption, DialogInterface.OnClickListener onOkButtonClickListener) {
         synchronized (MessageDialog.class) {
-            messageDialog = new MessageDialog();
+            MessageDialog messageDialog = new MessageDialog();
             messageDialog.cleanDialogLifeCycleListener();
             messageDialog.alertDialog = null;
             messageDialog.context = context;

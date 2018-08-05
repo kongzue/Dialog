@@ -26,7 +26,6 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 public class SelectDialog extends BaseDialog {
     
     private AlertDialog alertDialog;
-    private static SelectDialog selectDialog;
     private boolean isCanCancel = false;
     
     private Context context;
@@ -52,7 +51,7 @@ public class SelectDialog extends BaseDialog {
     public static SelectDialog show(Context context, String title, String message, String okButtonCaption, DialogInterface.OnClickListener onOkButtonClickListener,
                                     String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (SelectDialog.class) {
-            selectDialog = new SelectDialog();
+            SelectDialog selectDialog = new SelectDialog();
             selectDialog.cleanDialogLifeCycleListener();
             selectDialog.alertDialog = null;
             selectDialog.context = context;
@@ -132,7 +131,6 @@ public class SelectDialog extends BaseDialog {
                 isDialogShown = false;
                 dialogList.remove(SelectDialog.this);
                 context = null;
-           
                 showNextDialog();
             }
         });

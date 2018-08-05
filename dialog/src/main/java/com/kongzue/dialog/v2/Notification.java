@@ -21,21 +21,20 @@ import com.kongzue.dialog.R;
 import java.lang.reflect.Field;
 
 public class Notification {
-
+    
     public static final int SHOW_TIME_SHORT = 0;
     public static final int SHOW_TIME_LONG = 1;
-
+    
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_FINISH = 1;
     public static final int TYPE_WARNING = 2;
     public static final int TYPE_ERROR = 3;
-
+    
     private int howLong = 0;
     private int colorType = 0;
-
-    private static Notification notification;
+    
     private Toast toast;
-
+    
     private Context context;
     private int id;
     private String title;
@@ -43,22 +42,22 @@ public class Notification {
     private int iconResId = 0;
     private Drawable iconDrawable;
     private Bitmap iconBitmap;
-
+    
     private Notification() {
     }
-
+    
     //Fast Function
     public static Notification show(Context context, int id, String message) {
         return show(context, id, "", message, SHOW_TIME_SHORT, TYPE_NORMAL);
     }
-
+    
     public static Notification show(Context context, int id, String message, int colorType) {
         return show(context, id, "", message, SHOW_TIME_SHORT, colorType);
     }
-
+    
     public static Notification show(Context context, int id, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
-            if (notification == null) notification = new Notification();
+            Notification notification = new Notification();
             notification.context = context;
             notification.id = id;
             notification.title = title;
@@ -73,10 +72,10 @@ public class Notification {
             return notification;
         }
     }
-
+    
     public static Notification show(Context context, int id, int iconResId, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
-            if (notification == null) notification = new Notification();
+            Notification notification = new Notification();
             notification.context = context;
             notification.id = id;
             notification.title = title;
@@ -91,10 +90,10 @@ public class Notification {
             return notification;
         }
     }
-
+    
     public static Notification show(Context context, int id, Drawable iconDrawable, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
-            if (notification == null) notification = new Notification();
+            Notification notification = new Notification();
             notification.context = context;
             notification.id = id;
             notification.title = title;
@@ -109,10 +108,10 @@ public class Notification {
             return notification;
         }
     }
-
+    
     public static Notification show(Context context, int id, Bitmap iconBitmap, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
-            if (notification == null) notification = new Notification();
+            Notification notification = new Notification();
             notification.context = context;
             notification.id = id;
             notification.title = title;
@@ -127,14 +126,14 @@ public class Notification {
             return notification;
         }
     }
-
+    
     private LinearLayout btnNotic;
     private ImageView imgIcon;
     private TextView txtTitle;
     private TextView txtMessage;
-
+    
     private void showDialog() {
-
+        
         switch (DialogSettings.type) {
             case DialogSettings.TYPE_IOS:
                 showIosNotification();
@@ -147,26 +146,26 @@ public class Notification {
                 break;
         }
     }
-
+    
     private void showMaterialNotification() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.notification_material, null);
-
-        RelativeLayout boxBody = (RelativeLayout) view.findViewById(R.id.box_body);
-        btnNotic = (LinearLayout) view.findViewById(R.id.btn_notic);
-        imgIcon = (ImageView) view.findViewById(R.id.img_icon);
-        txtTitle = (TextView) view.findViewById(R.id.txt_title);
-        txtMessage = (TextView) view.findViewById(R.id.txt_message);
-
+        
+        RelativeLayout boxBody = view.findViewById(R.id.box_body);
+        btnNotic = view.findViewById(R.id.btn_notic);
+        imgIcon = view.findViewById(R.id.img_icon);
+        txtTitle = view.findViewById(R.id.txt_title);
+        txtMessage = view.findViewById(R.id.txt_message);
+        
         btnNotic.setPadding(dip2px(context, 15), getStatusBarHeight() + dip2px(context, 15), dip2px(context, 15), dip2px(context, 15));
-
+        
         if (isNull(title)) {
             txtTitle.setVisibility(View.GONE);
         } else {
             txtTitle.setVisibility(View.VISIBLE);
             txtTitle.setText(title);
         }
-
+        
         if (iconResId == 0 && iconDrawable == null && iconBitmap == null) {
             imgIcon.setVisibility(View.GONE);
         } else {
@@ -179,7 +178,7 @@ public class Notification {
                 imgIcon.setImageBitmap(iconBitmap);
             }
         }
-
+        
         txtMessage.setText(message);
         if (isNull(title) && iconResId == 0 && iconDrawable == null && iconBitmap == null) {
             TextPaint tp = txtMessage.getPaint();
@@ -188,7 +187,7 @@ public class Notification {
             TextPaint tp = txtMessage.getPaint();
             tp.setFakeBoldText(false);
         }
-
+        
         boxBody.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -196,30 +195,30 @@ public class Notification {
                 return false;
             }
         });
-
+        
         new kToast().show(context, view);
     }
-
+    
     private void showIosNotification() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.notification_ios, null);
-
+        
         RelativeLayout boxBody = (RelativeLayout) view.findViewById(R.id.box_body);
         LinearLayout boxTitle = (LinearLayout) view.findViewById(R.id.box_title);
         btnNotic = (LinearLayout) view.findViewById(R.id.btn_notic);
         imgIcon = (ImageView) view.findViewById(R.id.img_icon);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         txtMessage = (TextView) view.findViewById(R.id.txt_message);
-
+        
         boxBody.setPadding(0, getStatusBarHeight(), 0, 0);
-
+        
         if (isNull(title)) {
             txtTitle.setVisibility(View.GONE);
         } else {
             txtTitle.setVisibility(View.VISIBLE);
             txtTitle.setText(title);
         }
-
+        
         if (iconResId == 0 && iconDrawable == null && iconBitmap == null) {
             imgIcon.setVisibility(View.GONE);
         } else {
@@ -232,7 +231,7 @@ public class Notification {
                 imgIcon.setImageBitmap(iconBitmap);
             }
         }
-
+        
         txtMessage.setText(message);
         if (isNull(title) && iconResId == 0 && iconDrawable == null && iconBitmap == null) {
             boxTitle.setVisibility(View.GONE);
@@ -243,7 +242,7 @@ public class Notification {
             TextPaint tp = txtMessage.getPaint();
             tp.setFakeBoldText(false);
         }
-
+        
         boxBody.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -251,29 +250,29 @@ public class Notification {
                 return false;
             }
         });
-
+        
         new kToast().show(context, view);
     }
-
+    
     private void showKongzueNotification() {
-
+        
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.notification_kongzue, null);
-
-        btnNotic = (LinearLayout) view.findViewById(R.id.btn_notic);
-        imgIcon = (ImageView) view.findViewById(R.id.img_icon);
-        txtTitle = (TextView) view.findViewById(R.id.txt_title);
-        txtMessage = (TextView) view.findViewById(R.id.txt_message);
-
+        
+        btnNotic = view.findViewById(R.id.btn_notic);
+        imgIcon = view.findViewById(R.id.img_icon);
+        txtTitle = view.findViewById(R.id.txt_title);
+        txtMessage = view.findViewById(R.id.txt_message);
+        
         btnNotic.setPadding(dip2px(context, 10), getStatusBarHeight(), dip2px(context, 10), 0);
-
+        
         if (isNull(title)) {
             txtTitle.setVisibility(View.GONE);
         } else {
             txtTitle.setVisibility(View.VISIBLE);
             txtTitle.setText(title);
         }
-
+        
         if (iconResId == 0 && iconDrawable == null && iconBitmap == null) {
             imgIcon.setVisibility(View.GONE);
         } else {
@@ -286,7 +285,7 @@ public class Notification {
                 imgIcon.setImageBitmap(iconBitmap);
             }
         }
-
+        
         txtMessage.setText(message);
         if (isNull(title) && iconResId == 0 && iconDrawable == null && iconBitmap == null) {
             txtMessage.setGravity(Gravity.CENTER);
@@ -297,7 +296,7 @@ public class Notification {
             TextPaint tp = txtMessage.getPaint();
             tp.setFakeBoldText(false);
         }
-
+        
         switch (colorType) {
             case TYPE_NORMAL:
                 btnNotic.setBackgroundResource(R.color.notification_normal);
@@ -315,14 +314,14 @@ public class Notification {
                 btnNotic.setBackgroundColor(colorType);
                 break;
         }
-
+        
         new kToast().show(context, view);
     }
-
+    
     public void log(Object o) {
         Log.i("DialogSDK >>>", o.toString());
     }
-
+    
     private int getStatusBarHeight() {
         try {
             Class<?> c = Class.forName("com.android.internal.R$dimen");
@@ -335,16 +334,16 @@ public class Notification {
         }
         return 0;
     }
-
+    
     public class kToast {
         private LinearLayout btn;
-
+        
         public void show(final Context context, View view) {
             if (toast != null) toast.cancel();
             toast = null;
             if (toast == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                btn = (LinearLayout) view.findViewById(R.id.btn_notic);
+                btn = view.findViewById(R.id.btn_notic);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -377,7 +376,7 @@ public class Notification {
             }
             toast.show();
         }
-
+        
         private Object getField(Object object, String fieldName) throws NoSuchFieldException, IllegalAccessException {
             Field field = object.getClass().getDeclaredField(fieldName);
             if (field != null) {
@@ -387,30 +386,30 @@ public class Notification {
             return null;
         }
     }
-
+    
     public boolean isNull(String s) {
         if (s == null || s.trim().isEmpty() || s.equals("null")) {
             return true;
         }
         return false;
     }
-
+    
     private int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
+    
     private OnNotificationClickListener onNotificationClickListener;
-
+    
     public OnNotificationClickListener getOnNotificationClickListener() {
         return onNotificationClickListener;
     }
-
+    
     public Notification setOnNotificationClickListener(OnNotificationClickListener onNotificationClickListener) {
         this.onNotificationClickListener = onNotificationClickListener;
         return this;
     }
-
+    
     public interface OnNotificationClickListener {
         void OnClick(int id);
     }
