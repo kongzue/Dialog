@@ -149,17 +149,20 @@ public class TipDialog extends BaseDialog {
         image = window.findViewById(R.id.image);
         txtInfo = window.findViewById(R.id.txt_info);
         
-        boxBkg.removeAllViews();
-        
         if (use_blur) {
             blur = new BlurView(context, null);
-            boxInfo.post(new Runnable() {
+            boxBkg.post(new Runnable() {
                 @Override
                 public void run() {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.width = boxInfo.getWidth();
-                    params.height = boxInfo.getHeight();
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    blur.setLayoutParams(params);
                     blur.setOverlayColor(blur_front_color);
+            
+                    ViewGroup.LayoutParams boxBkgLayoutParams = boxBkg.getLayoutParams();
+                    boxBkgLayoutParams.width = boxInfo.getWidth();
+                    boxBkgLayoutParams.height = boxInfo.getHeight();
+                    boxBkg.setLayoutParams(boxBkgLayoutParams);
+            
                     boxBkg.addView(blur, 0, params);
                 }
             });
@@ -253,6 +256,7 @@ public class TipDialog extends BaseDialog {
             if (tipDialog != null) {
                 if (tipDialog.alertDialog != null) {
                     try {
+                        tipDialog.boxBkg.removeAllViews();
                         tipDialog.alertDialog.dismiss();
                         tipDialog.context = null;
                         tipDialog = null;

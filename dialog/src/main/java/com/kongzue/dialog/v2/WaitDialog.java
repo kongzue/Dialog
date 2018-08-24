@@ -93,8 +93,6 @@ public class WaitDialog extends BaseDialog {
         txtInfo = window.findViewById(R.id.txt_info);
         progress = window.findViewById(R.id.progress);
         
-        boxBkg.removeAllViews();
-        
         if (tip_theme == THEME_LIGHT) {
             progress.setStrokeColors(new int[]{Color.rgb(0, 0, 0)});
         } else {
@@ -106,10 +104,15 @@ public class WaitDialog extends BaseDialog {
             boxBkg.post(new Runnable() {
                 @Override
                 public void run() {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.width = boxInfo.getWidth();
-                    params.height = boxInfo.getHeight();
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    blur.setLayoutParams(params);
                     blur.setOverlayColor(blur_front_color);
+    
+                    ViewGroup.LayoutParams boxBkgLayoutParams = boxBkg.getLayoutParams();
+                    boxBkgLayoutParams.width = boxInfo.getWidth();
+                    boxBkgLayoutParams.height = boxInfo.getHeight();
+                    boxBkg.setLayoutParams(boxBkgLayoutParams);
+                    
                     boxBkg.addView(blur, 0, params);
                 }
             });
@@ -156,6 +159,7 @@ public class WaitDialog extends BaseDialog {
             if (waitDialog != null) {
                 if (waitDialog.alertDialog != null) {
                     try {
+                        waitDialog.boxBkg.removeAllViews();
                         waitDialog.alertDialog.dismiss();
                         waitDialog.context = null;
                         waitDialog = null;
