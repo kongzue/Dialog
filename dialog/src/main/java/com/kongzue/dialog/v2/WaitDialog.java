@@ -37,6 +37,11 @@ public class WaitDialog extends BaseDialog {
     
     public static WaitDialog show(Context context, String tip) {
         synchronized (WaitDialog.class) {
+            if (waitDialog != null) {
+                if (waitDialog.alertDialog != null) {
+                    waitDialog.alertDialog.dismiss();
+                }
+            }
             if (waitDialog == null) waitDialog = new WaitDialog();
             waitDialog.cleanDialogLifeCycleListener();
             waitDialog.context = context;
@@ -55,12 +60,6 @@ public class WaitDialog extends BaseDialog {
     private int blur_front_color;
     
     public void showDialog() {
-        
-        if (waitDialog != null) {
-            if (waitDialog.alertDialog != null) {
-                waitDialog.alertDialog.dismiss();
-            }
-        }
         
         AlertDialog.Builder builder;
         int bkgResId;

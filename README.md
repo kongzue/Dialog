@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.9.6</version>
+  <version>2.2.9.7</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.9.6'
+implementation 'com.kongzue.dialog:dialog:2.2.9.7'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -357,6 +357,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.9.7:
+- 修复一些bug；
+
 v2.2.9.6:
 - 修复一些bug；
 

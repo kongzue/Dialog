@@ -61,6 +61,13 @@ public class TipDialog extends BaseDialog {
     
     public static TipDialog show(Context context, String tip, int howLong, int type) {
         synchronized (TipDialog.class) {
+            if (tipDialog != null) {
+                if (tipDialog.alertDialog != null) {
+                    tipDialog.alertDialog.dismiss();
+                }
+            }else{
+                tipDialog = new TipDialog();
+            }
             if (tipDialog == null) tipDialog = new TipDialog();
             tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
@@ -75,6 +82,13 @@ public class TipDialog extends BaseDialog {
     
     public static TipDialog show(Context context, String tip, int howLong, Drawable customDrawable) {
         synchronized (TipDialog.class) {
+            if (tipDialog != null) {
+                if (tipDialog.alertDialog != null) {
+                    tipDialog.alertDialog.dismiss();
+                }
+            }else{
+                tipDialog = new TipDialog();
+            }
             if (tipDialog == null) tipDialog = new TipDialog();
             tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
@@ -90,7 +104,13 @@ public class TipDialog extends BaseDialog {
     
     public static TipDialog show(Context context, String tip, int howLong, Bitmap customBitmap) {
         synchronized (TipDialog.class) {
-            if (tipDialog == null) tipDialog = new TipDialog();
+            if (tipDialog != null) {
+                if (tipDialog.alertDialog != null) {
+                    tipDialog.alertDialog.dismiss();
+                }
+            }else{
+                tipDialog = new TipDialog();
+            }
             tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
@@ -112,12 +132,6 @@ public class TipDialog extends BaseDialog {
     private int blur_front_color;
     
     public void showDialog() {
-        if (tipDialog != null) {
-            if (tipDialog.alertDialog != null) {
-                tipDialog.alertDialog.dismiss();
-            }
-        }
-        
         AlertDialog.Builder builder;
         
         int bkgResId;
