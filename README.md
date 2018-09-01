@@ -357,6 +357,12 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.2.9.9:
+- 修复 InputDialog 事件问题；
+
+v2.2.9.8:
+- 修复一些bug；
+
 v2.2.9.7:
 - 修复一些bug；
 
