@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -283,10 +284,16 @@ public class MainActivity extends AppCompatActivity {
                     
                     }
                 });
-                InputDialog.show(me, "提示", "这是最后一个对话框，序列即将结束", new InputDialogOkButtonClickListener() {
+                InputDialog.show(me, "提示", "这是最后一个对话框，序列即将结束", "提交", new InputDialogOkButtonClickListener() {
                     @Override
                     public void onClick(Dialog dialog, String inputText) {
+                        Log.i(">>>", "InputDialogOkButtonClickListener-ok");
                         dialog.dismiss();
+                    }
+                }, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i(">>>", "InputDialogOkButtonClickListener-cancel");
                     }
                 });
             }

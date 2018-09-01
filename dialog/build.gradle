@@ -6,7 +6,7 @@ def siteUrl = 'https://github.com/kongzue/Dialog' //项目在github主页地址
 def gitUrl = 'https://github.com/kongzue/Dialog.git'   //Git仓库的地址
 
 group = "com.kongzue.dialog"//发布aar前缀根节点
-version = "2.2.9.7"//发布aar的库版本
+version = "2.2.9.9"//发布aar的库版本
 
 //最后生成是compile 'com.kongzue.dialog:dialog:0.0.1' 就是group + ：+module名字 + ：+version
 
@@ -17,8 +17,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 32
-        versionName "2.2.9.7"
+        versionCode 33
+        versionName "2.2.9.9"
 
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true    // Enable RS support

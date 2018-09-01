@@ -189,6 +189,7 @@ public class InputDialog extends BaseDialog {
                         setIMMStatus(false, txtInput);
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
+                        onCancelButtonClickListener = null;
                     }
                 });
                 btnSelectNegative.setText(cancelButtonCaption);
@@ -198,6 +199,7 @@ public class InputDialog extends BaseDialog {
                         alertDialog.dismiss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
+                        onCancelButtonClickListener = null;
                     }
                 });
                 
@@ -246,6 +248,7 @@ public class InputDialog extends BaseDialog {
                     public void onClick(View v) {
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
+                        onCancelButtonClickListener = null;
                     }
                 });
                 
@@ -299,6 +302,7 @@ public class InputDialog extends BaseDialog {
                     public void onClick(View v) {
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
+                        onCancelButtonClickListener = null;
                     }
                 });
                 btnSelectNegative.setVisibility(View.VISIBLE);
@@ -309,6 +313,7 @@ public class InputDialog extends BaseDialog {
                         alertDialog.dismiss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
+                        onCancelButtonClickListener = null;
                     }
                 });
                 
