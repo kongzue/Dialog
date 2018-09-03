@@ -36,6 +36,7 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class BottomMenu extends BaseDialog {
     
+    private BottomMenu bottomMenu;
     private List<String> menuText;
     private AlertDialog alertDialog;
     private AppCompatActivity activity;
@@ -74,7 +75,9 @@ public class BottomMenu extends BaseDialog {
                 bottomMenu.log("未启动底部菜单 -> 没有可显示的内容");
                 return bottomMenu;
             }
+            bottomMenu.log("装载底部菜单 -> " + menuText.toString());
             bottomMenu.showDialog();
+            bottomMenu.bottomMenu = bottomMenu;
             return bottomMenu;
         }
     }
@@ -97,6 +100,8 @@ public class BottomMenu extends BaseDialog {
     @Override
     public void showDialog() {
         log("启动底部菜单 -> " + menuText.toString());
+        dialogList.add(bottomMenu);
+        
         if (type == TYPE_MATERIAL) {
             bottomSheetDialog = new MyBottomSheetDialog(activity);
             View box_view = LayoutInflater.from(activity).inflate(R.layout.bottom_menu_material, null);
@@ -137,13 +142,15 @@ public class BottomMenu extends BaseDialog {
             bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
+                    dialogList.remove(bottomMenu);
                     if (customView != null) customView.removeAllViews();
-                    if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
+                    if (getDialogLifeCycleListener() != null)
+                        getDialogLifeCycleListener().onDismiss();
                     isDialogShown = false;
                     activity = null;
                     try {
                         finalize();
-                    }catch (Throwable throwable){
+                    } catch (Throwable throwable) {
                         if (DEBUGMODE) throwable.printStackTrace();
                     }
                 }
@@ -151,19 +158,23 @@ public class BottomMenu extends BaseDialog {
             if (getDialogLifeCycleListener() != null)
                 getDialogLifeCycleListener().onCreate(bottomSheetDialog);
             bottomSheetDialog.show();
-            if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(bottomSheetDialog);
+            if (getDialogLifeCycleListener() != null)
+                getDialogLifeCycleListener().onShow(bottomSheetDialog);
         } else {
             AlertDialog.Builder builder;
             builder = new AlertDialog.Builder(activity, R.style.bottom_menu);
             builder.setCancelable(true);
             alertDialog = builder.create();
             alertDialog.setCanceledOnTouchOutside(true);
-            if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onCreate(alertDialog);
+            if (getDialogLifeCycleListener() != null)
+                getDialogLifeCycleListener().onCreate(alertDialog);
             alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
+                    dialogList.remove(bottomMenu);
                     if (customView != null) customView.removeAllViews();
-                    if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
+                    if (getDialogLifeCycleListener() != null)
+                        getDialogLifeCycleListener().onDismiss();
                     isDialogShown = false;
                     activity = null;
                 }
@@ -282,13 +293,14 @@ public class BottomMenu extends BaseDialog {
                     alertDialog.dismiss();
                 }
             });
-            if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+            if (getDialogLifeCycleListener() != null)
+                getDialogLifeCycleListener().onShow(alertDialog);
         }
     }
     
     @Override
     public void doDismiss() {
-        if (alertDialog!=null)alertDialog.dismiss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     class NormalMenuArrayAdapter extends ArrayAdapter {

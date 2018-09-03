@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
+import com.kongzue.dialog.util.ModalBaseDialog;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.InputDialog;
 import com.kongzue.dialog.v2.MessageDialog;
@@ -271,9 +272,9 @@ public class MainActivity extends AppCompatActivity {
         btnShowMultipleDialogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageDialog.show(me, "提示", "一次启动多个对话框，他们会按顺序显示出来");
-                MessageDialog.show(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示");
-                SelectDialog.show(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
+                MessageDialog.build(me, "提示", "一次启动多个对话框，他们会按顺序显示出来","确定",null).showDialog();
+                MessageDialog.build(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示","确定",null);
+                SelectDialog.build(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     
@@ -284,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                     
                     }
                 });
-                InputDialog.show(me, "提示", "这是最后一个对话框，序列即将结束", "提交", new InputDialogOkButtonClickListener() {
+                InputDialog.build(me, "提示", "这是最后一个对话框，序列即将结束", "提交", new InputDialogOkButtonClickListener() {
                     @Override
                     public void onClick(Dialog dialog, String inputText) {
                         Log.i(">>>", "InputDialogOkButtonClickListener-ok");

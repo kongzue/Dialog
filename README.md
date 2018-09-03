@@ -1,11 +1,11 @@
-# 空祖家的对话框 2.2
+# 空祖家的对话框 2.3
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.2.9.9-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.0-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.2.9.9/link">
-<img src="https://img.shields.io/badge/Maven-2.2.9.9-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.0/link">
+<img src="https://img.shields.io/badge/Maven-2.3.0-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.2.9.9</version>
+  <version>2.3.0</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.2.9.9'
+implementation 'com.kongzue.dialog:dialog:2.3.0'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -339,6 +339,53 @@ DialogSettings.ios_normal_button_color = -1;                //设置iOS风格默
 DialogSettings.dialog_background_color = R.color.white;     //控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色，=-1时不启用
 ```
 
+### <a name="modal">模态化（序列化）</a>
+模态化（序列化）是指一次性弹出多个对话框时不一次性全部显示，而是按照队列一个关闭后再先试下一个的启动方式。
+
+Kongzue Dialog 是从 2.0.9 版本起支持模态化的，但在 2.3.0 版本起我们做了更多的修改，以保证此方法可能引发的内存泄露问题得以解决，从 2.3.0 版本起，Kongzue Dialog 默认关闭了模态化，要是用模态化，请详细阅读以下文档：
+
+从 2.3.0 版本起，我们提供了“创建”对话框的方法 build(...) ，通过此方法可以在内存中创建 Dialog 而不启动它，以下代码演示了两个消息框、一个选择框和一个输入框模态化显示的方法：
+```
+MessageDialog.build(me, "提示", "一次启动多个对话框，他们会按顺序显示出来","确定",null).showDialog();                           //第一个要显示的 Dialog 请调用其 showDialog() 将它显示出来
+MessageDialog.build(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示","确定",null);
+SelectDialog.build(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+}, "选择2", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+});
+InputDialog.build(me, "提示", "这是最后一个对话框，序列即将结束", "提交", new InputDialogOkButtonClickListener() {
+    @Override
+    public void onClick(Dialog dialog, String inputText) {
+        Log.i(">>>", "InputDialogOkButtonClickListener-ok");
+        dialog.dismiss();
+    }
+}, "取消", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        Log.i(">>>", "InputDialogOkButtonClickListener-cancel");
+    }
+});
+```
+需要模态化的 Dialog 只需要使用 build 创建，而不会直接将它显示出来，支持模态化的有消息对话框（MessageDialog）、选择对话框（SelectDialog）和输入对话框（InputDialog），其他暂不支持。
+
+上述代码在执行时默认就会按照一个关闭再先试下一个的方式进行。
+
+### 一些建议
+由于 Dialog 的模态化实现、等待对话框（WaitDialog）、提示对话框（TipDialog）都需要至少显示一段时间，而 Dialog 的显示是依赖于 Context（更准确说是Activity） 的，那么在这段时间内，若 Activity 被卸载，则有可能发生 WindowLeaked 错误，针对此问题，建议在 Activity 的 onDestroy() 加入以下代码以确保所有 Dialog 完全卸载：
+```
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    DialogSettings.unloadAllDialog();           //卸载掉所有对话框
+}
+```
+
 ## 开源协议
 ```
 Copyright Kongzue Dialog
@@ -357,6 +404,11 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.0:
+- 重写对话框构造器，现在起，Kongzue Dialog 默认将不再采用模态化弹出方式，要需要模态化的弹出方式，请参阅<a href="#modal">“模态化”</a>章节；
+- 对之前可能存在的内存泄漏的问题进行了修复；
+- 此版本起，除 Notification 外的 Dialog 均提供额外的 build 方法用以只创建而不弹出，具体请参考<a href="#modal">“模态化”</a>章节；
+
 v2.2.9.9:
 - 修复 InputDialog 事件问题；
 

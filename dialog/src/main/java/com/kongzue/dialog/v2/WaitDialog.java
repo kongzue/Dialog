@@ -26,7 +26,7 @@ import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 public class WaitDialog extends BaseDialog {
     
     private AlertDialog alertDialog;
-    private static WaitDialog waitDialog;
+    private WaitDialog waitDialog;
     private boolean isCanCancel = false;
     
     private Context context;
@@ -37,17 +37,13 @@ public class WaitDialog extends BaseDialog {
     
     public static WaitDialog show(Context context, String tip) {
         synchronized (WaitDialog.class) {
-            if (waitDialog != null) {
-                if (waitDialog.alertDialog != null) {
-                    waitDialog.alertDialog.dismiss();
-                }
-            }
-            if (waitDialog == null) waitDialog = new WaitDialog();
+            WaitDialog waitDialog = new WaitDialog();
             waitDialog.cleanDialogLifeCycleListener();
             waitDialog.context = context;
             waitDialog.tip = tip;
+            waitDialog.log("装载等待对话框 -> " + tip);
+            waitDialog.waitDialog = waitDialog;
             waitDialog.showDialog();
-            waitDialog.log("显示等待对话框 -> " + tip);
             return waitDialog;
         }
     }
@@ -60,6 +56,8 @@ public class WaitDialog extends BaseDialog {
     private int blur_front_color;
     
     public void showDialog() {
+        dialogList.add(waitDialog);
+        log("显示等待对话框 -> " + tip);
         
         AlertDialog.Builder builder;
         int bkgResId;
@@ -106,7 +104,7 @@ public class WaitDialog extends BaseDialog {
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     blur.setLayoutParams(params);
                     blur.setOverlayColor(blur_front_color);
-    
+                    
                     ViewGroup.LayoutParams boxBkgLayoutParams = boxBkg.getLayoutParams();
                     boxBkgLayoutParams.width = boxInfo.getWidth();
                     boxBkgLayoutParams.height = boxInfo.getHeight();
@@ -131,6 +129,7 @@ public class WaitDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                dialogList.remove(waitDialog);
                 if (boxBkg != null) boxBkg.removeAllViews();
                 if (getDialogLifeCycleListener() != null) {
                     getDialogLifeCycleListener().onDismiss();
@@ -154,18 +153,9 @@ public class WaitDialog extends BaseDialog {
     }
     
     public static void dismiss() {
-        synchronized (WaitDialog.class) {
-            if (waitDialog != null) {
-                if (waitDialog.alertDialog != null) {
-                    try {
-                        waitDialog.boxBkg.removeAllViews();
-                        waitDialog.alertDialog.dismiss();
-                        waitDialog.context = null;
-                        waitDialog = null;
-                    } catch (Throwable throwable) {
-                        if (DialogSettings.DEBUGMODE) throwable.printStackTrace();
-                    }
-                }
+        for (BaseDialog dialog : dialogList) {
+            if (dialog instanceof WaitDialog) {
+                dialog.doDismiss();
             }
         }
     }

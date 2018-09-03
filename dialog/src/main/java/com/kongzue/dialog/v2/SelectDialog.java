@@ -16,15 +16,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.ModalBaseDialog;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
-public class SelectDialog extends BaseDialog {
+public class SelectDialog extends ModalBaseDialog {
     
+    private SelectDialog selectDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
     
@@ -41,15 +42,26 @@ public class SelectDialog extends BaseDialog {
     
     //Fast Function
     public static SelectDialog show(Context context, String title, String message, DialogInterface.OnClickListener onOkButtonClickListener) {
-        return show(context, title, message, "确定", onOkButtonClickListener, "取消", null);
+        SelectDialog selectDialog = build(context, title, message, "确定", onOkButtonClickListener, "取消", null);
+        selectDialog.showDialog();
+        return selectDialog;
     }
     
     public static SelectDialog show(Context context, String title, String message, String okButtonCaption, DialogInterface.OnClickListener onOkButtonClickListener) {
-        return show(context, title, message, okButtonCaption, onOkButtonClickListener, "取消", null);
+        SelectDialog selectDialog = build(context, title, message, okButtonCaption, onOkButtonClickListener, "取消", null);
+        selectDialog.showDialog();
+        return selectDialog;
     }
     
     public static SelectDialog show(Context context, String title, String message, String okButtonCaption, DialogInterface.OnClickListener onOkButtonClickListener,
                                     String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
+        SelectDialog selectDialog = build(context, title, message, okButtonCaption, onOkButtonClickListener, cancelButtonCaption, onCancelButtonClickListener);
+        selectDialog.showDialog();
+        return selectDialog;
+    }
+    
+    public static SelectDialog build(Context context, String title, String message, String okButtonCaption, DialogInterface.OnClickListener onOkButtonClickListener,
+                                     String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (SelectDialog.class) {
             SelectDialog selectDialog = new SelectDialog();
             selectDialog.cleanDialogLifeCycleListener();
@@ -62,8 +74,8 @@ public class SelectDialog extends BaseDialog {
             selectDialog.onOkButtonClickListener = onOkButtonClickListener;
             selectDialog.onCancelButtonClickListener = onCancelButtonClickListener;
             selectDialog.log("装载选择对话框 -> " + message);
-            dialogList.add(selectDialog);
-            showNextDialog();
+            selectDialog.selectDialog = selectDialog;
+            modalDialogList.add(selectDialog);
             return selectDialog;
         }
     }
@@ -82,6 +94,10 @@ public class SelectDialog extends BaseDialog {
     int blur_front_color;
     
     public void showDialog() {
+        dialogList.add(selectDialog);
+        modalDialogList.remove(selectDialog);
+        log("显示选择对话框 -> " + message);
+        
         AlertDialog.Builder builder;
         switch (type) {
             case TYPE_IOS:
@@ -125,13 +141,16 @@ public class SelectDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                dialogList.remove(selectDialog);
                 if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
-                dialogList.remove(SelectDialog.this);
                 context = null;
-                showNextDialog();
+    
+                if (!modalDialogList.isEmpty()){
+                    showNextModalDialog();
+                }
             }
         });
         

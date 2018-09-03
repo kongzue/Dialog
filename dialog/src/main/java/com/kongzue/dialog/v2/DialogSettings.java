@@ -1,13 +1,13 @@
 package com.kongzue.dialog.v2;
 
 import com.kongzue.dialog.util.BaseDialog;
+import com.kongzue.dialog.util.ModalBaseDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DialogSettings {
     
-    public static List<BaseDialog> dialogList = new ArrayList<>();         //对话框队列，当一个对话框处于启动状态时，它是阻塞的，除非关掉它，下一个对话框才会显示
     
     public static final int THEME_LIGHT = 0;
     public static final int THEME_DARK = 1;
@@ -88,24 +88,7 @@ public class DialogSettings {
      */
     public static int ios_normal_button_color = -1;
     
-    public static void showNextDialog() {
-        if (!dialogList.isEmpty()) {
-            if (!dialogList.get(0).isDialogShown) {
-                dialogList.get(0).showDialog();
-            }
-        }
-    }
-    
     public static void unloadAllDialog(){
-        try{
-            for (BaseDialog baseDialog:dialogList){
-                baseDialog.doDismiss();
-            }
-            dialogList = new ArrayList<>();
-            TipDialog.dismiss();
-            WaitDialog.dismiss();
-        }catch (Exception e){
-            if (DEBUGMODE)e.printStackTrace();
-        }
+        BaseDialog.unloadAllDialog();
     }
 }

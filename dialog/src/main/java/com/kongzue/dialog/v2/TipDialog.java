@@ -36,9 +36,9 @@ public class TipDialog extends BaseDialog {
     public static final int TYPE_FINISH = 2;
     
     private AlertDialog alertDialog;
-    private static TipDialog tipDialog;
-    public static Drawable customDrawable;
-    public static Bitmap customBitmap;
+    private TipDialog tipDialog;
+    private Drawable customDrawable;
+    private Bitmap customBitmap;
     private boolean isCanCancel = false;
     
     private Context context;
@@ -52,73 +52,75 @@ public class TipDialog extends BaseDialog {
     
     //Fast Function
     public static TipDialog show(Context context, String tip) {
-        return show(context, tip, SHOW_TIME_SHORT, TYPE_WARNING);
+        TipDialog tipDialog = build(context, tip, SHOW_TIME_SHORT, TYPE_WARNING);
+        tipDialog.showDialog();
+        return tipDialog;
     }
     
     public static TipDialog show(Context context, String tip, int type) {
-        return show(context, tip, SHOW_TIME_SHORT, type);
+        TipDialog tipDialog = build(context, tip, SHOW_TIME_SHORT, type);
+        tipDialog.showDialog();
+        return tipDialog;
     }
     
     public static TipDialog show(Context context, String tip, int howLong, int type) {
+        TipDialog tipDialog = build(context, tip, howLong, type);
+        tipDialog.showDialog();
+        return tipDialog;
+    }
+    
+    public static TipDialog build(Context context, String tip, int howLong, int type) {
         synchronized (TipDialog.class) {
-            if (tipDialog != null) {
-                if (tipDialog.alertDialog != null) {
-                    tipDialog.alertDialog.dismiss();
-                }
-            }else{
-                tipDialog = new TipDialog();
-            }
-            if (tipDialog == null) tipDialog = new TipDialog();
+            TipDialog tipDialog = new TipDialog();
             tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.howLong = howLong;
             tipDialog.type = type;
-            tipDialog.showDialog();
-            tipDialog.log("显示等待对话框 -> " + tip);
+            tipDialog.log("装载提示对话框 -> " + tip);
+            tipDialog.tipDialog = tipDialog;
             return tipDialog;
         }
     }
     
     public static TipDialog show(Context context, String tip, int howLong, Drawable customDrawable) {
+        TipDialog tipDialog = build(context, tip, howLong, customDrawable);
+        tipDialog.showDialog();
+        return tipDialog;
+    }
+    
+    public static TipDialog build(Context context, String tip, int howLong, Drawable customDrawable) {
         synchronized (TipDialog.class) {
-            if (tipDialog != null) {
-                if (tipDialog.alertDialog != null) {
-                    tipDialog.alertDialog.dismiss();
-                }
-            }else{
-                tipDialog = new TipDialog();
-            }
-            if (tipDialog == null) tipDialog = new TipDialog();
+            TipDialog tipDialog = new TipDialog();
             tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.customDrawable = customDrawable;
             tipDialog.howLong = howLong;
             tipDialog.type = TYPE_CUSTOM_DRAWABLE;
-            tipDialog.showDialog();
-            tipDialog.log("显示等待对话框 -> " + tip);
+            tipDialog.log("装载提示对话框 -> " + tip);
+            tipDialog.tipDialog = tipDialog;
             return tipDialog;
         }
     }
     
     public static TipDialog show(Context context, String tip, int howLong, Bitmap customBitmap) {
+        TipDialog tipDialog = build(context, tip, howLong, customBitmap);
+        tipDialog.showDialog();
+        return tipDialog;
+    }
+    
+    public static TipDialog build(Context context, String tip, int howLong, Bitmap customBitmap) {
         synchronized (TipDialog.class) {
-            if (tipDialog != null) {
-                if (tipDialog.alertDialog != null) {
-                    tipDialog.alertDialog.dismiss();
-                }
-            }else{
-                tipDialog = new TipDialog();
-            }
+            TipDialog tipDialog = new TipDialog();
             tipDialog.cleanDialogLifeCycleListener();
             tipDialog.context = context;
             tipDialog.tip = tip;
             tipDialog.customBitmap = customBitmap;
             tipDialog.howLong = howLong;
             tipDialog.type = TYPE_CUSTOM_BITMAP;
-            tipDialog.showDialog();
-            tipDialog.log("显示等待对话框 -> " + tip);
+            tipDialog.log("装载提示对话框 -> " + tip);
+            tipDialog.tipDialog = tipDialog;
             return tipDialog;
         }
     }
@@ -133,6 +135,8 @@ public class TipDialog extends BaseDialog {
     
     public void showDialog() {
         AlertDialog.Builder builder;
+        log("显示提示对话框 -> " + tip);
+        dialogList.add(tipDialog);
         
         int bkgResId;
         switch (tip_theme) {
@@ -171,12 +175,12 @@ public class TipDialog extends BaseDialog {
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     blur.setLayoutParams(params);
                     blur.setOverlayColor(blur_front_color);
-            
+                    
                     ViewGroup.LayoutParams boxBkgLayoutParams = boxBkg.getLayoutParams();
                     boxBkgLayoutParams.width = boxInfo.getWidth();
                     boxBkgLayoutParams.height = boxInfo.getHeight();
                     boxBkg.setLayoutParams(boxBkgLayoutParams);
-            
+                    
                     boxBkg.addView(blur, 0, params);
                 }
             });
@@ -227,10 +231,10 @@ public class TipDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                dialogList.remove(tipDialog);
                 if (boxBkg != null) boxBkg.removeAllViews();
                 if (getDialogLifeCycleListener() != null) {
                     getDialogLifeCycleListener().onDismiss();
-                    dismiss();
                 }
             }
         });
@@ -263,23 +267,6 @@ public class TipDialog extends BaseDialog {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
-    }
-    
-    public static void dismiss() {
-        synchronized (WaitDialog.class) {
-            if (tipDialog != null) {
-                if (tipDialog.alertDialog != null) {
-                    try {
-                        tipDialog.boxBkg.removeAllViews();
-                        tipDialog.alertDialog.dismiss();
-                        tipDialog.context = null;
-                        tipDialog = null;
-                    } catch (Throwable throwable) {
-                        if (DialogSettings.DEBUGMODE) throwable.printStackTrace();
-                    }
-                }
-            }
-        }
     }
     
 }

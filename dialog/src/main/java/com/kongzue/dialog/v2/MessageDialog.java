@@ -3,7 +3,6 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -11,22 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.ModalBaseDialog;
 
-import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
-public class MessageDialog extends BaseDialog {
+public class MessageDialog extends ModalBaseDialog {
     
+    private MessageDialog messageDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = true;
     
@@ -41,10 +39,18 @@ public class MessageDialog extends BaseDialog {
     
     //Fast Function
     public static MessageDialog show(Context context, String title, String message) {
-        return show(context, title, message, "确定", null);
+        MessageDialog messageDialog = build(context, title, message, "确定", null);
+        messageDialog.showDialog();
+        return messageDialog;
     }
     
     public static MessageDialog show(Context context, String title, String message, String buttonCaption, DialogInterface.OnClickListener onOkButtonClickListener) {
+        MessageDialog messageDialog = build(context, title, message, buttonCaption, onOkButtonClickListener);
+        messageDialog.showDialog();
+        return messageDialog;
+    }
+    
+    public static MessageDialog build(Context context, String title, String message, String buttonCaption, DialogInterface.OnClickListener onOkButtonClickListener) {
         synchronized (MessageDialog.class) {
             MessageDialog messageDialog = new MessageDialog();
             messageDialog.cleanDialogLifeCycleListener();
@@ -55,8 +61,8 @@ public class MessageDialog extends BaseDialog {
             messageDialog.message = message;
             messageDialog.onOkButtonClickListener = onOkButtonClickListener;
             messageDialog.log("装载消息对话框 -> " + message);
-            dialogList.add(messageDialog);
-            showNextDialog();
+            messageDialog.messageDialog = messageDialog;
+            modalDialogList.add(messageDialog);
             return messageDialog;
         }
     }
@@ -76,6 +82,9 @@ public class MessageDialog extends BaseDialog {
     
     public void showDialog() {
         log("启动消息对话框 -> " + message);
+        dialogList.add(messageDialog);
+        modalDialogList.remove(messageDialog);
+        
         AlertDialog.Builder builder;
         switch (type) {
             case TYPE_IOS:
@@ -119,14 +128,17 @@ public class MessageDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                dialogList.remove(messageDialog);
                 if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
                 customView = null;
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
-                dialogList.remove(MessageDialog.this);
                 context = null;
-                showNextDialog();
+                
+                if (!modalDialogList.isEmpty()){
+                    showNextModalDialog();
+                }
             }
         });
         

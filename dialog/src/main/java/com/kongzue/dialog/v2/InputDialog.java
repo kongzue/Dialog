@@ -2,10 +2,7 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Handler;
-import android.support.annotation.ColorInt;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -13,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,15 +18,16 @@ import android.widget.TextView;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
-import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.ModalBaseDialog;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
-public class InputDialog extends BaseDialog {
+public class InputDialog extends ModalBaseDialog {
     
+    private InputDialog inputDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
     
@@ -49,11 +46,20 @@ public class InputDialog extends BaseDialog {
     
     //Fast Function
     public static InputDialog show(Context context, String title, String message, InputDialogOkButtonClickListener onOkButtonClickListener) {
-        return show(context, title, message, "确定", onOkButtonClickListener, "取消", null);
+        InputDialog inputDialog = build(context, title, message, "确定", onOkButtonClickListener, "取消", null);
+        inputDialog.showDialog();
+        return inputDialog;
     }
     
     public static InputDialog show(Context context, String title, String message, String okButtonCaption, InputDialogOkButtonClickListener onOkButtonClickListener,
                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
+        InputDialog inputDialog = build(context, title, message, okButtonCaption, onOkButtonClickListener, cancelButtonCaption, onCancelButtonClickListener);
+        inputDialog.showDialog();
+        return inputDialog;
+    }
+    
+    public static InputDialog build(Context context, String title, String message, String okButtonCaption, InputDialogOkButtonClickListener onOkButtonClickListener,
+                                    String cancelButtonCaption, DialogInterface.OnClickListener onCancelButtonClickListener) {
         synchronized (InputDialog.class) {
             InputDialog inputDialog = new InputDialog();
             inputDialog.cleanDialogLifeCycleListener();
@@ -66,8 +72,8 @@ public class InputDialog extends BaseDialog {
             inputDialog.onOkButtonClickListener = onOkButtonClickListener;
             inputDialog.onCancelButtonClickListener = onCancelButtonClickListener;
             inputDialog.log("装载输入对话框 -> " + message);
-            dialogList.add(inputDialog);
-            showNextDialog();
+            inputDialog.inputDialog = inputDialog;
+            modalDialogList.add(inputDialog);
             return inputDialog;
         }
     }
@@ -86,7 +92,9 @@ public class InputDialog extends BaseDialog {
     int blur_front_color;
     
     public void showDialog() {
+        dialogList.add(inputDialog);
         log("启动输入对话框 -> " + message);
+        modalDialogList.remove(inputDialog);
         AlertDialog.Builder builder;
         
         switch (type) {
@@ -132,6 +140,7 @@ public class InputDialog extends BaseDialog {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                dialogList.remove(inputDialog);
                 if (bkg != null) bkg.removeAllViews();
                 if (alertDialog != null) alertDialog.dismiss();
                 if (customView != null) customView.removeAllViews();
@@ -139,9 +148,11 @@ public class InputDialog extends BaseDialog {
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
-                dialogList.remove(InputDialog.this);
+    
+                if (!modalDialogList.isEmpty()){
+                    showNextModalDialog();
+                }
                 context = null;
-                showNextDialog();
             }
         });
         
