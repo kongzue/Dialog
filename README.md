@@ -405,8 +405,8 @@ limitations under the License.
 
 ## 更新日志：
 v2.3.0:
-- 重写对话框构造器，现在起，Kongzue Dialog 默认将不再采用模态化弹出方式，要需要模态化的弹出方式，请参阅<a href="#modal">“模态化”</a>章节；
 - 对之前可能存在的内存泄漏的问题进行了修复；
+- 重写对话框构造器，现在起，Kongzue Dialog 默认将不再采用模态化弹出方式，要需要模态化的弹出方式，请参阅<a href="#modal">“模态化”</a>章节；
 - 此版本起，除 Notification 外的 Dialog 均提供额外的 build 方法用以只创建而不弹出，具体请参考<a href="#modal">“模态化”</a>章节；
 
 v2.2.9.9:
