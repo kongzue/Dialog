@@ -32,6 +32,49 @@
 
 本项目遵循Apache-2.0开源协议，具体可参考：http://www.opensource.org/licenses/apache2.0.php
 
+# 目录
+
+· <a href="#Maven仓库或Gradle的引用方式">Maven仓库或Gradle的引用方式</a>
+
+· <a href="#使用说明">使用说明</a>
+
+· <a href="#关于v2组件包">关于v2组件包</a>
+
+· <a href="#关于模糊效果">关于模糊效果</a>
+
+· <a href="#使用方法">使用方法</a>
+
+···· <a href="#调用消息对话框的方法">调用消息对话框的方法</a>
+
+···· <a href="#调用选择对话框的方法">调用选择对话框的方法</a>
+
+···· <a href="#调用输入对话框">调用输入对话框</a>
+
+···· <a href="#调用等待提示框">调用等待提示框</a>
+
+···· <a href="#调用完成提示框">调用完成提示框</a>
+
+···· <a href="#调用警告提示框">调用警告提示框</a>
+
+···· <a href="#调用错误提示框">调用错误提示框</a>
+
+···· <a href="#调用消息通知">调用消息通知</a>
+
+···· <a href="#调用底部菜单">调用底部菜单</a>
+
+· <a href="#自定义布局">自定义布局</a>
+
+· <a href="#附加功能">附加功能</a>
+
+· <a href="#modal">模态化（序列化）</a>
+
+· <a href="#一些建议">一些建议</a>
+
+· <a href="#开源协议">开源协议</a>
+
+· <a href="#更新日志">更新日志</a>
+
+
 ## Maven仓库或Gradle的引用方式
 Maven仓库：
 ```
@@ -98,7 +141,7 @@ DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色
 
 为了更有效率的开发，我们现在强烈推荐直接使用v2组件库，其包含的包地址为：com.kongzue.dialog.v2
 
-### 关于模糊效果
+## 关于模糊效果
 从2.1.1版本起可使用即时模糊效果。
 
 您可以通过以下属性设置开关：
@@ -118,6 +161,8 @@ android {
 }
 ```
 模糊效果目前仅对当 DialogSettings.type = TYPE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
+
+## 使用方法
 
 ### 调用消息对话框的方法：
 ```
@@ -286,7 +331,7 @@ BottomMenu.show(me, list);
 BottomMenu.show(me, list).setTitle("这里是标题测试");
 ```
 
-### 自定义布局：
+## 自定义布局：
 从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局，因为一些原因，选择 Material 风格时仅支持对话框全部使用自定义布局。
 
 使用方法举例：
@@ -343,7 +388,7 @@ DialogSettings.notification_text_color = -1;                //控制 Notificatio
 DialogSettings.notification_text_size = -1;                 //控制 Notification 标题和消息默认字号，=-1不启用
 ```
 
-### <a name="modal">模态化（序列化）</a>
+## <a name="modal">模态化（序列化）</a>
 模态化（序列化）是指一次性弹出多个对话框时不一次性全部显示，而是按照队列一个关闭后再先试下一个的启动方式。
 
 Kongzue Dialog 是从 2.0.9 版本起支持模态化的，但在 2.3.0 版本起我们做了更多的修改，以保证此方法可能引发的内存泄露问题得以解决，从 2.3.0 版本起，Kongzue Dialog 默认关闭了模态化，要是用模态化，请详细阅读以下文档：
@@ -380,7 +425,7 @@ InputDialog.build(me, "提示", "这是最后一个对话框，序列即将结�
 
 上述代码在执行时默认就会按照一个关闭再先试下一个的方式进行。
 
-### 一些建议
+## 一些建议
 由于 Dialog 的模态化实现、等待对话框（WaitDialog）、提示对话框（TipDialog）都需要至少显示一段时间，而 Dialog 的显示是依赖于 Context（更准确说是Activity） 的，那么在这段时间内，若 Activity 被卸载，则有可能发生 WindowLeaked 错误，针对此问题，建议在 Activity 的 onDestroy() 加入以下代码以确保所有 Dialog 完全卸载：
 ```
 @Override
