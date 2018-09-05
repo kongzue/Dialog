@@ -71,6 +71,7 @@ public class InputDialog extends ModalBaseDialog {
             inputDialog.cancelButtonCaption = cancelButtonCaption;
             inputDialog.onOkButtonClickListener = onOkButtonClickListener;
             inputDialog.onCancelButtonClickListener = onCancelButtonClickListener;
+            inputDialog.isCanCancel = dialog_cancelable_default;
             inputDialog.log("装载输入对话框 -> " + message);
             inputDialog.inputDialog = inputDialog;
             modalDialogList.add(inputDialog);
@@ -148,8 +149,8 @@ public class InputDialog extends ModalBaseDialog {
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
-    
-                if (!modalDialogList.isEmpty()){
+                
+                if (!modalDialogList.isEmpty()) {
                     showNextModalDialog();
                 }
                 context = null;

@@ -60,6 +60,7 @@ public class MessageDialog extends ModalBaseDialog {
             messageDialog.buttonCaption = buttonCaption;
             messageDialog.message = message;
             messageDialog.onOkButtonClickListener = onOkButtonClickListener;
+            messageDialog.isCanCancel = dialog_cancelable_default;
             messageDialog.log("装载消息对话框 -> " + message);
             messageDialog.messageDialog = messageDialog;
             modalDialogList.add(messageDialog);

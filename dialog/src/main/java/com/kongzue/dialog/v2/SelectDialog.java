@@ -73,6 +73,7 @@ public class SelectDialog extends ModalBaseDialog {
             selectDialog.cancelButtonCaption = cancelButtonCaption;
             selectDialog.onOkButtonClickListener = onOkButtonClickListener;
             selectDialog.onCancelButtonClickListener = onCancelButtonClickListener;
+            selectDialog.isCanCancel = dialog_cancelable_default;
             selectDialog.log("装载选择对话框 -> " + message);
             selectDialog.selectDialog = selectDialog;
             modalDialogList.add(selectDialog);

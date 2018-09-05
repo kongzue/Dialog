@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +20,10 @@ import android.widget.Toast;
 import com.kongzue.dialog.R;
 
 import java.lang.reflect.Field;
+
+import static com.kongzue.dialog.v2.DialogSettings.dialog_menu_text_size;
+import static com.kongzue.dialog.v2.DialogSettings.notification_text_color;
+import static com.kongzue.dialog.v2.DialogSettings.notification_text_size;
 
 public class Notification {
     
@@ -157,6 +162,15 @@ public class Notification {
         txtTitle = view.findViewById(R.id.txt_title);
         txtMessage = view.findViewById(R.id.txt_message);
         
+        if (notification_text_size != -1) {
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+        }
+        if (notification_text_color != -1) {
+            txtTitle.setTextColor(notification_text_color);
+            txtMessage.setTextColor(notification_text_color);
+        }
+        
         btnNotic.setPadding(dip2px(context, 15), getStatusBarHeight() + dip2px(context, 15), dip2px(context, 15), dip2px(context, 15));
         
         if (isNull(title)) {
@@ -209,6 +223,15 @@ public class Notification {
         imgIcon = (ImageView) view.findViewById(R.id.img_icon);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         txtMessage = (TextView) view.findViewById(R.id.txt_message);
+        
+        if (notification_text_size != -1) {
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+        }
+        if (notification_text_color != -1) {
+            txtTitle.setTextColor(notification_text_color);
+            txtMessage.setTextColor(notification_text_color);
+        }
         
         boxBody.setPadding(0, getStatusBarHeight(), 0, 0);
         
@@ -263,6 +286,15 @@ public class Notification {
         imgIcon = view.findViewById(R.id.img_icon);
         txtTitle = view.findViewById(R.id.txt_title);
         txtMessage = view.findViewById(R.id.txt_message);
+        
+        if (notification_text_size != -1) {
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+        }
+        if (notification_text_color != -1) {
+            txtTitle.setTextColor(notification_text_color);
+            txtMessage.setTextColor(notification_text_color);
+        }
         
         btnNotic.setPadding(dip2px(context, 10), getStatusBarHeight(), dip2px(context, 10), 0);
         

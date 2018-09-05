@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.0-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.1-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.0/link">
-<img src="https://img.shields.io/badge/Maven-2.3.0-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.1/link">
+<img src="https://img.shields.io/badge/Maven-2.3.1-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -38,14 +38,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.0</version>
+  <version>2.3.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.0'
+implementation 'com.kongzue.dialog:dialog:2.3.1'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -337,6 +337,10 @@ DialogSettings.dialog_menu_text_size = -1;                  //设置菜单默认
 DialogSettings.tip_text_size = -1;                          //设置提示框文字大小，<=0不启用
 DialogSettings.ios_normal_button_color = -1;                //设置iOS风格默认按钮文字颜色，=-1不启用
 DialogSettings.dialog_background_color = R.color.white;     //控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色，=-1时不启用
+//v2.3.1新增：
+DialogSettings.dialog_cancelable_default = -1;              //控制消息对话框、选择对话框和输入对话框默认是否可点击外部遮罩层区域关闭，=-1不启用
+DialogSettings.notification_text_color = -1;                //控制 Notification 标题和消息默认颜色，=-1不启用
+DialogSettings.notification_text_size = -1;                 //控制 Notification 标题和消息默认字号，=-1不启用
 ```
 
 ### <a name="modal">模态化（序列化）</a>
@@ -404,6 +408,11 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.1:
+- 新增 DialogSettings.dialog_cancelable_default 控制消息对话框、选择对话框和输入对话框默认是否可点击外部遮罩层区域关闭；
+- 新增 DialogSettings.notification_text_color 控制 Notification 标题和消息默认颜色；
+- 新增 DialogSettings.notification_text_size 控制 Notification 标题和消息默认字号；
+
 v2.3.0:
 - 对之前可能存在的内存泄漏的问题进行了修复；
 - 重写对话框构造器，现在起，Kongzue Dialog 默认将不再采用模态化弹出方式，要需要模态化的弹出方式，请参阅<a href="#modal">“模态化”</a>章节；
