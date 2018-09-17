@@ -30,6 +30,7 @@ import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.kongzue.dialog.v2.DialogSettings.*;
@@ -49,16 +50,48 @@ public class BottomMenu extends BaseDialog {
     }
     
     //Fast Function
+    public static BottomMenu show(AppCompatActivity activity, String[] menuText) {
+        List<String> list = new ArrayList<>();
+        for (String s:menuText){
+            list.add(s);
+        }
+        return show(activity, list, null, true, "取消");
+    }
+    
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText) {
         return show(activity, menuText, null, true, "取消");
+    }
+    
+    public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener) {
+        List<String> list = new ArrayList<>();
+        for (String s:menuText){
+            list.add(s);
+        }
+        return show(activity, list, onMenuItemClickListener, true, "取消");
     }
     
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener) {
         return show(activity, menuText, onMenuItemClickListener, true, "取消");
     }
     
+    public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton) {
+        List<String> list = new ArrayList<>();
+        for (String s:menuText){
+            list.add(s);
+        }
+        return show(activity, list, onMenuItemClickListener, isShowCancelButton, "取消");
+    }
+    
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton) {
         return show(activity, menuText, onMenuItemClickListener, isShowCancelButton, "取消");
+    }
+    
+    public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
+        List<String> list = new ArrayList<>();
+        for (String s:menuText){
+            list.add(s);
+        }
+        return show(activity, list, onMenuItemClickListener, isShowCancelButton, cancelButtonCaption);
     }
     
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
