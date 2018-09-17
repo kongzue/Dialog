@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.2-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.3-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.2/link">
-<img src="https://img.shields.io/badge/Maven-2.3.2-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.3/link">
+<img src="https://img.shields.io/badge/Maven-2.3.3-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.2</version>
+  <version>2.3.3</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.2'
+implementation 'com.kongzue.dialog:dialog:2.3.3'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -161,6 +161,14 @@ android {
 }
 ```
 模糊效果目前仅对当 DialogSettings.type = TYPE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
+
+可以通过以下方法修改模糊透明度：
+```
+/*
+ *  决定等待框、提示框以及iOS风格的对话框的模糊背景透明度（0-255）
+ */
+DialogSettings.blur_alpha = 200;
+```
 
 ## 使用方法
 
@@ -332,9 +340,9 @@ BottomMenu.show(me, list).setTitle("这里是标题测试");
 ```
 
 ## 自定义布局：
-从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局，因为一些原因，选择 Material 风格时仅支持对话框全部使用自定义布局。
+从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局。
 
-使用方法举例：
+由于调用逻辑顺序不同，在 type 为 TYPE_KONGZUE 和 TYPE_IOS 使用方法举例：
 ```
 //初始化布局：
 View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
@@ -346,6 +354,22 @@ MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListe
                     }
                 }).setCustomView(customView);
 ```
+
+在 type 为 TYPE_MATERIAL 时，请先使用 build(...) 方法创建 Dialog，接着设置好自定义布局后再执行 showDialog() 方法，使用方法举例：
+```
+//初始化布局：
+View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
+//启动对话框
+MessageDialog.build(me, null, null, "知道了", new DialogInterface.OnClickLis
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+}).setCustomView(customView)
+  .setCanCancel(true)
+  .showDialog();
+```
+
 
 ## 附加功能：
 在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
@@ -453,6 +477,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.3:
+- 修复当 type == TYPE_MATERIAL 时自定义布局的问题，具体请参考章节：<a href="#自定义布局">自定义布局</a>；
+- 新增模糊度调节，具体亲参考章节：<a href="#关于模糊效果">关于模糊效果</a>；
+
 v2.3.2:
 - BottomMenu 支持直接使用 String[] 作为参数创建菜单；
 

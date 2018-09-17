@@ -20,6 +20,7 @@ import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
+import static com.kongzue.dialog.v2.DialogSettings.blur_alpha;
 import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
 import static com.kongzue.dialog.v2.DialogSettings.use_blur;
@@ -143,12 +144,12 @@ public class TipDialog extends BaseDialog {
             case THEME_LIGHT:
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
-                blur_front_color = Color.argb(150, 255, 255, 255);
+                blur_front_color = Color.argb(blur_alpha - 50, 255, 255, 255);
                 break;
             default:
                 builder = new AlertDialog.Builder(context, R.style.darkMode);
                 bkgResId = R.drawable.rect_dark;
-                blur_front_color = Color.argb(200, 0, 0, 0);
+                blur_front_color = Color.argb(blur_alpha, 0, 0, 0);
                 break;
         }
         builder.setCancelable(isCanCancel);

@@ -27,6 +27,11 @@ public class DialogSettings {
     public static boolean use_blur = true;
     
     /*
+     *  决定等待框、提示框以及iOS风格的对话框的模糊背景透明度（0-255）
+     */
+    public static int blur_alpha = 200;
+    
+    /*
      *  决定对话框的默认样式
      *  请使用 TYPE_MATERIAL、TYPE_KONGZUE、TYPE_IOS 赋值
      */

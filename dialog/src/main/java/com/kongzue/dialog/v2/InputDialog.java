@@ -254,6 +254,8 @@ public class InputDialog extends ModalBaseDialog {
                 });
                 alertDialog.setButton(BUTTON_NEGATIVE, cancelButtonCaption, onCancelButtonClickListener);
                 
+                if (customView != null) alertDialog.setView(customView);
+                
                 alertDialog.show();
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -338,14 +340,14 @@ public class InputDialog extends ModalBaseDialog {
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
                     txtInput.setBackgroundResource(R.drawable.editbox_bkg_ios_dark);
                     bkgResId = R.drawable.rect_dlg_dark;
-                    blur_front_color = Color.argb(200, 0, 0, 0);
+                    blur_front_color = Color.argb(blur_alpha, 0, 0, 0);
                 } else {
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
                     txtInput.setTextColor(Color.rgb(0, 0, 0));
                     txtInput.setBackgroundResource(R.drawable.editbox_bkg_ios);
                     bkgResId = R.drawable.rect_light;
-                    blur_front_color = Color.argb(200, 255, 255, 255);      //白
+                    blur_front_color = Color.argb(blur_alpha, 255, 255, 255);      //白
                 }
                 
                 if (use_blur) {
@@ -430,7 +432,6 @@ public class InputDialog extends ModalBaseDialog {
         if (type == TYPE_MATERIAL) {
             customView = new RelativeLayout(context);
             customView.addView(view);
-            alertDialog.setContentView(customView);
         } else {
             if (alertDialog != null && view != null) {
                 customView.setVisibility(View.VISIBLE);

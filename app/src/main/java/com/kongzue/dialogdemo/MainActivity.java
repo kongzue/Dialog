@@ -193,47 +193,90 @@ public class MainActivity extends AppCompatActivity {
         btnMsgWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    
-                    }
-                }).setCustomView(customView).setCanCancel(true);
+                if (DialogSettings.type == TYPE_MATERIAL) {
+                    MessageDialog.build(me, null, null, "知道了", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        
+                        }
+                    }).setCustomView(customView).setCanCancel(true).showDialog();
+                } else {
+                    MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        
+                        }
+                    }).setCustomView(customView).setCanCancel(true);
+                }
             }
         });
         
         btnSelectWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectDialog.show(me, null, null, "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
-                    }
-                }, "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
-                    }
-                }).setCustomView(customView).setCanCancel(true);
+                if (DialogSettings.type == TYPE_MATERIAL) {
+                    SelectDialog.build(me, null, null, "确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+                        }
+                    }, "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+                        }
+                    }).setCustomView(customView).setCanCancel(true).showDialog();
+                } else {
+                    SelectDialog.show(me, null, null, "确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+                        }
+                    }, "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+                        }
+                    }).setCustomView(customView).setCanCancel(true);
+                }
             }
         });
         
         btnInputWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputDialog.show(me, null, null, new InputDialogOkButtonClickListener() {
-                    @Override
-                    public void onClick(Dialog dialog, String inputText) {
-                        if (!inputText.equals("kongzue")) {
-                            TipDialog.show(me, "错误的用户名", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_ERROR);
-                            Notification.show(me, 0, "小提示：用户名是：kongzue");
-                        } else {
-                            TipDialog.show(me, "您已通过", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
-                            dialog.dismiss();
+                if (DialogSettings.type == TYPE_MATERIAL) {
+                    InputDialog.build(me, null, null, "确定", new InputDialogOkButtonClickListener() {
+                        @Override
+                        public void onClick(Dialog dialog, String inputText) {
+                            if (!inputText.equals("kongzue")) {
+                                TipDialog.show(me, "错误的用户名", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_ERROR);
+                                Notification.show(me, 0, "小提示：用户名是：kongzue");
+                            } else {
+                                TipDialog.show(me, "您已通过", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                                dialog.dismiss();
+                            }
                         }
-                    }
-                }).setCustomView(customView).setCanCancel(true);
+                    }, "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+        
+                        }
+                    }).setCustomView(customView).setCanCancel(true).showDialog();
+                }else {
+                    InputDialog.show(me, null, null, new InputDialogOkButtonClickListener() {
+                        @Override
+                        public void onClick(Dialog dialog, String inputText) {
+                            if (!inputText.equals("kongzue")) {
+                                TipDialog.show(me, "错误的用户名", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_ERROR);
+                                Notification.show(me, 0, "小提示：用户名是：kongzue");
+                            } else {
+                                TipDialog.show(me, "您已通过", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                                dialog.dismiss();
+                            }
+                        }
+                    }).setCustomView(customView).setCanCancel(true);
+                }
             }
         });
         
@@ -272,8 +315,8 @@ public class MainActivity extends AppCompatActivity {
         btnShowMultipleDialogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageDialog.build(me, "提示", "一次启动多个对话框，他们会按顺序显示出来","确定",null).showDialog();
-                MessageDialog.build(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示","确定",null);
+                MessageDialog.build(me, "提示", "一次启动多个对话框，他们会按顺序显示出来", "确定", null).showDialog();
+                MessageDialog.build(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示", "确定", null);
                 SelectDialog.build(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

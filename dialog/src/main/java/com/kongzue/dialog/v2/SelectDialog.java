@@ -148,8 +148,8 @@ public class SelectDialog extends ModalBaseDialog {
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 context = null;
-    
-                if (!modalDialogList.isEmpty()){
+                
+                if (!modalDialogList.isEmpty()) {
                     showNextModalDialog();
                 }
             }
@@ -226,6 +226,9 @@ public class SelectDialog extends ModalBaseDialog {
                 if (dialog_background_color != -1) {
                     alertDialog.getWindow().getDecorView().setBackgroundResource(dialog_background_color);
                 }
+                
+                if (customView != null) alertDialog.setView(customView);
+                
                 alertDialog.show();
                 break;
             case TYPE_IOS:
@@ -285,12 +288,12 @@ public class SelectDialog extends ModalBaseDialog {
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left_dark);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right_dark);
                     bkgResId = R.drawable.rect_dlg_dark;
-                    blur_front_color = Color.argb(200, 0, 0, 0);
+                    blur_front_color = Color.argb(blur_alpha, 0, 0, 0);
                 } else {
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_left);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_right);
                     bkgResId = R.drawable.rect_light;
-                    blur_front_color = Color.argb(200, 255, 255, 255);      //白
+                    blur_front_color = Color.argb(blur_alpha, 255, 255, 255);      //白
                 }
                 
                 if (use_blur) {
@@ -349,7 +352,6 @@ public class SelectDialog extends ModalBaseDialog {
         if (type == TYPE_MATERIAL) {
             customView = new RelativeLayout(context);
             customView.addView(view);
-            alertDialog.setContentView(customView);
         } else {
             if (alertDialog != null && view != null) {
                 customView.setVisibility(View.VISIBLE);
