@@ -10,10 +10,14 @@ import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -26,6 +30,7 @@ import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.InputDialog;
 import com.kongzue.dialog.v2.MessageDialog;
 import com.kongzue.dialog.v2.Notification;
+import com.kongzue.dialog.v2.Pop;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -71,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnTipOk;
     private Button btnTipWarning;
     private Button btnTipError;
+    private Button btnPopTop;
+    private Button btnPopDown;
+    private Button btnPopRight;
+    private Button btnPopLeft;
+    private EditText editPop;
     private RadioGroup grpNotification;
     private RadioButton rdoNormal;
     private RadioButton rdoFinish;
@@ -106,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         btnTipOk = findViewById(R.id.btn_tip_ok);
         btnTipWarning = findViewById(R.id.btn_tip_warning);
         btnTipError = findViewById(R.id.btn_tip_error);
+        btnPopTop = findViewById(R.id.btn_pop_top);
+        btnPopDown = findViewById(R.id.btn_pop_down);
+        btnPopRight = findViewById(R.id.btn_pop_right);
+        btnPopLeft = findViewById(R.id.btn_pop_left);
+        editPop = findViewById(R.id.edit_pop);
         grpNotification = findViewById(R.id.grp_notification);
         rdoNormal = findViewById(R.id.rdo_normal);
         rdoFinish = findViewById(R.id.rdo_finish);
@@ -156,7 +171,64 @@ public class MainActivity extends AppCompatActivity {
     
     private int notifactionType = TYPE_NORMAL;
     
+    private Pop editboxPop;
+    
     private void setEvents() {
+        
+        editPop.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            
+            }
+            
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            
+            }
+            
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (editPop.getText().toString().length() < 6 && editPop.getText().toString().length() > 0) {
+                    if (editboxPop == null) {
+                        editboxPop = Pop.show(me, editPop, "至少填写6位，还差" + (6 - editPop.getText().toString().length()) + "位", Pop.SHOW_UP, Pop.COLOR_TYPE_ERROR);
+                    } else {
+                        editboxPop.setText("至少填写6位，还差" + (6 - editPop.getText().toString().length()) + "位");
+                    }
+                } else {
+                    if (editboxPop != null) {
+                        editboxPop.dismiss();
+                    }
+                }
+            }
+        });
+        
+        btnPopRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pop.show(me, v, "这是个提示在右侧", Pop.SHOW_RIGHT, notifactionType);
+            }
+        });
+        
+        btnPopTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pop.show(me, v, "这是个提示在上侧", Pop.SHOW_UP, notifactionType);
+            }
+        });
+        
+        btnPopDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pop.show(me, v, "这是个提示在下侧", Pop.SHOW_DOWN, notifactionType);
+            }
+        });
+        
+        btnPopLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pop.show(me, v, "这是个提示在左侧", Pop.SHOW_LEFT, notifactionType);
+            }
+        });
         
         btnShowBottomMenuWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,10 +332,10 @@ public class MainActivity extends AppCompatActivity {
                     }, "取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-        
+                        
                         }
                     }).setCustomView(customView).setCanCancel(true).showDialog();
-                }else {
+                } else {
                     InputDialog.show(me, null, null, new InputDialogOkButtonClickListener() {
                         @Override
                         public void onClick(Dialog dialog, String inputText) {

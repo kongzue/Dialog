@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.3-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.4-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.3/link">
-<img src="https://img.shields.io/badge/Maven-2.3.3-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.4/link">
+<img src="https://img.shields.io/badge/Maven-2.3.4-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -62,6 +62,8 @@
 
 ···· <a href="#调用底部菜单">调用底部菜单</a>
 
+···· <a href="#气泡提示">气泡提示</a>
+
 · <a href="#自定义布局">自定义布局</a>
 
 · <a href="#附加功能">附加功能</a>
@@ -81,14 +83,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.3</version>
+  <version>2.3.4</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.3'
+implementation 'com.kongzue.dialog:dialog:2.3.4'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -136,6 +138,9 @@ DialogSettings.dialog_theme = THEME_DARK;       //设置对话框主题为暗色
 6) 从 2.2.3 版本开始，MessageDialog、SelectDialog、InputDialog和BottomMenu 支持自定义布局：
 ![Kongzue's Dialog CustomView](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.2.3_customView.png)
 
+7) 从 2.3.4 版本开始，提供气泡提示功能：
+![Kongzue's Dialog CustomView](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.3.4_pop.png)
+
 ## 关于v2组件包
 在空祖家的对话框组件中，依然保留了一代的组件库但不再推荐使用，这是为了保持兼容性，若强行使用您会看到相关类的名称上有删除线。
 
@@ -174,7 +179,7 @@ DialogSettings.blur_alpha = 200;
 
 ### 调用消息对话框的方法：
 ```
-MessageDialog.show(me, "消息提示框", "用于提示一些消息", "知道了", new DialogInterface.OnClickListener() {
+MessageDialog.show(context, "消息提示框", "用于提示一些消息", "知道了", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
     }
@@ -182,39 +187,39 @@ MessageDialog.show(me, "消息提示框", "用于提示一些消息", "知道了
 ```
 或者可以采用快速调用方式：
 ```
-MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
+MessageDialog.show(context, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
 ```
 
 ### 调用选择对话框的方法：
 ```
-SelectDialog.show(me, "提示", "请做出你的选择", "确定", new DialogInterface.OnClickListener() {
+SelectDialog.show(context, "提示", "请做出你的选择", "确定", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
     }
 }, "取消", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(me, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
     }
 });
 ```
 或者可以采用快速调用方式：
 ```
-SelectDialog.show(me, "提示", "请做出你的选择", new DialogInterface.OnClickListener() {
+SelectDialog.show(context, "提示", "请做出你的选择", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(me, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
     }
 });
 ```
 
 ### 调用输入对话框：
 ```
-InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", "确定", new InputDialogOkButtonClickListener() {
+InputDialog.show(context, "设置昵称", "设置一个好听的名字吧", "确定", new InputDialogOkButtonClickListener() {
     @Override
     public void onClick(Dialog dialog, String inputText) {
-        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
     }
 }, "取消", new DialogInterface.OnClickListener() {
     @Override
@@ -225,32 +230,32 @@ InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", "确定",
 ```
 或者可以采用快速调用方式：
 ```
-InputDialog.show(me, "设置昵称", "设置一个好听的名字吧", new InputDialogOkButtonClickListener() {
+InputDialog.show(context, "设置昵称", "设置一个好听的名字吧", new InputDialogOkButtonClickListener() {
                     @Override
                     public void onClick(Dialog dialog, String inputText) {
-                        Toast.makeText(me, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
                     }
                 });
 ```
 
 ### 调用等待提示框：
 ```
-WaitDialog.show(me, "载入中...");
+WaitDialog.show(context, "载入中...");
 ```
 
 ### 调用完成提示框：
 ```
-TipDialog.show(me, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+TipDialog.show(context, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
 ```
 
 ### 调用警告提示框：
 ```
-TipDialog.show(me, "请输入密码", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+TipDialog.show(context, "请输入密码", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
 ```
 
 ### 调用错误提示框：
 ```
-TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
+TipDialog.show(context, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERROR);
 ```
 
 ### 调用消息通知：
@@ -260,11 +265,11 @@ TipDialog.show(me, "禁止访问", TipDialog.SHOW_TIME_LONG, TipDialog.TYPE_ERRO
 通知消息（v2.Notification）与提示框（v2.TipDialog）的主要区别是提示框会打断用的操作，而消息通知不会，消息通知适合于并发需要提醒用户是否处理消息的业务场景，而提示框适用于阻断用户操作，提醒用户当前发生的情况的业务场景。
 
 ```
-Notification.show(me, id, iconResId, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_LONG, notifactionType)
+Notification.show(context, id, iconResId, getString(R.string.app_name), "这是一条消息", Notification.SHOW_TIME_LONG, notifactionType)
                         .setOnNotificationClickListener(new Notification.OnNotificationClickListener() {
                             @Override
                             public void OnClick(int id) {
-                                Toast.makeText(me,"点击了通知",SHOW_TIME_SHORT).show();
+                                Toast.makeText(context,"点击了通知",SHOW_TIME_SHORT).show();
                             }
                         })
                 ;
@@ -293,7 +298,7 @@ TYPE_ERROR | 红色 | 可选
 
 另外，可以采用快速调用方式：
 ```
-Notification.show(me, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
+Notification.show(context, 0, "", "这是一条消息", Notification.SHOW_TIME_SHORT, notifactionType);
 ```
 
 ### 调用底部菜单：
@@ -304,10 +309,10 @@ List<String> list = new ArrayList<>();
 list.add("菜单1");
 list.add("菜单2");
 list.add("菜单3");
-BottomMenu.show(me, list, new OnMenuItemClickListener() {
+BottomMenu.show(context, list, new OnMenuItemClickListener() {
     @Override
     public void onClick(String text, int index) {
-        Toast.makeText(me,"菜单 " + text + " 被点击了",SHOW_TIME_SHORT).show();
+        Toast.makeText(context,"菜单 " + text + " 被点击了",SHOW_TIME_SHORT).show();
     }
 },true);
 ```
@@ -331,12 +336,57 @@ List<String> list = new ArrayList<>();
 list.add("菜单1");
 list.add("菜单2");
 list.add("菜单3");
-BottomMenu.show(me, list);
+BottomMenu.show(context, list);
 ```
 
 为底部对话框添加标题：
 ```
-BottomMenu.show(me, list).setTitle("这里是标题测试");
+BottomMenu.show(context, list).setTitle("这里是标题测试");
+```
+
+### 气泡提示：
+从 2.3.4 版本起，新增气泡提示功能。
+
+使用方法如下：
+```
+Pop.show(context, view, "这是一个提示", showWhere, colorType);
+```
+view 为气泡提示需要跟随的布局，可选参数 showWhere 可选：
+
+字段 | 含义 | 是否默认
+---|---|---
+SHOW_UP  | 在跟随布局上方显示  | 是
+SHOW_LEFT  | 在跟随布局左侧显示  | 否
+SHOW_RIGHT | 在跟随布局右侧显示  | 否
+SHOW_DOWN  | 在跟随布局下方显示  | 否
+
+可选参数 colorType 控制气泡颜色，当其值为 COLOR_TYPE_NORMAL 时受 DialogSettings.tip_theme 设置影响，会显示暗色或亮色主题，另外可选：
+
+字段 | 含义 | 是否默认
+---|---|---
+COLOR_TYPE_NORMAL  | 默认颜色，此时会受 DialogSettings.tip_theme 影响  | 是
+COLOR_TYPE_FINISH  | 绿色  | 否
+COLOR_TYPE_WARNING | 橙色  | 否
+COLOR_TYPE_ERROR   | 红色  | 否
+
+其次可使用 setText(...) 方法对已经创建的气泡提示进行文字修改，范例如下：
+```
+pop.setText("至少填写6位，还差" + (6 - editPop.getText().toString().length()) + "位");
+```
+
+可使用 setOnDismissListener(...) 方法对气泡消失事件进行监听：
+```
+pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+    @Override
+    public void onDismiss() {
+
+    }
+});
+```
+
+可使用 dismiss(); 方法直接关闭已创建的气泡：
+```
+pop.dismiss();
 ```
 
 ## 自定义布局：
@@ -347,7 +397,7 @@ BottomMenu.show(me, list).setTitle("这里是标题测试");
 //初始化布局：
 View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
 //启动对话框
-MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListener() {
+MessageDialog.show(context, null, null, "知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -360,7 +410,7 @@ MessageDialog.show(me, null, null, "知道了", new DialogInterface.OnClickListe
 //初始化布局：
 View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
 //启动对话框
-MessageDialog.build(me, null, null, "知道了", new DialogInterface.OnClickLis
+MessageDialog.build(context, null, null, "知道了", new DialogInterface.OnClickLis
     @Override
     public void onClick(DialogInterface dialog, int which) {
 
@@ -376,12 +426,12 @@ MessageDialog.build(me, null, null, "知道了", new DialogInterface.OnClickLis
 
 使用方法可以参考以下代码：
 ```
-WaitDialog.show(me, "载入中...").setCanCancel(true);
+WaitDialog.show(context, "载入中...").setCanCancel(true);
 ```
 
 在空祖家的对话框组件中，您可以使用监听器来监听对话框的生命周期，Demo如下：
 ```
-WaitDialog.show(me, "载入中...").setCanCancel(true).setDialogLifeCycleListener(new DialogLifeCycleListener() {
+WaitDialog.show(context, "载入中...").setCanCancel(true).setDialogLifeCycleListener(new DialogLifeCycleListener() {
     @Override
     public void onCreate(AlertDialog alertDialog) {
         //此时对话框创建
@@ -419,9 +469,9 @@ Kongzue Dialog 是从 2.0.9 版本起支持模态化的，但在 2.3.0 版本起
 
 从 2.3.0 版本起，我们提供了“创建”对话框的方法 build(...) ，通过此方法可以在内存中创建 Dialog 而不启动它，以下代码演示了两个消息框、一个选择框和一个输入框模态化显示的方法：
 ```
-MessageDialog.build(me, "提示", "一次启动多个对话框，他们会按顺序显示出来","确定",null).showDialog();                           //第一个要显示的 Dialog 请调用其 showDialog() 将它显示出来
-MessageDialog.build(me, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示","确定",null);
-SelectDialog.build(me, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
+MessageDialog.build(context, "提示", "一次启动多个对话框，他们会按顺序显示出来","确定",null).showDialog();                           //第一个要显示的 Dialog 请调用其 showDialog() 将它显示出来
+MessageDialog.build(context, "提示", "弹出时，会模拟阻塞的情况，此时主线程并不受影响，但对话框会建立队列，然后逐一显示","确定",null);
+SelectDialog.build(context, "提示", "多种类型对话框亦支持", "知道了", new DialogInterface.OnClickListener() {
     @Override
     public void onClick(DialogInterface dialog, int which) {
 
@@ -432,7 +482,7 @@ SelectDialog.build(me, "提示", "多种类型对话框亦支持", "知道了", 
 
     }
 });
-InputDialog.build(me, "提示", "这是最后一个对话框，序列即将结束", "提交", new InputDialogOkButtonClickListener() {
+InputDialog.build(context, "提示", "这是最后一个对话框，序列即将结束", "提交", new InputDialogOkButtonClickListener() {
     @Override
     public void onClick(Dialog dialog, String inputText) {
         Log.i(">>>", "InputDialogOkButtonClickListener-ok");
@@ -477,6 +527,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.4:
+- 新增气泡提示功能，具体请参考<a href="#气泡提示">气泡提示</a>；
+
 v2.3.3:
 - 修复当 type == TYPE_MATERIAL 时自定义布局的问题，具体请参考章节：<a href="#自定义布局">自定义布局</a>；
 - 新增模糊度调节，具体亲参考章节：<a href="#关于模糊效果">关于模糊效果</a>；

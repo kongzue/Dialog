@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_pop_up"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="-5dp"
+        android:src="@drawable/tri_pop_vertical_dark"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_pop_left"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="-5dp"
+            android:rotation="180"
+            android:src="@drawable/tri_pop_horizontal_dark"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/box_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rect_pop_bkg_dark">
+
+            <TextView
+                android:id="@+id/txt_pop_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:gravity="center"
+                android:text=""
+                android:textSize="14dp"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_pop_right"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="-5dp"
+            android:src="@drawable/tri_pop_horizontal_dark"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_pop_bottom"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="-5dp"
+        android:rotation="180"
+        android:src="@drawable/tri_pop_vertical_dark"
+        android:visibility="gone" />
+
+</LinearLayout>

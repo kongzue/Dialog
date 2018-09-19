@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:background="@color/white"
     tools:context="com.kongzue.dialogdemo.MainActivity">
 
@@ -28,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="风格" />
+                    android:text="主题风格" />
 
                 <RadioGroup
                     android:id="@+id/grp"
@@ -66,7 +68,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="普通对话框" />
+                    android:text="颜色（影响气泡提示和Kongzue风格的消息通知）" />
+
+                <RadioGroup
+                    android:id="@+id/grp_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdo_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="默认" />
+
+                    <RadioButton
+                        android:id="@+id/rdo_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="成功" />
+
+                    <RadioButton
+                        android:id="@+id/rdo_error"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="错误" />
+
+                    <RadioButton
+                        android:id="@+id/rdo_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="警告" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="明暗风格" />
 
                 <RadioGroup
                     android:id="@+id/grp_dialog_theme"
@@ -92,6 +139,12 @@
                         android:text="Dark" />
 
                 </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="对话框" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -222,48 +275,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="消息与通知" />
+                    android:text="气泡提示" />
 
-                <RadioGroup
-                    android:id="@+id/grp_notification"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/rdo_normal"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/btn_pop_top"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:text="Normal" />
+                        android:text="上" />
 
-                    <RadioButton
-                        android:id="@+id/rdo_finish"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/btn_pop_down"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Finish" />
+                        android:text="下" />
 
-
-                    <RadioButton
-                        android:id="@+id/rdo_error"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/btn_pop_right"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Error" />
+                        android:text="右" />
 
-                    <RadioButton
-                        android:id="@+id/rdo_warning"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/btn_pop_left"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Warning" />
+                        android:text="左" />
 
-                </RadioGroup>
+                </LinearLayout>
 
+                <EditText
+                    android:id="@+id/edit_pop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="请尝试输入文字"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="消息与通知" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
