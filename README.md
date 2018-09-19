@@ -22,7 +22,7 @@
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
 
-试用版可以前往 http://fir.im/kongzueDial 下载
+试用版可以前往 http://fir.im/kDialog 下载
 
 ![Kongzue's Dialog Demo](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/KongzueDialogDemoDownload.png)
 
