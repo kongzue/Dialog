@@ -399,7 +399,7 @@ pop.dismiss();
 由于调用逻辑顺序不同，在 type 为 TYPE_KONGZUE 和 TYPE_IOS 使用方法举例：
 ```
 //初始化布局：
-View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
+View customView = LayoutInflater.from(context).inflate(R.layout.layout_custom, null);
 //启动对话框
 MessageDialog.show(context, null, null, "知道了", new DialogInterface.OnClickListener() {
                     @Override
@@ -467,7 +467,7 @@ DialogSettings.notification_text_size = -1;                 //控制 Notificatio
 ```
 
 ## <a name="modal">模态化（序列化）</a>
-模态化（序列化）是指一次性弹出多个对话框时不一次性全部显示，而是按照队列一个关闭后再先试下一个的启动方式。
+模态化（序列化）是指一次性弹出多个对话框时不一次性全部显示，而是按照队列一个关闭后再显示下一个的启动方式。
 
 Kongzue Dialog 是从 2.0.9 版本起支持模态化的，但在 2.3.0 版本起我们做了更多的修改，以保证此方法可能引发的内存泄露问题得以解决，从 2.3.0 版本起，Kongzue Dialog 默认关闭了模态化，要是用模态化，请详细阅读以下文档：
 
