@@ -389,7 +389,7 @@ pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 pop.dismiss();
 ```
 
-从 2.3.5 版本起，针对复杂特殊文本进行了适配：
+从 2.3.5 版本起，针对复杂特殊文本显示进行了适配：
 
 ![Kongzue's Dialog Pop](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/kongzue_dialog_pop.png)
 
