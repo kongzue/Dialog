@@ -205,28 +205,28 @@ public class MainActivity extends AppCompatActivity {
         btnPopRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pop.show(me, v, "这是个提示在右侧", Pop.SHOW_RIGHT, notifactionType);
+                Pop.show(me, v, "这是个提示在右侧这是个提示在右侧这是个提示在右侧", Pop.SHOW_RIGHT, notifactionType);
             }
         });
         
         btnPopTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pop.show(me, v, "这是个提示在上侧", Pop.SHOW_UP, notifactionType);
+                Pop.show(me, v, "这是个提示在上侧这是个提示在上侧这是个提示在上侧这是个提示在上侧", Pop.SHOW_UP, notifactionType);
             }
         });
         
         btnPopDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pop.show(me, v, "这是个提示在下侧", Pop.SHOW_DOWN, notifactionType);
+                Pop.show(me, v, "这是个提示在下侧这是个提示在下侧这是个提示在下侧这是个提示在下侧", Pop.SHOW_DOWN, notifactionType);
             }
         });
         
         btnPopLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pop.show(me, v, "这是个提示在左侧", Pop.SHOW_LEFT, notifactionType);
+                Pop.show(me, v, "这是个提示在左侧这是个提示在左侧这是个提示在左侧这是个提示在左侧", Pop.SHOW_LEFT, notifactionType);
             }
         });
         

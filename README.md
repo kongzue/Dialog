@@ -389,6 +389,10 @@ pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 pop.dismiss();
 ```
 
+从 2.3.5 版本起，针对复杂特殊文本进行了适配：
+
+![Kongzue's Dialog Pop](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/kongzue_dialog_pop.png)
+
 ## 自定义布局：
 从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局。
 
@@ -527,6 +531,11 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.5：
+- WaitDialog 新增 setOnBackPressListener(...) 可以在用户按返回键时响应事件；
+- 新增 DialogSettings.ios_normal_ok_button_color 控制iOS对话框确认按钮颜色；
+- Pop 针对复杂特殊文本显示适配；
+
 v2.3.4:
 - 新增气泡提示功能，具体请参考<a href="#气泡提示">气泡提示</a>；
 

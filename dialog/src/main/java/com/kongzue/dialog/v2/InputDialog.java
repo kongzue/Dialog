@@ -371,6 +371,10 @@ public class InputDialog extends ModalBaseDialog {
                 if (ios_normal_button_color != -1) {
                     btnSelectNegative.setTextColor(ios_normal_button_color);
                     btnSelectPositive.setTextColor(ios_normal_button_color);
+    
+                    if (ios_normal_ok_button_color!=-1){
+                        btnSelectPositive.setTextColor(ios_normal_ok_button_color);
+                    }
                 }
                 
                 break;

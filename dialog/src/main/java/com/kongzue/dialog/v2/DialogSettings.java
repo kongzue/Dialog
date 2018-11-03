@@ -96,6 +96,12 @@ public class DialogSettings {
     public static int ios_normal_button_color = -1;
     
     /*
+     *  决定iOS风格时，默认确认按钮文字颜色(Color)
+     *  当值=-1时使用默认蓝色
+     */
+    public static int ios_normal_ok_button_color = -1;
+    
+    /*
      *  决定对话框组件默认是否可点击遮罩区域关闭
      */
     public static boolean dialog_cancelable_default = false;

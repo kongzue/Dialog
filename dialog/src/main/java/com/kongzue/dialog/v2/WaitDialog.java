@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
+import com.kongzue.dialog.listener.OnBackPressListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.ProgressView;
@@ -26,6 +28,7 @@ import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
 public class WaitDialog extends BaseDialog {
     
+    private OnBackPressListener onBackPressListener;
     private AlertDialog alertDialog;
     private WaitDialog waitDialog;
     private boolean isCanCancel = false;
@@ -138,6 +141,21 @@ public class WaitDialog extends BaseDialog {
                 }
             }
         });
+        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        if (onBackPressListener!=null) {
+                            onBackPressListener.OnBackPress(alertDialog);
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+        
         alertDialog.show();
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
     }
@@ -150,6 +168,11 @@ public class WaitDialog extends BaseDialog {
     public WaitDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
+        return this;
+    }
+    
+    public WaitDialog setOnBackPressListener(OnBackPressListener onBackPressListener) {
+        this.onBackPressListener = onBackPressListener;
         return this;
     }
     

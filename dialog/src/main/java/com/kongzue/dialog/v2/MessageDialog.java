@@ -278,6 +278,11 @@ public class MessageDialog extends ModalBaseDialog {
                 if (ios_normal_button_color != -1) {
                     btnSelectPositive.setTextColor(ios_normal_button_color);
                 }
+    
+                if (ios_normal_ok_button_color!=-1){
+                    btnSelectPositive.setTextColor(ios_normal_ok_button_color);
+                }
+                
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
