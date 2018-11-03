@@ -17,6 +17,7 @@
     <color name="ios_dlg_bkg">#e6ffffff</color>
     <color name="ios_dlg_text">#007aff</color>
     <color name="dark">#353535</color>
+    <color name="pop_bkg">#dc000000</color>
 
     <color name="ios_dialog_button_press">#0f000000</color>
     <color name="ios_dialog_button_press_dark">#80323232</color>

@@ -8,7 +8,7 @@
             android:pivotX="15%"
             android:pivotY="-35%">
             <shape android:shape="rectangle">
-                <solid android:color="@color/progress_dlg_bkg"/>
+                <solid android:color="@color/pop_bkg"/>
             </shape>
         </rotate>
     </item>

@@ -531,6 +531,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+[内测版本]v2.3.5.1：
+- 新增 Pop 提示阴影效果；
+
 v2.3.5：
 - WaitDialog 新增 setOnBackPressListener(...) 可以在用户按返回键时响应事件；
 - 新增 DialogSettings.ios_normal_ok_button_color 控制iOS对话框确认按钮颜色；

@@ -6,7 +6,7 @@ def siteUrl = 'https://github.com/kongzue/Dialog' //项目在github主页地址
 def gitUrl = 'https://github.com/kongzue/Dialog.git'   //Git仓库的地址
 
 group = "com.kongzue.dialog"//发布aar前缀根节点
-version = "2.3.5"//发布aar的库版本
+version = "2.3.5.1"//发布aar的库版本
 
 //最后生成是compile 'com.kongzue.dialog:dialog:0.0.1' 就是group + ：+module名字 + ：+version
 
@@ -18,7 +18,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 39
-        versionName "2.3.5"
+        versionName "2.3.5.1"
 
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true    // Enable RS support
@@ -92,8 +92,8 @@ bintray {
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
-    compile 'com.android.support:design:27.1.0'
-    compile 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
 }

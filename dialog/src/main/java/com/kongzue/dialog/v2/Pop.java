@@ -176,8 +176,6 @@ public class Pop {
         int width = popupWindow.getContentView().getMeasuredWidth();
         int height = popupWindow.getContentView().getMeasuredHeight();
         
-        log("text.lineHeight = " + txtPopContent.getLineHeight());
-        log("text.lineCount = " + txtPopContent.getLineCount());
         beforeTextViewRenderLintCount = txtPopContent.getLineCount();
         
         popupView.post(new Runnable() {
@@ -187,29 +185,15 @@ public class Pop {
                     int[] viewOnscreen = new int[2];
                     view.getLocationOnScreen(viewOnscreen);
                     
-                    log("text.lineHeight2 = " + txtPopContent.getLineHeight());
-                    log("text.lineCount2 = " + txtPopContent.getLineCount());
-                    
                     int width = popupView.getMeasuredWidth();
                     int height = popupView.getMeasuredHeight();
                     switch (showWhere) {
                         case SHOW_UP:
                             setLeft = view.getWidth() / 2 - width / 2;
-                            
-                            log("x:"+setLeft);
-                            log("y:"+(view.getTop() - height));
-                            popupWindow.update(viewOnscreen[0]+setLeft, viewOnscreen[1]+view.getTop() - height + dp2px(5), width, height);
-                            
+                            popupWindow.update(viewOnscreen[0]+setLeft, viewOnscreen[1]+view.getTop() - height + dp2px(10), width, height);
                             break;
                         case SHOW_DOWN:
                             setLeft = view.getWidth() / 2 - width / 2;
-                            
-                            break;
-                        case SHOW_LEFT:
-                            
-                            break;
-                        case SHOW_RIGHT:
-                            
                             break;
                     }
                     
@@ -219,7 +203,7 @@ public class Pop {
                     int realLeft = outLocation[0];
                     int needLeft = view.getLeft() + setLeft;
                     
-                    int setX = (needLeft - realLeft) + popupWindow.getContentView().getWidth() / 2 + dp2px(10);
+                    int setX = (needLeft - realLeft) + popupWindow.getContentView().getWidth() / 2 + dp2px(2);
                     
                     imgPopBottom.setX(setX);
                     imgPopUp.setX(setX);
@@ -243,10 +227,7 @@ public class Pop {
                 imgPopUp.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     setLeft = view.getWidth() / 2 - width / 2;
-                    
-                    log("width:" + width);
-                    log("setLeft:" + setLeft);
-                    popupWindow.showAsDropDown(view, setLeft, 0, Gravity.START);
+                    popupWindow.showAsDropDown(view, setLeft, -dp2px(10), Gravity.START);
                 } else {
                     popupWindow.showAsDropDown(view);
                     log("当 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT 位置才可生效");
