@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.4-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.5-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.4/link">
-<img src="https://img.shields.io/badge/Maven-2.3.4-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.5/link">
+<img src="https://img.shields.io/badge/Maven-2.3.5-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -83,14 +83,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.4</version>
+  <version>2.3.5</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.4'
+implementation 'com.kongzue.dialog:dialog:2.3.5'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
