@@ -553,7 +553,7 @@ limitations under the License.
 
 ## 更新日志：
 v2.3.6：
-- 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(https://github.com/Devlight/ShadowLayout)，开源协议：Apache License 2.0）；
+- 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(https://github.com/Devlight/ShadowLayout) ，开源协议：Apache License 2.0）；
 - InputDialog 新增 setInputInfo(InputInfo) 方法，对输入框进行设置，具体请查看章节：<a href="#调用输入对话框">调用输入对话框</a>；
 - 修复其他 bug；
 
