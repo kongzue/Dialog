@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.5-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.6-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.5/link">
-<img src="https://img.shields.io/badge/Maven-2.3.5-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.6/link">
+<img src="https://img.shields.io/badge/Maven-2.3.6-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -83,14 +83,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.5</version>
+  <version>2.3.6</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.5'
+implementation 'com.kongzue.dialog:dialog:2.3.6'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -236,6 +236,27 @@ InputDialog.show(context, "设置昵称", "设置一个好听的名字吧", new 
                         Toast.makeText(context, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
                     }
                 });
+```
+
+从 2.3.6 版本起，对于输入文本长度限制和文本类型限制，可通过 setInputInfo(InputInfo) 方法进行设置：
+```
+import com.kongzue.dialog.util.InputInfo;                           //此处需要引入使用的包
+
+InputDialog.show(me, "验证", "请出入正确的用户名：", new InputDialogOkButtonClickListener() {
+    @Override
+    public void onClick(Dialog dialog, String inputText) {
+        if (!inputText.equals("kongzue")) {
+            TipDialog.show(me, "错误的用户名", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_ERROR);
+            Notification.show(me, 0, "小提示：用户名是：kongzue");
+        } else {
+            TipDialog.show(me, "您已通过", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+            dialog.dismiss();
+        }
+    }
+}).setInputInfo(new InputInfo()
+        .setMAX_LENGTH(10)                                          //设置最大长度10位
+        .setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)       //设置密码输入类型（注意此处请勿使用“InputType.TYPE_CLASS_TEXT | InputType.{YOUR_TYPE}”位运算，若不清楚此问题请按照范例使用即可）
+    );
 ```
 
 ### 调用等待提示框：
@@ -531,8 +552,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
-[内测版本]v2.3.5.1：
-- 新增 Pop 提示阴影效果；
+v2.3.6：
+- 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(https://github.com/Devlight/ShadowLayout)，开源协议：Apache License 2.0）；
+- InputDialog 新增 setInputInfo(InputInfo) 方法，对输入框进行设置，具体请查看章节：<a href="#调用输入对话框">调用输入对话框</a>；
+- 修复其他 bug；
 
 v2.3.5：
 - WaitDialog 新增 setOnBackPressListener(...) 可以在用户按返回键时响应事件；

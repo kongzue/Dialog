@@ -309,14 +309,6 @@
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edit_pop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="请尝试输入文字"
-                    android:visibility="gone"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

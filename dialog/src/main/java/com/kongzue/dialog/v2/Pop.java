@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -99,9 +100,12 @@ public class Pop {
         showPop(true);
     }
     
+    private int rootWidth;
+    private int rootHeight;
+    
     private int beforeTextViewRenderLintCount = 1;        //文本渲染前的行数
     
-    public void showPop(boolean canCancel) {
+    public void showPop(final boolean canCancel) {
         popupView = LayoutInflater.from(context).inflate(R.layout.layout_normal_pop, null);
         
         imgPopUp = popupView.findViewById(R.id.img_pop_up);
@@ -172,9 +176,11 @@ public class Pop {
         }
         
         //预测量View宽高
-        popupView.measure(makeDropDownMeasureSpec(popupWindow.getWidth()), makeDropDownMeasureSpec(popupWindow.getHeight()));
-        int width = popupWindow.getContentView().getMeasuredWidth();
-        int height = popupWindow.getContentView().getMeasuredHeight();
+        if (rootHeight == 0) {
+            popupView.measure(makeDropDownMeasureSpec(popupWindow.getWidth()), makeDropDownMeasureSpec(popupWindow.getHeight()));
+            rootWidth = popupWindow.getContentView().getMeasuredWidth();
+            rootHeight = popupWindow.getContentView().getMeasuredHeight();
+        }
         
         beforeTextViewRenderLintCount = txtPopContent.getLineCount();
         
@@ -190,20 +196,46 @@ public class Pop {
                     switch (showWhere) {
                         case SHOW_UP:
                             setLeft = view.getWidth() / 2 - width / 2;
-                            popupWindow.update(viewOnscreen[0]+setLeft, viewOnscreen[1]+view.getTop() - height + dp2px(10), width, height);
+                            //popupWindow.update(viewOnscreen[0] + setLeft, viewOnscreen[1] + view.getTop() - height + dp2px(10), width, height);       //Google智障
+                            if (height != rootHeight) {
+                                rootHeight = height;
+                                popupWindow.dismiss();
+                                showPop(canCancel);
+                            }
                             break;
                         case SHOW_DOWN:
                             setLeft = view.getWidth() / 2 - width / 2;
                             break;
                     }
                     
-                    int[] outLocation = new int[2];
-                    popupWindow.getContentView().getLocationOnScreen(outLocation);
+                    int[] popViewLocation = new int[2];
+                    popupView.getLocationOnScreen(popViewLocation);
+
+//                    int realLeft = outLocation[0];
+//                    int needLeft = view.getLeft() + setLeft;
                     
-                    int realLeft = outLocation[0];
-                    int needLeft = view.getLeft() + setLeft;
+                    //int setX = (needLeft - realLeft) + (popupWindow.getContentView().getWidth() - dp2px(18)) / 2 + dp2px(10);         //18为阴影宽度
                     
-                    int setX = (needLeft - realLeft) + popupWindow.getContentView().getWidth() / 2 + dp2px(2);
+                    int viewLeft = viewOnscreen[0];
+                    int viewCenter = viewLeft + view.getWidth() / 2;
+                    int popLeft = popViewLocation[0];
+                    int popWidth = popupView.getWidth();
+                    int popCenter = popLeft + popWidth / 2;
+                    int setX = popWidth / 2 + (viewCenter - popCenter) + dp2px(5) - dp2px(18);
+                    
+                    if (DEBUGMODE) {
+//                        log("newLeft="+(viewOnscreen[0]+setLeft));
+//                        log("needLeft="+needLeft);
+//                        log("realLeft="+realLeft);
+//                        log("(needLeft - realLeft)="+(needLeft - realLeft));
+//                        log("popupWindow.getContentView().getMeasuredWidth()="+(popupWindow.getContentView().getMeasuredWidth()- dp2px(18)));
+                        log("viewLeft=" + viewLeft);
+                        log("viewCenter=" + viewCenter);
+                        log("popLeft=" + popLeft);
+                        log("popWidth=" + popWidth);
+                        log("popCenter=" + popCenter);
+                        log("setX=" + setX);
+                    }
                     
                     imgPopBottom.setX(setX);
                     imgPopUp.setX(setX);
@@ -216,8 +248,8 @@ public class Pop {
             case SHOW_UP:
                 imgPopBottom.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    setLeft = view.getWidth() / 2 - width / 2;
-                    popupWindow.showAsDropDown(view, setLeft, -view.getHeight() - height, Gravity.START);
+                    setLeft = view.getWidth() / 2 - rootWidth / 2;
+                    popupWindow.showAsDropDown(view, setLeft, -view.getHeight() - rootHeight + dp2px(10), Gravity.START);
                 } else {
                     popupWindow.showAsDropDown(view);
                     log("当 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT 位置才可生效");
@@ -226,7 +258,7 @@ public class Pop {
             case SHOW_DOWN:
                 imgPopUp.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    setLeft = view.getWidth() / 2 - width / 2;
+                    setLeft = view.getWidth() / 2 - rootWidth / 2;
                     popupWindow.showAsDropDown(view, setLeft, -dp2px(10), Gravity.START);
                 } else {
                     popupWindow.showAsDropDown(view);
@@ -239,13 +271,13 @@ public class Pop {
                 txtPopContent.setMaxWidth(maxLeftWidth);
                 
                 popupView.measure(makeDropDownMeasureSpec(popupWindow.getWidth()), makeDropDownMeasureSpec(popupWindow.getHeight()));
-                width = popupWindow.getContentView().getMeasuredWidth();
-                height = popupWindow.getContentView().getMeasuredHeight();
+                rootWidth = popupWindow.getContentView().getMeasuredWidth();
+                rootHeight = popupWindow.getContentView().getMeasuredHeight();
                 
                 imgPopRight.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    setLeft = -width - dp2px(5);
-                    popupWindow.showAsDropDown(view, setLeft, -view.getHeight() / 2 - height / 2, Gravity.START);
+                    setLeft = -rootWidth - dp2px(5);
+                    popupWindow.showAsDropDown(view, setLeft, -view.getHeight() / 2 - rootHeight / 2, Gravity.START);
                 } else {
                     popupWindow.showAsDropDown(view);
                     log("当 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT 位置才可生效");
@@ -257,12 +289,12 @@ public class Pop {
                 txtPopContent.setMaxWidth(maxRightWidth);
                 
                 popupView.measure(makeDropDownMeasureSpec(popupWindow.getWidth()), makeDropDownMeasureSpec(popupWindow.getHeight()));
-                height = popupWindow.getContentView().getMeasuredHeight();
+                rootHeight = popupWindow.getContentView().getMeasuredHeight();
                 
                 imgPopLeft.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     setLeft = view.getWidth();
-                    popupWindow.showAsDropDown(view, setLeft, -view.getHeight() / 2 - height / 2, Gravity.START);
+                    popupWindow.showAsDropDown(view, setLeft, -view.getHeight() / 2 - rootHeight / 2, Gravity.START);
                 } else {
                     popupWindow.showAsDropDown(view);
                     log("当 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT 位置才可生效");

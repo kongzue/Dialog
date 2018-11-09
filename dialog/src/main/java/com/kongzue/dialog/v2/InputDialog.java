@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.InputInfo;
 import com.kongzue.dialog.util.ModalBaseDialog;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
@@ -30,6 +33,7 @@ public class InputDialog extends ModalBaseDialog {
     private InputDialog inputDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
+    private InputInfo inputInfo;
     
     private Context context;
     private String title;
@@ -171,6 +175,11 @@ public class InputDialog extends ModalBaseDialog {
                 btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
                 customView = window.findViewById(R.id.box_custom);
                 
+                if (inputInfo != null) {
+                    txtInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputInfo.getMAX_LENGTH())});
+                    txtInput.setInputType(inputInfo.getInputType());
+                }
+                
                 if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
                 } else {
@@ -243,6 +252,11 @@ public class InputDialog extends ModalBaseDialog {
                 txtInput.setText(defaultInputText);
                 txtInput.setHint(defaultInputHint);
                 
+                if (inputInfo != null) {
+                    txtInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputInfo.getMAX_LENGTH())});
+                    txtInput.setInputType(inputInfo.getInputType());
+                }
+                
                 alertDialog.setTitle(title);
                 alertDialog.setMessage(message);
                 alertDialog.setView(txtInput);
@@ -290,6 +304,11 @@ public class InputDialog extends ModalBaseDialog {
                 btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
                 txtInput = window.findViewById(R.id.txt_input);
                 customView = window.findViewById(R.id.box_custom);
+                
+                if (inputInfo != null) {
+                    txtInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputInfo.getMAX_LENGTH())});
+                    txtInput.setInputType(inputInfo.getInputType());
+                }
                 
                 ImageView splitVertical = window.findViewById(R.id.split_vertical);
                 splitVertical.setVisibility(View.VISIBLE);
@@ -371,8 +390,8 @@ public class InputDialog extends ModalBaseDialog {
                 if (ios_normal_button_color != -1) {
                     btnSelectNegative.setTextColor(ios_normal_button_color);
                     btnSelectPositive.setTextColor(ios_normal_button_color);
-    
-                    if (ios_normal_ok_button_color!=-1){
+                    
+                    if (ios_normal_ok_button_color != -1) {
                         btnSelectPositive.setTextColor(ios_normal_ok_button_color);
                     }
                 }
@@ -462,5 +481,15 @@ public class InputDialog extends ModalBaseDialog {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         }
+    }
+    
+    //输入内容设置
+    public InputDialog setInputInfo(InputInfo inputInfo) {
+        if (txtInput != null) {
+            txtInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputInfo.getMAX_LENGTH())});
+            txtInput.setInputType(InputType.TYPE_CLASS_TEXT | inputInfo.getInputType());
+        }
+        this.inputInfo = inputInfo;
+        return this;
     }
 }

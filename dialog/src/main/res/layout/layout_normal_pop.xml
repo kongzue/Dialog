@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sl_shadow_angle="90"
-        app:sl_shadow_color="#78000000"
+        app:sl_shadow_color="#50000000"
         app:sl_shadow_distance="1dp"
         app:sl_shadow_radius="8dp"
         app:sl_shadowed="true">

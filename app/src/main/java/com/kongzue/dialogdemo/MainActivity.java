@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,11 +20,13 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
+import com.kongzue.dialog.util.InputInfo;
 import com.kongzue.dialog.util.ModalBaseDialog;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.InputDialog;
@@ -59,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton rdoMaterial;
     private RadioButton rdoKongzue;
     private RadioButton rdoIos;
+    private RadioGroup grpNotification;
+    private RadioButton rdoNormal;
+    private RadioButton rdoFinish;
+    private RadioButton rdoError;
+    private RadioButton rdoWarning;
     private RadioGroup grpDialogTheme;
     private RadioButton rdoDialogThemeLight;
     private RadioButton rdoDialogThemeDark;
@@ -79,12 +87,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPopDown;
     private Button btnPopRight;
     private Button btnPopLeft;
-    private EditText editPop;
-    private RadioGroup grpNotification;
-    private RadioButton rdoNormal;
-    private RadioButton rdoFinish;
-    private RadioButton rdoError;
-    private RadioButton rdoWarning;
     private Button btnNotificationNormal;
     private Button btnNotificationWithTitle;
     private Button btnNotificationWithTitleAndIcon;
@@ -99,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         rdoMaterial = findViewById(R.id.rdo_material);
         rdoKongzue = findViewById(R.id.rdo_kongzue);
         rdoIos = findViewById(R.id.rdo_ios);
+        grpNotification = findViewById(R.id.grp_notification);
+        rdoNormal = findViewById(R.id.rdo_normal);
+        rdoFinish = findViewById(R.id.rdo_finish);
+        rdoError = findViewById(R.id.rdo_error);
+        rdoWarning = findViewById(R.id.rdo_warning);
         grpDialogTheme = findViewById(R.id.grp_dialog_theme);
         rdoDialogThemeLight = findViewById(R.id.rdo_dialog_theme_light);
         rdoDialogThemeDark = findViewById(R.id.rdo_dialog_theme_dark);
@@ -119,12 +126,6 @@ public class MainActivity extends AppCompatActivity {
         btnPopDown = findViewById(R.id.btn_pop_down);
         btnPopRight = findViewById(R.id.btn_pop_right);
         btnPopLeft = findViewById(R.id.btn_pop_left);
-        editPop = findViewById(R.id.edit_pop);
-        grpNotification = findViewById(R.id.grp_notification);
-        rdoNormal = findViewById(R.id.rdo_normal);
-        rdoFinish = findViewById(R.id.rdo_finish);
-        rdoError = findViewById(R.id.rdo_error);
-        rdoWarning = findViewById(R.id.rdo_warning);
         btnNotificationNormal = findViewById(R.id.btn_notification_normal);
         btnNotificationWithTitle = findViewById(R.id.btn_notification_withTitle);
         btnNotificationWithTitleAndIcon = findViewById(R.id.btn_notification_withTitleAndIcon);
@@ -170,36 +171,7 @@ public class MainActivity extends AppCompatActivity {
     
     private int notifactionType = TYPE_NORMAL;
     
-    private Pop editboxPop;
-    
     private void setEvents() {
-        
-        editPop.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            
-            }
-            
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            
-            }
-            
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (editPop.getText().toString().length() < 6 && editPop.getText().toString().length() > 0) {
-                    if (editboxPop == null) {
-                        editboxPop = Pop.show(me, editPop, "至少填写6位，还差" + (6 - editPop.getText().toString().length()) + "位", Pop.SHOW_UP, Pop.COLOR_TYPE_ERROR);
-                    } else {
-                        editboxPop.setText("至少填写6位，还差" + (6 - editPop.getText().toString().length()) + "位");
-                    }
-                } else {
-                    if (editboxPop != null) {
-                        editboxPop.dismiss();
-                    }
-                }
-            }
-        });
         
         btnPopRight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -514,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }
-                });
+                }).setInputInfo(new InputInfo().setMAX_LENGTH(10).setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD));
             }
         });
         
