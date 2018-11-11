@@ -65,7 +65,7 @@ public class DialogSettings {
     public static TextInfo dialogOkButtonTextInfo;
     
     //决定提示框文本样式
-    public static TextInfo tipTextInfo;
+    public static TextInfo tipTextInfo = new TextInfo();
     
     //决定菜单文字样式
     public static TextInfo menuTextInfo = new TextInfo();

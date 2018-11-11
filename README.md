@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.7-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.8-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.7/link">
-<img src="https://img.shields.io/badge/Maven-2.3.7-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.8/link">
+<img src="https://img.shields.io/badge/Maven-2.3.8-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -83,14 +83,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.7</version>
+  <version>2.3.8</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.7'
+implementation 'com.kongzue.dialog:dialog:2.3.8'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -263,6 +263,15 @@ InputDialog.show(me, "验证", "请出入正确的用户名：", new InputDialog
 ```
 WaitDialog.show(context, "载入中...");
 ```
+
+从 2.3.8 版本起，等待提示框支持自定义布局，可通过以下代码调用：
+
+```
+View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
+WaitDialog.show(context, "载入中...", customView);
+```
+
+但请注意，设置自定义布局并不会隐藏提示文本信息。
 
 ### 调用完成提示框：
 ```
@@ -498,6 +507,33 @@ DialogSettings.dialogContentTextInfo = new TextInfo()
 //默认不修改或值为 -1 时使用默认样式
 ```
 
+若需要对某个对话框、提示框等进行单独的文字样式设置，请通过相应对话框的 build 创建该对话框，在调用 showDialog() 方法前进行 setTextInfo()：
+```
+MessageDialog.build(me, "标题", "内容", "知道了", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+    }
+}).setCanCancel(true)
+  .setTitleTextInfo(new TextInfo()
+      .setBold(true)
+      .setFontColor(Color.rgb(253, 130, 255))
+      .setFontSize(10)
+  )
+  .showDialog();
+```
+
+额外的，若您需要自定义对话框的标题、内容、按钮，请使用相对应的方法进行设置：
+```
+.setTitleTextInfo(new TextInfo())           //设置标题文字样式
+.setContentTextInfo(new TextInfo())         //设置内容文字样式
+.setButtonTextInfo(new TextInfo())          //设置按钮文字样式
+.setOkButtonTextInfo(new TextInfo())        //针对选择对话框、输入对话框的“确定”按钮进行文字样式单独设置，不设置则按照 ButtonTextInfo 的样式处理
+.setTxtInfo(new TextInfo())                 //提示框（TipDialog）或通知可直接使用此方法设置文本样式
+//由于等待提示 WaitDialog 没有 build 创建方法，您可以直接在其 show(...) 方法中以参数形式设置文字样式：
+WaitDialog.show(me, "载入中...",new TextInfo());
+```
+
 ## <a name="modal">模态化（序列化）</a>
 模态化（序列化）是指一次性弹出多个对话框时不一次性全部显示，而是按照队列一个关闭后再显示下一个的启动方式。
 
@@ -563,9 +599,13 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.8：
+- WaitDialog 现已支持自定义布局，详情请参考章节：<a href="#调用等待提示框">调用等待提示框</a>；
+- 修复了因 tipTextInfo 未初始化导致崩溃的 bug；
+
 v2.3.7：
 - 新增 TextInfo(com.kongzue.dialog.util.TextInfo) 用于统一管理文字样式设置；
-- 修改了 DialogSettings 中对于各组件文字样式的设置方式，具体请参照章节<a href="#附加功能">附加功能</a>；
+- 修改了 DialogSettings 中对于各组件文字样式的设置方式，具体请参照章节：<a href="#附加功能">附加功能</a>；
 
 v2.3.6：
 - 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(https://github.com/Devlight/ShadowLayout) ，开源协议：Apache License 2.0）；
@@ -642,7 +682,6 @@ v2.2.5:
 在 2.2.5 版本中我们将提供方法 DialogSettings.unloadAllDialog()，您可以在 Activity 的 onDestroy() 事件执行此方法来关闭所有在队列中的 Dialog。
 ```
 - 新增 DialogSettings.dialog_background_color 可控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色。
-
 
 v2.2.4:
 - TipDialog 和 WaitDialog 现在可以支持更多文字的扩展了，且最大行数限定为3行；

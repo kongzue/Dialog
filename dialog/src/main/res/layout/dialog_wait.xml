@@ -15,8 +15,8 @@
             android:id="@+id/box_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="125dp"
             android:minWidth="125dp"
+            android:minHeight="125dp"
             android:visibility="visible">
 
             <RelativeLayout
@@ -24,22 +24,32 @@
                 android:layout_width="125dp"
                 android:layout_height="125dp"></RelativeLayout>
 
-            <com.kongzue.dialog.util.ProgressView
-                android:id="@+id/progress"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+            <RelativeLayout
+                android:id="@+id/box_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="15dp">
+
+                <com.kongzue.dialog.util.ProgressView
+                    android:id="@+id/progress"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txt_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/box_progress"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="center"
                 android:maxLines="3"
                 android:text="Tip"

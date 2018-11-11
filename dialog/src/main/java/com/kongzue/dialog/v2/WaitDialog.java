@@ -34,6 +34,7 @@ public class WaitDialog extends BaseDialog {
     private WaitDialog waitDialog;
     private boolean isCanCancel = false;
     
+    private View customView;
     private TextInfo customTextInfo;
     
     private Context context;
@@ -55,6 +56,20 @@ public class WaitDialog extends BaseDialog {
         }
     }
     
+    public static WaitDialog show(Context context, String tip, View customView) {
+        synchronized (WaitDialog.class) {
+            WaitDialog waitDialog = new WaitDialog();
+            waitDialog.cleanDialogLifeCycleListener();
+            waitDialog.context = context;
+            waitDialog.tip = tip;
+            waitDialog.log("装载等待对话框 -> " + tip);
+            waitDialog.waitDialog = waitDialog;
+            waitDialog.customView = customView;
+            waitDialog.showDialog();
+            return waitDialog;
+        }
+    }
+    
     public static WaitDialog show(Context context, String tip, TextInfo textInfo) {
         synchronized (WaitDialog.class) {
             WaitDialog waitDialog = new WaitDialog();
@@ -69,12 +84,29 @@ public class WaitDialog extends BaseDialog {
         }
     }
     
+    public static WaitDialog show(Context context, String tip, View customView, TextInfo textInfo) {
+        synchronized (WaitDialog.class) {
+            WaitDialog waitDialog = new WaitDialog();
+            waitDialog.cleanDialogLifeCycleListener();
+            waitDialog.context = context;
+            waitDialog.tip = tip;
+            waitDialog.log("装载等待对话框 -> " + tip);
+            waitDialog.waitDialog = waitDialog;
+            waitDialog.customView = customView;
+            waitDialog.customTextInfo = textInfo;
+            waitDialog.showDialog();
+            return waitDialog;
+        }
+    }
+    
     private BlurView blur;
+    private int blur_front_color;
+    
     private RelativeLayout boxInfo;
     private RelativeLayout boxBkg;
-    private TextView txtInfo;
+    private RelativeLayout boxProgress;
     private ProgressView progress;
-    private int blur_front_color;
+    private TextView txtInfo;
     
     public void showDialog() {
         if (customTextInfo == null) {
@@ -109,11 +141,18 @@ public class WaitDialog extends BaseDialog {
         
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog_wait);
-        
+    
         boxInfo = window.findViewById(R.id.box_info);
         boxBkg = window.findViewById(R.id.box_bkg);
-        txtInfo = window.findViewById(R.id.txt_info);
+        boxProgress = window.findViewById(R.id.box_progress);
         progress = window.findViewById(R.id.progress);
+        txtInfo = window.findViewById(R.id.txt_info);
+        
+        if (customView!=null){
+            progress.setVisibility(View.GONE);
+            boxProgress.removeAllViews();
+            boxProgress.addView(customView);
+        }
         
         if (tip_theme == THEME_LIGHT) {
             progress.setStrokeColors(new int[]{Color.rgb(0, 0, 0)});
@@ -148,7 +187,7 @@ public class WaitDialog extends BaseDialog {
         } else {
             boxInfo.setVisibility(View.GONE);
         }
-    
+        
         if (customTextInfo.getFontSize() > 0) {
             txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
@@ -164,6 +203,7 @@ public class WaitDialog extends BaseDialog {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 dialogList.remove(waitDialog);
+                if (boxProgress!=null)boxProgress.removeAllViews();
                 if (boxBkg != null) boxBkg.removeAllViews();
                 if (getDialogLifeCycleListener() != null) {
                     getDialogLifeCycleListener().onDismiss();
