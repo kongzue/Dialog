@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.ModalBaseDialog;
+import com.kongzue.dialog.util.TextInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,108 +22,87 @@ public class DialogSettings {
     //是否打印日志
     public static boolean DEBUGMODE = true;
     
-    /*
-     *  决定等待框、提示框以及iOS风格的对话框是否启用模糊背景
-     */
+    //此方法用于关闭所有已加载的 Dialog，防止 WindowLeaked 错误，建议将它加在你的 Activity 的 onDestroy() 里调用
+    public static void unloadAllDialog() {
+        BaseDialog.unloadAllDialog();
+    }
+    
+    //决定等待框、提示框以及iOS风格的对话框是否启用模糊背景
     public static boolean use_blur = true;
     
-    /*
-     *  决定等待框、提示框以及iOS风格的对话框的模糊背景透明度（50-255）
-     */
+    //决定等待框、提示框以及iOS风格的对话框的模糊背景透明度（50-255）
     public static int blur_alpha = 200;
     
-    /*
-     *  决定对话框的默认样式
-     *  请使用 TYPE_MATERIAL、TYPE_KONGZUE、TYPE_IOS 赋值
-     */
+    //决定对话框的默认样式，请使用 TYPE_MATERIAL、TYPE_KONGZUE、TYPE_IOS 赋值
     public static int type = 0;
     
-    /*
-     *  决定对话框的模式（亮色和暗色两种）
-     *  请使用 THEME_LIGHT、THEME_DARK 赋值
-     */
+    //决定对话框的模式（亮色和暗色两种），请使用 THEME_LIGHT、THEME_DARK 赋值
     public static int dialog_theme = 0;
     
-    /*
-     *  决定对话框的默认背景色
-     */
+    //决定对话框的默认背景色
     public static int dialog_background_color = -1;
     
-    /*
-     *  决定提示框的模式（亮色和暗色两种）
-     *  请使用 THEME_LIGHT、THEME_DARK 赋值
-     */
+    //决定提示框的模式（亮色和暗色两种），请使用 THEME_LIGHT、THEME_DARK 赋值
     public static int tip_theme = 1;
     
     
-    //文字大小设定
-    //注意，此值必须大于0才生效，否则使用默认值。另外，我们使用的是dp单位，非sp单位，若有特殊需要请自行转换
-    //另外，暂时不支持Material风格对话框设定字体大小
     /*
-     *  决定对话框标题字样大小（单位：dp）
-     *  当值<=0时使用默认大小
+     *  文字大小设定
+     *  注意，此值必须大于0才生效，否则使用默认值。另外，我们使用的是dp单位，非sp单位，若有特殊需要请自行转换
+     *  另外，暂时不支持Material风格对话框设定字体大小
      */
-    public static int dialog_title_text_size = 0;
-    /*
-     *  决定对话框内容文字字样大小（单位：dp）
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_message_text_size = 0;
-    /*
-     *  决定输入框输入文本字样大小（单位：dp）
-     *  当值<=0时使用默认大小
-     */
+    
+    //决定对话框标题文字样式
+    public static TextInfo dialogTitleTextInfo = new TextInfo();
+    
+    //决定对话框内容文字样式
+    public static TextInfo dialogContentTextInfo = new TextInfo();
+    
+    //决定对话框按钮文字样式
+    public static TextInfo dialogButtonTextInfo = new TextInfo();
+    
+    //决定对话框积极按钮（一般为确定按钮）文字样式，若未设置此样式则会使用 dialogButtonTextInfo 代替
+    public static TextInfo dialogOkButtonTextInfo;
+    
+    //决定提示框文本样式
+    public static TextInfo tipTextInfo;
+    
+    //决定菜单文字样式
+    public static TextInfo menuTextInfo = new TextInfo();
+    
+    //决定 Notification 默认文字样式信息
+    public static TextInfo notificationTextInfo = new TextInfo();
+    
+    //决定输入框输入文本字样大小（单位：dp），当值<=0时使用默认大小
     public static int dialog_input_text_size = 0;
-    /*
-     *  决定输入框按钮字样大小（单位：dp）
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_button_text_size = 0;
-    /*
-     *  决定提示框字样大小（单位：dp）
-     *  当值<=0时使用默认大小
-     */
-    public static int tip_text_size = 0;
-    /*
-     *  决定菜单文字字样大小（单位：dp）
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_menu_text_size = 0;
     
-    /*
-     *  决定iOS风格时，默认按钮文字颜色(Color)
-     *  当值=-1时使用默认蓝色
-     */
-    public static int ios_normal_button_color = -1;
-    
-    /*
-     *  决定iOS风格时，默认确认按钮文字颜色(Color)
-     *  当值=-1时使用默认蓝色
-     */
-    public static int ios_normal_ok_button_color = -1;
-    
-    /*
-     *  决定对话框组件默认是否可点击遮罩区域关闭
-     */
+    //决定对话框组件默认是否可点击遮罩区域关闭
     public static boolean dialog_cancelable_default = false;
     
-    /*
-     *  决定 Notification 默认字号（单位：dp）
-     *  当值=-1时使用默认字号
-     */
-    public static int notification_text_size = -1;
-    
-    /*
-     *  决定 Notification 默认文字颜色
-     *  当值=-1时使用默认颜色
-     */
-    public static int notification_text_color = -1;
-    
-    /*
-     *  此方法用于关闭所有已加载的 Dialog
-     *  建议将它加在你的 Activity 的 onDestroy() 里调用
-     */
-    public static void unloadAllDialog(){
-        BaseDialog.unloadAllDialog();
-    }
+//    @Deprecated
+//    public static int notification_text_size = -1;
+//
+//    @Deprecated
+//    public static int notification_text_color = -1;
+//
+//    @Deprecated
+//    public static int ios_normal_button_color = -1;
+//
+//    @Deprecated
+//    public static int ios_normal_ok_button_color = -1;
+//
+//    @Deprecated
+//    public static int dialog_button_text_size = 0;
+//
+//    @Deprecated
+//    public static int tip_text_size = 0;
+//
+//    @Deprecated
+//    public static int dialog_menu_text_size = 0;
+//
+//    @Deprecated
+//    public static int dialog_title_text_size = 0;
+//
+//    @Deprecated
+//    public static int dialog_message_text_size = 0;
 }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.ModalBaseDialog;
+import com.kongzue.dialog.util.TextInfo;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
@@ -36,6 +37,11 @@ public class SelectDialog extends ModalBaseDialog {
     private String cancelButtonCaption = "取消";
     private DialogInterface.OnClickListener onOkButtonClickListener;
     private DialogInterface.OnClickListener onCancelButtonClickListener;
+    
+    private TextInfo customTitleTextInfo;
+    private TextInfo customContentTextInfo;
+    private TextInfo customButtonTextInfo;
+    private TextInfo customOkButtonTextInfo;
     
     private SelectDialog() {
     }
@@ -95,6 +101,23 @@ public class SelectDialog extends ModalBaseDialog {
     int blur_front_color;
     
     public void showDialog() {
+        if (customTitleTextInfo == null) {
+            customTitleTextInfo = dialogTitleTextInfo;
+        }
+        if (customContentTextInfo == null) {
+            customContentTextInfo = dialogContentTextInfo;
+        }
+        if (customButtonTextInfo == null) {
+            customButtonTextInfo = dialogButtonTextInfo;
+        }
+        if (customOkButtonTextInfo == null) {
+            if (dialogOkButtonTextInfo == null) {
+                customOkButtonTextInfo = customButtonTextInfo;
+            } else {
+                customOkButtonTextInfo = dialogOkButtonTextInfo;
+            }
+        }
+        
         dialogList.add(selectDialog);
         modalDialogList.remove(selectDialog);
         log("显示选择对话框 -> " + message);
@@ -205,6 +228,11 @@ public class SelectDialog extends ModalBaseDialog {
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
                 });
+    
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectNegative, customButtonTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
                 
                 if (dialog_theme == THEME_DARK) {
                     bkg.setBackgroundResource(R.color.dlg_bkg_dark);
@@ -310,34 +338,31 @@ public class SelectDialog extends ModalBaseDialog {
                     bkg.setBackgroundResource(bkgResId);
                 }
                 
-                if (ios_normal_button_color != -1) {
-                    btnSelectNegative.setTextColor(ios_normal_button_color);
-                    btnSelectPositive.setTextColor(ios_normal_button_color);
-                    if (ios_normal_ok_button_color!=-1){
-                        btnSelectPositive.setTextColor(ios_normal_ok_button_color);
-                    }
-                }
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectNegative, customButtonTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
                 
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
                 break;
         }
-        
-        if (type != TYPE_MATERIAL) {
-            if (dialog_title_text_size > 0) {
-                txtDialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_title_text_size);
-            }
-            if (dialog_message_text_size > 0) {
-                txtDialogTip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_message_text_size);
-            }
-            if (dialog_button_text_size > 0) {
-                btnSelectNegative.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
-                btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
-            }
-        }
         isDialogShown = true;
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+    }
+    
+    private void useTextInfo(TextView textView, TextInfo textInfo) {
+        if (textInfo.getFontSize() > 0) {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textInfo.getFontSize());
+        }
+        if (textInfo.getFontColor() != -1) {
+            textView.setTextColor(textInfo.getFontColor());
+        }
+        if (textInfo.getGravity() != -1) {
+            textView.setGravity(textInfo.getGravity());
+        }
+        textView.getPaint().setFakeBoldText(textInfo.isBold());
     }
     
     @Override
@@ -369,5 +394,25 @@ public class SelectDialog extends ModalBaseDialog {
             return true;
         }
         return false;
+    }
+    
+    public SelectDialog setTitleTextInfo(TextInfo textInfo) {
+        this.customTitleTextInfo = textInfo;
+        return this;
+    }
+    
+    public SelectDialog setContentTextInfo(TextInfo textInfo) {
+        this.customContentTextInfo = textInfo;
+        return this;
+    }
+    
+    public SelectDialog setButtonTextInfo(TextInfo textInfo) {
+        this.customButtonTextInfo = textInfo;
+        return this;
+    }
+    
+    public SelectDialog setOkButtonTextInfo(TextInfo textInfo) {
+        this.customOkButtonTextInfo = textInfo;
+        return this;
     }
 }

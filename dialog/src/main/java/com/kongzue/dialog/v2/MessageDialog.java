@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.ModalBaseDialog;
+import com.kongzue.dialog.util.TextInfo;
 
 import static android.content.DialogInterface.BUTTON_POSITIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
@@ -33,6 +34,10 @@ public class MessageDialog extends ModalBaseDialog {
     private String message;
     private String buttonCaption = "确定";
     private DialogInterface.OnClickListener onOkButtonClickListener;
+    
+    private TextInfo customTitleTextInfo;
+    private TextInfo customContentTextInfo;
+    private TextInfo customOkButtonTextInfo;
     
     private MessageDialog() {
     }
@@ -82,6 +87,16 @@ public class MessageDialog extends ModalBaseDialog {
     int blur_front_color;
     
     public void showDialog() {
+        if (customTitleTextInfo == null) {
+            customTitleTextInfo = dialogTitleTextInfo;
+        }
+        if (customContentTextInfo == null) {
+            customContentTextInfo = dialogContentTextInfo;
+        }
+        if (customOkButtonTextInfo == null) {
+            customOkButtonTextInfo = dialogButtonTextInfo;
+        }
+        
         log("启动消息对话框 -> " + message);
         dialogList.add(messageDialog);
         modalDialogList.remove(messageDialog);
@@ -168,11 +183,6 @@ public class MessageDialog extends ModalBaseDialog {
                 } else {
                     txtDialogTip.setVisibility(View.VISIBLE);
                     txtDialogTip.setText(message);
-                    if (message.contains("\n")) {
-                        txtDialogTip.setGravity(Gravity.LEFT);
-                    } else {
-                        txtDialogTip.setGravity(Gravity.CENTER_HORIZONTAL);
-                    }
                 }
                 
                 btnSelectNegative.setVisibility(View.GONE);
@@ -193,6 +203,11 @@ public class MessageDialog extends ModalBaseDialog {
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
                     btnSelectPositive.setTextColor(Color.rgb(255, 255, 255));
                 }
+                
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
+                
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
@@ -275,13 +290,9 @@ public class MessageDialog extends ModalBaseDialog {
                     bkg.setBackgroundResource(bkgResId);
                 }
                 
-                if (ios_normal_button_color != -1) {
-                    btnSelectPositive.setTextColor(ios_normal_button_color);
-                }
-    
-                if (ios_normal_ok_button_color!=-1){
-                    btnSelectPositive.setTextColor(ios_normal_ok_button_color);
-                }
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
                 
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
@@ -289,20 +300,21 @@ public class MessageDialog extends ModalBaseDialog {
                 
                 break;
         }
-        
-        if (type != TYPE_MATERIAL) {
-            if (dialog_title_text_size > 0) {
-                txtDialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_title_text_size);
-            }
-            if (dialog_message_text_size > 0) {
-                txtDialogTip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_message_text_size);
-            }
-            if (dialog_button_text_size > 0) {
-                btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
-            }
-        }
         isDialogShown = true;
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+    }
+    
+    private void useTextInfo(TextView textView, TextInfo textInfo) {
+        if (textInfo.getFontSize() > 0) {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textInfo.getFontSize());
+        }
+        if (textInfo.getFontColor() != -1) {
+            textView.setTextColor(textInfo.getFontColor());
+        }
+        if (textInfo.getGravity() != -1) {
+            textView.setGravity(textInfo.getGravity());
+        }
+        textView.getPaint().setFakeBoldText(textInfo.isBold());
     }
     
     @Override
@@ -336,4 +348,18 @@ public class MessageDialog extends ModalBaseDialog {
         return false;
     }
     
+    public MessageDialog setTitleTextInfo(TextInfo textInfo) {
+        this.customTitleTextInfo = textInfo;
+        return this;
+    }
+    
+    public MessageDialog setContentTextInfo(TextInfo textInfo) {
+        this.customContentTextInfo = textInfo;
+        return this;
+    }
+    
+    public MessageDialog setOkButtonTextInfo(TextInfo textInfo) {
+        this.customOkButtonTextInfo = textInfo;
+        return this;
+    }
 }

@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.6-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.7-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.6/link">
-<img src="https://img.shields.io/badge/Maven-2.3.6-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.7/link">
+<img src="https://img.shields.io/badge/Maven-2.3.7-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -83,14 +83,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.6</version>
+  <version>2.3.7</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.6'
+implementation 'com.kongzue.dialog:dialog:2.3.7'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -474,17 +474,28 @@ WaitDialog.show(context, "载入中...").setCanCancel(true).setDialogLifeCycleLi
 
 另外提供一些定制属性：
 ```
-DialogSettings.dialog_title_text_size = -1;                 //设置对话框标题文字大小，<=0不启用
-DialogSettings.dialog_message_text_size = -1;               //设置对话框内容文字大小，<=0不启用
-DialogSettings.dialog_button_text_size = -1;                //设置对话框按钮文字大小，<=0不启用
-DialogSettings.dialog_menu_text_size = -1;                  //设置菜单默认字号，<=0不启用
-DialogSettings.tip_text_size = -1;                          //设置提示框文字大小，<=0不启用
-DialogSettings.ios_normal_button_color = -1;                //设置iOS风格默认按钮文字颜色，=-1不启用
 DialogSettings.dialog_background_color = R.color.white;     //控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色，=-1时不启用
+
 //v2.3.1新增：
 DialogSettings.dialog_cancelable_default = -1;              //控制消息对话框、选择对话框和输入对话框默认是否可点击外部遮罩层区域关闭，=-1不启用
-DialogSettings.notification_text_color = -1;                //控制 Notification 标题和消息默认颜色，=-1不启用
-DialogSettings.notification_text_size = -1;                 //控制 Notification 标题和消息默认字号，=-1不启用
+
+//属性 notification_text_size、notification_text_color、ios_normal_button_color、ios_normal_ok_button_color、dialog_button_text_size、tip_text_size、dialog_menu_text_size、dialog_title_text_size、dialog_message_text_size 在 2.3.7 版本起已经弃用
+//v2.3.7新增：
+DialogSettings.dialogTitleTextInfo                          //决定对话框标题文字样式
+DialogSettings.dialogContentTextInfo                        //决定对话框内容文字样式
+DialogSettings.dialogButtonTextInfo                         //决定对话框按钮文字样式
+DialogSettings.dialogOkButtonTextInfo                       //决定对话框积极按钮（一般为确定按钮）文字样式，若未设置此样式则会使用 dialogButtonTextInfo 代替
+DialogSettings.tipTextInfo                                  //决定提示框文本样式
+DialogSettings.menuTextInfo                                 //决定菜单文字样式
+DialogSettings.notificationTextInfo                         //决定 Notification 默认文字样式信息
+
+//TextInfo(com.kongzue.dialog.util.TextInfo) 为 2.3.7 版本新增的文字样式属性类，其创建方式范例：
+DialogSettings.dialogContentTextInfo = new TextInfo()
+        .setBold(true)                                      //粗体开关
+        .setFontColor(Color.rgb(253,130,255))               //颜色设置
+        .setFontSize(10)                                    //字号（单位dp）
+;
+//默认不修改或值为 -1 时使用默认样式
 ```
 
 ## <a name="modal">模态化（序列化）</a>
@@ -552,6 +563,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.7：
+- 新增 TextInfo(com.kongzue.dialog.util.TextInfo) 用于统一管理文字样式设置；
+- 修改了 DialogSettings 中对于各组件文字样式的设置方式，具体请参照章节<a href="#附加功能">附加功能</a>；
+
 v2.3.6：
 - 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(https://github.com/Devlight/ShadowLayout) ，开源协议：Apache License 2.0）；
 - InputDialog 新增 setInputInfo(InputInfo) 方法，对输入框进行设置，具体请查看章节：<a href="#调用输入对话框">调用输入对话框</a>；
@@ -559,7 +574,7 @@ v2.3.6：
 
 v2.3.5：
 - WaitDialog 新增 setOnBackPressListener(...) 可以在用户按返回键时响应事件；
-- 新增 DialogSettings.ios_normal_ok_button_color 控制iOS对话框确认按钮颜色；
+- ~~新增 DialogSettings.ios_normal_ok_button_color 控制iOS对话框确认按钮颜色；~~(已在2.3.7版本弃用，具体请参照相关更新日志)
 - Pop 针对复杂特殊文本显示适配；
 
 v2.3.4:
@@ -648,7 +663,7 @@ v2.2.1:
 v2.2.0:
 - 修复bug；
 - 底部菜单支持取消按钮文字设置；
-- 底部菜单支持菜单字号设置（dialog_menu_text_size）；
+- ~~底部菜单支持菜单字号设置（dialog_menu_text_size）；~~(已在2.3.7版本弃用，具体请参照相关更新日志)
 
 v2.1.9:
 - Android Support 支持库升级到 27.1.0；

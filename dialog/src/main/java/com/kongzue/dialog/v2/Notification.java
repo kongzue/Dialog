@@ -18,12 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kongzue.dialog.R;
+import com.kongzue.dialog.util.TextInfo;
 
 import java.lang.reflect.Field;
 
-import static com.kongzue.dialog.v2.DialogSettings.dialog_menu_text_size;
-import static com.kongzue.dialog.v2.DialogSettings.notification_text_color;
-import static com.kongzue.dialog.v2.DialogSettings.notification_text_size;
+import static com.kongzue.dialog.v2.DialogSettings.notificationTextInfo;
 
 public class Notification {
     
@@ -47,6 +46,8 @@ public class Notification {
     private int iconResId = 0;
     private Drawable iconDrawable;
     private Bitmap iconBitmap;
+    
+    private TextInfo customTextInfo;
     
     private Notification() {
     }
@@ -162,14 +163,22 @@ public class Notification {
         txtTitle = view.findViewById(R.id.txt_title);
         txtMessage = view.findViewById(R.id.txt_message);
         
-        if (notification_text_size != -1) {
-            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
-            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+        if (customTextInfo == null) {
+            customTextInfo = notificationTextInfo;
         }
-        if (notification_text_color != -1) {
-            txtTitle.setTextColor(notification_text_color);
-            txtMessage.setTextColor(notification_text_color);
+        
+        if (customTextInfo.getFontSize() != -1) {
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
+            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
+        if (customTextInfo.getFontColor() != -1) {
+            txtTitle.setTextColor(customTextInfo.getFontColor());
+            txtMessage.setTextColor(customTextInfo.getFontColor());
+        }
+        if (customTextInfo.getGravity() != -1) {
+            txtMessage.setGravity(customTextInfo.getGravity());
+        }
+        txtMessage.getPaint().setFakeBoldText(customTextInfo.isBold());
         
         btnNotic.setPadding(dip2px(context, 15), getStatusBarHeight() + dip2px(context, 15), dip2px(context, 15), dip2px(context, 15));
         
@@ -223,15 +232,23 @@ public class Notification {
         imgIcon = (ImageView) view.findViewById(R.id.img_icon);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         txtMessage = (TextView) view.findViewById(R.id.txt_message);
-        
-        if (notification_text_size != -1) {
-            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
-            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+    
+        if (customTextInfo == null) {
+            customTextInfo = notificationTextInfo;
         }
-        if (notification_text_color != -1) {
-            txtTitle.setTextColor(notification_text_color);
-            txtMessage.setTextColor(notification_text_color);
+    
+        if (customTextInfo.getFontSize() != -1) {
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
+            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
+        if (customTextInfo.getFontColor() != -1) {
+            txtTitle.setTextColor(customTextInfo.getFontColor());
+            txtMessage.setTextColor(customTextInfo.getFontColor());
+        }
+        if (customTextInfo.getGravity() != -1) {
+            txtMessage.setGravity(customTextInfo.getGravity());
+        }
+        txtMessage.getPaint().setFakeBoldText(customTextInfo.isBold());
         
         boxBody.setPadding(0, getStatusBarHeight(), 0, 0);
         
@@ -286,15 +303,23 @@ public class Notification {
         imgIcon = view.findViewById(R.id.img_icon);
         txtTitle = view.findViewById(R.id.txt_title);
         txtMessage = view.findViewById(R.id.txt_message);
-        
-        if (notification_text_size != -1) {
-            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
-            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, notification_text_size);
+    
+        if (customTextInfo == null) {
+            customTextInfo = notificationTextInfo;
         }
-        if (notification_text_color != -1) {
-            txtTitle.setTextColor(notification_text_color);
-            txtMessage.setTextColor(notification_text_color);
+    
+        if (customTextInfo.getFontSize() != -1) {
+            txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
+            txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
+        if (customTextInfo.getFontColor() != -1) {
+            txtTitle.setTextColor(customTextInfo.getFontColor());
+            txtMessage.setTextColor(customTextInfo.getFontColor());
+        }
+        if (customTextInfo.getGravity() != -1) {
+            txtMessage.setGravity(customTextInfo.getGravity());
+        }
+        txtMessage.getPaint().setFakeBoldText(customTextInfo.isBold());
         
         btnNotic.setPadding(dip2px(context, 10), getStatusBarHeight(), dip2px(context, 10), 0);
         
@@ -444,5 +469,10 @@ public class Notification {
     
     public interface OnNotificationClickListener {
         void OnClick(int id);
+    }
+    
+    public Notification setTextInfo(TextInfo textInfo) {
+        customTextInfo = textInfo;
+        return this;
     }
 }

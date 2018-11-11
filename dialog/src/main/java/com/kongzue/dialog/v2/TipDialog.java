@@ -18,10 +18,11 @@ import android.widget.TextView;
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.TextInfo;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.blur_alpha;
-import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
+import static com.kongzue.dialog.v2.DialogSettings.tipTextInfo;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
 import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
@@ -41,6 +42,8 @@ public class TipDialog extends BaseDialog {
     private Drawable customDrawable;
     private Bitmap customBitmap;
     private boolean isCanCancel = false;
+    
+    private TextInfo customTextInfo;
     
     private Context context;
     private String tip;
@@ -135,6 +138,10 @@ public class TipDialog extends BaseDialog {
     private int blur_front_color;
     
     public void showDialog() {
+        if (customTextInfo == null) {
+            customTextInfo = tipTextInfo;
+        }
+        
         AlertDialog.Builder builder;
         log("显示提示对话框 -> " + tip);
         dialogList.add(tipDialog);
@@ -226,9 +233,18 @@ public class TipDialog extends BaseDialog {
         } else {
             boxInfo.setVisibility(View.GONE);
         }
-        if (tip_text_size > 0) {
-            txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, tip_text_size);
+        
+        if (customTextInfo.getFontSize() > 0) {
+            txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
+        if (customTextInfo.getFontColor() != -1) {
+            txtInfo.setTextColor(customTextInfo.getFontColor());
+        }
+        if (customTextInfo.getGravity() != -1) {
+            txtInfo.setGravity(customTextInfo.getGravity());
+        }
+        txtInfo.getPaint().setFakeBoldText(customTextInfo.isBold());
+        
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -270,4 +286,8 @@ public class TipDialog extends BaseDialog {
         return this;
     }
     
+    public TipDialog setTxtInfo(TextView txtInfo) {
+        this.txtInfo = txtInfo;
+        return this;
+    }
 }

@@ -23,6 +23,7 @@ import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.InputInfo;
 import com.kongzue.dialog.util.ModalBaseDialog;
+import com.kongzue.dialog.util.TextInfo;
 
 import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static android.content.DialogInterface.BUTTON_POSITIVE;
@@ -34,6 +35,11 @@ public class InputDialog extends ModalBaseDialog {
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
     private InputInfo inputInfo;
+    
+    private TextInfo customTitleTextInfo;
+    private TextInfo customContentTextInfo;
+    private TextInfo customButtonTextInfo;
+    private TextInfo customOkButtonTextInfo;
     
     private Context context;
     private String title;
@@ -97,6 +103,23 @@ public class InputDialog extends ModalBaseDialog {
     int blur_front_color;
     
     public void showDialog() {
+        if (customTitleTextInfo == null) {
+            customTitleTextInfo = dialogTitleTextInfo;
+        }
+        if (customContentTextInfo == null) {
+            customContentTextInfo = dialogContentTextInfo;
+        }
+        if (customButtonTextInfo == null) {
+            customButtonTextInfo = dialogButtonTextInfo;
+        }
+        if (customOkButtonTextInfo == null) {
+            if (dialogOkButtonTextInfo == null) {
+                customOkButtonTextInfo = customButtonTextInfo;
+            } else {
+                customOkButtonTextInfo = dialogOkButtonTextInfo;
+            }
+        }
+        
         dialogList.add(inputDialog);
         log("启动输入对话框 -> " + message);
         modalDialogList.remove(inputDialog);
@@ -191,11 +214,15 @@ public class InputDialog extends ModalBaseDialog {
                 } else {
                     txtDialogTip.setVisibility(View.VISIBLE);
                     txtDialogTip.setText(message);
-                    if (message.contains("\n")) {
-                        txtDialogTip.setGravity(Gravity.LEFT);
-                    } else {
-                        txtDialogTip.setGravity(Gravity.CENTER_HORIZONTAL);
-                    }
+                }
+                
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectNegative, customButtonTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
+                
+                if (dialog_input_text_size > 0) {
+                    txtInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_input_text_size);
                 }
                 
                 txtInput.setVisibility(View.VISIBLE);
@@ -329,6 +356,15 @@ public class InputDialog extends ModalBaseDialog {
                     txtDialogTip.setText(message);
                 }
                 
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectNegative, customButtonTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
+                
+                if (dialog_input_text_size > 0) {
+                    txtInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_input_text_size);
+                }
+                
                 btnSelectPositive.setText(okButtonCaption);
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -385,36 +421,23 @@ public class InputDialog extends ModalBaseDialog {
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
-                
-                log(ios_normal_button_color);
-                if (ios_normal_button_color != -1) {
-                    btnSelectNegative.setTextColor(ios_normal_button_color);
-                    btnSelectPositive.setTextColor(ios_normal_button_color);
-                    
-                    if (ios_normal_ok_button_color != -1) {
-                        btnSelectPositive.setTextColor(ios_normal_ok_button_color);
-                    }
-                }
-                
                 break;
-        }
-        if (type != TYPE_MATERIAL) {
-            if (dialog_title_text_size > 0) {
-                txtDialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_title_text_size);
-            }
-            if (dialog_message_text_size > 0) {
-                txtDialogTip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_message_text_size);
-            }
-            if (dialog_input_text_size > 0) {
-                txtInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_input_text_size);
-            }
-            if (dialog_button_text_size > 0) {
-                btnSelectNegative.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
-                btnSelectPositive.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_button_text_size);
-            }
         }
         isDialogShown = true;
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+    }
+    
+    private void useTextInfo(TextView textView, TextInfo textInfo) {
+        if (textInfo.getFontSize() > 0) {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textInfo.getFontSize());
+        }
+        if (textInfo.getFontColor() != -1) {
+            textView.setTextColor(textInfo.getFontColor());
+        }
+        if (textInfo.getGravity() != -1) {
+            textView.setGravity(textInfo.getGravity());
+        }
+        textView.getPaint().setFakeBoldText(textInfo.isBold());
     }
     
     @Override
@@ -490,6 +513,26 @@ public class InputDialog extends ModalBaseDialog {
             txtInput.setInputType(InputType.TYPE_CLASS_TEXT | inputInfo.getInputType());
         }
         this.inputInfo = inputInfo;
+        return this;
+    }
+    
+    public InputDialog setTitleTextInfo(TextInfo textInfo) {
+        this.customTitleTextInfo = textInfo;
+        return this;
+    }
+    
+    public InputDialog setContentTextInfo(TextInfo textInfo) {
+        this.customContentTextInfo = textInfo;
+        return this;
+    }
+    
+    public InputDialog setButtonTextInfo(TextInfo textInfo) {
+        this.customButtonTextInfo = textInfo;
+        return this;
+    }
+    
+    public InputDialog setOkButtonTextInfo(TextInfo textInfo) {
+        this.customOkButtonTextInfo = textInfo;
         return this;
     }
 }

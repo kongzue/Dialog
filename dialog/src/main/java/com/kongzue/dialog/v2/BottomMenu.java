@@ -29,6 +29,7 @@ import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.TextInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +47,16 @@ public class BottomMenu extends BaseDialog {
     private String title;
     private String cancelButtonCaption = "取消";
     
+    private TextInfo customMenuTextInfo;
+    private TextInfo customButtonTextInfo;
+    
     private BottomMenu() {
     }
     
     //Fast Function
     public static BottomMenu show(AppCompatActivity activity, String[] menuText) {
         List<String> list = new ArrayList<>();
-        for (String s:menuText){
+        for (String s : menuText) {
             list.add(s);
         }
         return show(activity, list, null, true, "取消");
@@ -64,7 +68,7 @@ public class BottomMenu extends BaseDialog {
     
     public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener) {
         List<String> list = new ArrayList<>();
-        for (String s:menuText){
+        for (String s : menuText) {
             list.add(s);
         }
         return show(activity, list, onMenuItemClickListener, true, "取消");
@@ -76,7 +80,7 @@ public class BottomMenu extends BaseDialog {
     
     public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton) {
         List<String> list = new ArrayList<>();
-        for (String s:menuText){
+        for (String s : menuText) {
             list.add(s);
         }
         return show(activity, list, onMenuItemClickListener, isShowCancelButton, "取消");
@@ -88,7 +92,7 @@ public class BottomMenu extends BaseDialog {
     
     public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         List<String> list = new ArrayList<>();
-        for (String s:menuText){
+        for (String s : menuText) {
             list.add(s);
         }
         return show(activity, list, onMenuItemClickListener, isShowCancelButton, cancelButtonCaption);
@@ -135,6 +139,13 @@ public class BottomMenu extends BaseDialog {
         log("启动底部菜单 -> " + menuText.toString());
         dialogList.add(bottomMenu);
         
+        if (customMenuTextInfo == null) {
+            customMenuTextInfo = menuTextInfo;
+        }
+        if (customButtonTextInfo == null) {
+            customButtonTextInfo = dialogButtonTextInfo;
+        }
+        
         if (type == TYPE_MATERIAL) {
             bottomSheetDialog = new MyBottomSheetDialog(activity);
             View box_view = LayoutInflater.from(activity).inflate(R.layout.bottom_menu_material, null);
@@ -144,9 +155,16 @@ public class BottomMenu extends BaseDialog {
             txtTitle = box_view.findViewById(R.id.title);
             customView = box_view.findViewById(R.id.box_custom);
             
-            if (dialog_menu_text_size > 0) {
-                btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+            if (customButtonTextInfo.getFontSize() > 0) {
+                btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customButtonTextInfo.getFontSize());
             }
+            if (customButtonTextInfo.getGravity() != -1) {
+                btnCancel.setGravity(customButtonTextInfo.getGravity());
+            }
+            if (customButtonTextInfo.getFontColor() != -1) {
+                btnCancel.setTextColor(customButtonTextInfo.getFontColor());
+            }
+            btnCancel.getPaint().setFakeBoldText(customButtonTextInfo.isBold());
             btnCancel.setText(cancelButtonCaption);
             
             if (title != null && !title.trim().isEmpty()) {
@@ -251,9 +269,17 @@ public class BottomMenu extends BaseDialog {
                 splitLine.setVisibility(View.GONE);
             }
             
-            if (dialog_menu_text_size > 0) {
-                btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+            if (customButtonTextInfo.getFontSize() > 0) {
+                btnCancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customButtonTextInfo.getFontSize());
             }
+            if (customButtonTextInfo.getGravity() != -1) {
+                btnCancel.setGravity(customButtonTextInfo.getGravity());
+            }
+            if (customButtonTextInfo.getFontColor() != -1) {
+                btnCancel.setTextColor(customButtonTextInfo.getFontColor());
+            }
+            btnCancel.getPaint().setFakeBoldText(customButtonTextInfo.isBold());
+            
             btnCancel.setText(cancelButtonCaption);
             
             switch (type) {
@@ -303,9 +329,6 @@ public class BottomMenu extends BaseDialog {
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
                 case TYPE_IOS:
-                    if (ios_normal_button_color != -1) {
-                        btnCancel.setTextColor(ios_normal_button_color);
-                    }
                     menuArrayAdapter = new IOSMenuArrayAdapter(activity, item_resId, menuText);
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
@@ -382,9 +405,16 @@ public class BottomMenu extends BaseDialog {
             String text = objects.get(position);
             if (null != text) {
                 viewHolder.textView.setText(text);
-                if (dialog_menu_text_size > 0) {
-                    viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+                if (customMenuTextInfo.getFontSize() > 0) {
+                    viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customMenuTextInfo.getFontSize());
                 }
+                if (customMenuTextInfo.getGravity() != -1) {
+                    viewHolder.textView.setGravity(customMenuTextInfo.getGravity());
+                }
+                if (customMenuTextInfo.getFontColor() != -1) {
+                    viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
+                }
+                viewHolder.textView.getPaint().setFakeBoldText(customMenuTextInfo.isBold());
             }
             
             return convertView;
@@ -413,13 +443,17 @@ public class BottomMenu extends BaseDialog {
             if (null != text) {
                 viewHolder.textView.setText(text);
                 
-                if (dialog_menu_text_size > 0) {
-                    viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_menu_text_size);
+                if (customMenuTextInfo.getFontSize() > 0) {
+                    viewHolder.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customMenuTextInfo.getFontSize());
                 }
+                if (customMenuTextInfo.getGravity() != -1) {
+                    viewHolder.textView.setGravity(customMenuTextInfo.getGravity());
+                }
+                if (customMenuTextInfo.getFontColor() != -1) {
+                    viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
+                }
+                viewHolder.textView.getPaint().setFakeBoldText(customMenuTextInfo.isBold());
                 
-                if (ios_normal_button_color != -1) {
-                    viewHolder.textView.setTextColor(ios_normal_button_color);
-                }
                 if (objects.size() == 1) {
                     if (title != null && !title.trim().isEmpty()) {
                         viewHolder.textView.setBackgroundResource(R.drawable.button_menu_ios_bottom);
@@ -537,6 +571,16 @@ public class BottomMenu extends BaseDialog {
             customView.addView(view);
             menuArrayAdapter.notifyDataSetChanged();
         }
+        return this;
+    }
+    
+    public BottomMenu setMenuTextInfo(TextInfo textInfo) {
+        customMenuTextInfo = textInfo;
+        return this;
+    }
+    
+    public BottomMenu setButtonTextInfo(TextInfo textInfo) {
+        customButtonTextInfo = textInfo;
         return this;
     }
     

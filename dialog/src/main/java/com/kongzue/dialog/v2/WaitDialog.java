@@ -19,10 +19,11 @@ import com.kongzue.dialog.listener.OnBackPressListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.ProgressView;
+import com.kongzue.dialog.util.TextInfo;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.blur_alpha;
-import static com.kongzue.dialog.v2.DialogSettings.tip_text_size;
+import static com.kongzue.dialog.v2.DialogSettings.tipTextInfo;
 import static com.kongzue.dialog.v2.DialogSettings.tip_theme;
 import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
@@ -32,6 +33,8 @@ public class WaitDialog extends BaseDialog {
     private AlertDialog alertDialog;
     private WaitDialog waitDialog;
     private boolean isCanCancel = false;
+    
+    private TextInfo customTextInfo;
     
     private Context context;
     private String tip;
@@ -52,6 +55,20 @@ public class WaitDialog extends BaseDialog {
         }
     }
     
+    public static WaitDialog show(Context context, String tip, TextInfo textInfo) {
+        synchronized (WaitDialog.class) {
+            WaitDialog waitDialog = new WaitDialog();
+            waitDialog.cleanDialogLifeCycleListener();
+            waitDialog.context = context;
+            waitDialog.tip = tip;
+            waitDialog.log("装载等待对话框 -> " + tip);
+            waitDialog.waitDialog = waitDialog;
+            waitDialog.customTextInfo = textInfo;
+            waitDialog.showDialog();
+            return waitDialog;
+        }
+    }
+    
     private BlurView blur;
     private RelativeLayout boxInfo;
     private RelativeLayout boxBkg;
@@ -60,6 +77,10 @@ public class WaitDialog extends BaseDialog {
     private int blur_front_color;
     
     public void showDialog() {
+        if (customTextInfo == null) {
+            customTextInfo = tipTextInfo;
+        }
+        
         dialogList.add(waitDialog);
         log("显示等待对话框 -> " + tip);
         
@@ -127,9 +148,18 @@ public class WaitDialog extends BaseDialog {
         } else {
             boxInfo.setVisibility(View.GONE);
         }
-        if (tip_text_size > 0) {
-            txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, tip_text_size);
+    
+        if (customTextInfo.getFontSize() > 0) {
+            txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
+        if (customTextInfo.getFontColor() != -1) {
+            txtInfo.setTextColor(customTextInfo.getFontColor());
+        }
+        if (customTextInfo.getGravity() != -1) {
+            txtInfo.setGravity(customTextInfo.getGravity());
+        }
+        txtInfo.getPaint().setFakeBoldText(customTextInfo.isBold());
+        
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -146,7 +176,7 @@ public class WaitDialog extends BaseDialog {
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (onBackPressListener!=null) {
+                        if (onBackPressListener != null) {
                             onBackPressListener.OnBackPress(alertDialog);
                             return true;
                         }

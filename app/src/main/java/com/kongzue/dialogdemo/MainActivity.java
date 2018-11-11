@@ -28,6 +28,7 @@ import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.InputInfo;
 import com.kongzue.dialog.util.ModalBaseDialog;
+import com.kongzue.dialog.util.TextInfo;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.InputDialog;
 import com.kongzue.dialog.v2.MessageDialog;
@@ -156,13 +157,19 @@ public class MainActivity extends AppCompatActivity {
         DialogSettings.type = TYPE_MATERIAL;
         DialogSettings.tip_theme = THEME_DARK;
         DialogSettings.dialog_theme = THEME_LIGHT;
+    
+        DialogSettings.dialogContentTextInfo = new TextInfo()
+                .setBold(true)
+                .setFontColor(Color.rgb(253,130,255))
+                .setFontSize(10)
+        ;
         
-        DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
-        DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
-        DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
-        DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
-        DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
-        DialogSettings.dialog_menu_text_size = -1;      //设置菜单默认字号，<=0不启用
+//        DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
+//        DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
+//        DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
+//        DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
+//        DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
+//        DialogSettings.dialog_menu_text_size = -1;      //设置菜单默认字号，<=0不启用
         
         MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
         
