@@ -408,6 +408,12 @@
                         android:layout_height="wrap_content"
                         android:text="序列启动多个对话框" />
 
+                    <Button
+                        android:id="@+id/btn_show_custom_dialogs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义对话框" />
+
                 </LinearLayout>
             </LinearLayout>
 

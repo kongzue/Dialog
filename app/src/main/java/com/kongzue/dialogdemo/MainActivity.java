@@ -13,10 +13,12 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,6 +31,7 @@ import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.InputInfo;
 import com.kongzue.dialog.util.ModalBaseDialog;
 import com.kongzue.dialog.util.TextInfo;
+import com.kongzue.dialog.v2.CustomDialog;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.InputDialog;
 import com.kongzue.dialog.v2.MessageDialog;
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnShowBottomMenuWithCustom;
     private Button btnShowBottomMenuWithTitleWithCustom;
     private Button btnShowMultipleDialogs;
+    private Button btnShowCustomDialogs;
     
     private void initViews() {
         grp = findViewById(R.id.grp);
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         btnShowBottomMenuWithCustom = findViewById(R.id.btn_show_bottom_menu_withCustom);
         btnShowBottomMenuWithTitleWithCustom = findViewById(R.id.btn_show_bottom_menu_with_title_withCustom);
         btnShowMultipleDialogs = findViewById(R.id.btn_show_multiple_dialogs);
+        btnShowCustomDialogs = findViewById(R.id.btn_show_custom_dialogs);
     }
     
     @Override
@@ -178,7 +183,28 @@ public class MainActivity extends AppCompatActivity {
     
     private int notifactionType = TYPE_NORMAL;
     
+    private CustomDialog customDialog;
+    
     private void setEvents() {
+    
+        btnShowCustomDialogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog = CustomDialog.show(me, R.layout.layout_custom_dialog, new CustomDialog.BindView() {
+                    @Override
+                    public void onBind(View rootView) {
+                        ImageView btnOk = rootView.findViewById(R.id.btn_ok);
+    
+                        btnOk.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                customDialog.doDismiss();
+                            }
+                        });
+                    }
+                });
+            }
+        });
         
         btnPopRight.setOnClickListener(new View.OnClickListener() {
             @Override

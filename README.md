@@ -2,21 +2,17 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.8-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.9-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.8/link">
-<img src="https://img.shields.io/badge/Maven-2.3.8-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.9/link">
+<img src="https://img.shields.io/badge/Maven-2.3.9-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
 </a> 
 <a href="http://www.kongzue.com">
 <img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Homepage">
-</a> 
-
-多语言文档：
-[English](https://github.com/kongzue/Dialog/blob/master/README-Eng.md) 
-
+</a>
 
 空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提示、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
 
@@ -64,6 +60,8 @@
 
 ···· <a href="#气泡提示">气泡提示</a>
 
+· <a href="#自定义对话框">自定义对话框</a>
+
 · <a href="#自定义布局">自定义布局</a>
 
 · <a href="#附加功能">附加功能</a>
@@ -83,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.8</version>
+  <version>2.3.9</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.8'
+implementation 'com.kongzue.dialog:dialog:2.3.9'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -423,6 +421,53 @@ pop.dismiss();
 
 ![Kongzue's Dialog Pop](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/kongzue_dialog_pop.png)
 
+## 自定义对话框：
+
+![Kongzue's Custom Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/img_custom_dialog.png)
+
+从 2.3.9 版本起，支持自定义对话框的创建：
+```
+CustomDialog.show(context, R.layout.layout_custom_dialog, new CustomDialog.BindView() {
+    @Override
+    public void onBind(View rootView) {
+        //绑定布局
+        ImageView btnOk = rootView.findViewById(R.id.btn_ok);
+        //绑定事件
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //...
+            }
+        });
+    }
+});
+```
+
+CustomDialog 的创建方式支持通过 layout 资源 ID 或直接使用 View 创建，其也支持对话框的模态化以及生命周期管理。
+
+需要在自定义的对话框中关闭 CustomDialog，您可以在全局接收 CustomDialog 的 show 或 build 返回的组件，并执行其 doDismiss() 方法：
+```
+private CustomDialog customDialog;
+
+//...
+
+customDialog = CustomDialog.show(me, R.layout.layout_custom_dialog, new CustomDialog.BindView() {
+            @Override
+            public void onBind(View rootView) {
+                ImageView btnOk = rootView.findViewById(R.id.btn_ok);
+
+                //...
+
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        customDialog.doDismiss();
+                    }
+                });
+            }
+        });
+```
+
 ## 自定义布局：
 从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局。
 
@@ -454,6 +499,7 @@ MessageDialog.build(context, null, null, "知道了", new DialogInterface.OnClic
   .showDialog();
 ```
 
+等待对话框的自定义布局请参考：<a href="#调用等待提示框">调用等待提示框</a>
 
 ## 附加功能：
 在任何一种对话框中都可以使用.setCanCancel(boolean)来设置是否可以点击对话框以外的区域关闭对话框，提示类默认都是禁止的，选择、输入对话框默认也是禁止的，消息对话框默认是允许的。
@@ -599,6 +645,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.9：
+- 新增自定义对话框，详情请参考章节：<a href="#自定义对话框">自定义对话框</a>；
+
 v2.3.8：
 - WaitDialog 现已支持自定义布局，详情请参考章节：<a href="#调用等待提示框">调用等待提示框</a>；
 - 修复了因 tipTextInfo 未初始化导致崩溃的 bug；
