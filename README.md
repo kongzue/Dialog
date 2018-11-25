@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.9-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.3.9.1-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.3.9/link">
-<img src="https://img.shields.io/badge/Maven-2.3.9-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.3.9.1/link">
+<img src="https://img.shields.io/badge/Maven-2.3.9.1-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.3.9</version>
+  <version>2.3.9.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.3.9'
+implementation 'com.kongzue.dialog:dialog:2.3.9.1'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -645,6 +645,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.3.9.1:
+- 修复了输入对话框在使用 KONGZUE 风格时背景颜色不启用的 bug；
+
 v2.3.9：
 - 新增自定义对话框，详情请参考章节：<a href="#自定义对话框">自定义对话框</a>；
 

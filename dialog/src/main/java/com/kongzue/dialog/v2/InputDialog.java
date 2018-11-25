@@ -216,11 +216,6 @@ public class InputDialog extends ModalBaseDialog {
                     txtDialogTip.setText(message);
                 }
                 
-                useTextInfo(txtDialogTitle, customTitleTextInfo);
-                useTextInfo(txtDialogTip, customContentTextInfo);
-                useTextInfo(btnSelectNegative, customButtonTextInfo);
-                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
-                
                 if (dialog_input_text_size > 0) {
                     txtInput.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dialog_input_text_size);
                 }
@@ -252,7 +247,7 @@ public class InputDialog extends ModalBaseDialog {
                 });
                 
                 if (dialog_theme == THEME_DARK) {
-                    //bkg.setBackgroundResource(R.color.dlg_bkg_dark);
+                    bkg.setBackgroundResource(R.color.dlg_bkg_dark);
                     btnSelectNegative.setBackgroundResource(R.drawable.button_dialog_kongzue_gray_dark);
                     btnSelectPositive.setBackgroundResource(R.drawable.button_dialog_kongzue_blue_dark);
                     btnSelectNegative.setTextColor(Color.rgb(255, 255, 255));
@@ -260,6 +255,11 @@ public class InputDialog extends ModalBaseDialog {
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
                     txtInput.setBackgroundResource(R.drawable.editbox_bkg_dark);
                 }
+    
+                useTextInfo(txtDialogTitle, customTitleTextInfo);
+                useTextInfo(txtDialogTip, customContentTextInfo);
+                useTextInfo(btnSelectNegative, customButtonTextInfo);
+                useTextInfo(btnSelectPositive, customOkButtonTextInfo);
                 
                 if (dialog_background_color != -1) {
                     bkg.setBackgroundResource(dialog_background_color);

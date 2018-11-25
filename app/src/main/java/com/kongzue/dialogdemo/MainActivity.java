@@ -163,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
         DialogSettings.tip_theme = THEME_DARK;
         DialogSettings.dialog_theme = THEME_LIGHT;
     
-        DialogSettings.dialogContentTextInfo = new TextInfo()
-                .setBold(true)
-                .setFontColor(Color.rgb(253,130,255))
-                .setFontSize(10)
-        ;
+//        DialogSettings.dialogContentTextInfo = new TextInfo()
+//                .setBold(true)
+//                .setFontColor(Color.rgb(253,130,255))
+//                .setFontSize(10)
+//        ;
         
 //        DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
 //        DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用

@@ -7,8 +7,8 @@ android {
         applicationId "com.kongzue.dialogdemo"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 3
-        versionName "2.2"
+        versionCode 4
+        versionName "2.3.9"
 
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
