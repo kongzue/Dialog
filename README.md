@@ -68,7 +68,7 @@
 
 · <a href="#modal">模态化（序列化）</a>
 
-· <a href="#一些建议">一些建议</a>
+· <a href="#一些建议（重要）">一些建议（重要）</a>
 
 · <a href="#开源协议">开源协议</a>
 
@@ -617,7 +617,7 @@ InputDialog.build(context, "提示", "这是最后一个对话框，序列即将
 
 上述代码在执行时默认就会按照一个关闭再先试下一个的方式进行。
 
-## 一些建议
+## 一些建议（重要）
 由于 Dialog 的模态化实现、等待对话框（WaitDialog）、提示对话框（TipDialog）都需要至少显示一段时间，而 Dialog 的显示是依赖于 Context（更准确说是Activity） 的，那么在这段时间内，若 Activity 被卸载，则有可能发生 WindowLeaked 错误，针对此问题，建议在 Activity 的 onDestroy() 加入以下代码以确保所有 Dialog 完全卸载：
 ```
 @Override
