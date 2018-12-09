@@ -29,6 +29,7 @@ public class SelectDialog extends ModalBaseDialog {
     private SelectDialog selectDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
+    private int type = -1;
     
     private Context context;
     private String title;
@@ -121,6 +122,7 @@ public class SelectDialog extends ModalBaseDialog {
         dialogList.add(selectDialog);
         modalDialogList.remove(selectDialog);
         log("显示选择对话框 -> " + message);
+        if (type == -1) type = DialogSettings.type;
         
         AlertDialog.Builder builder;
         switch (type) {
@@ -228,7 +230,7 @@ public class SelectDialog extends ModalBaseDialog {
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
                 });
-    
+                
                 useTextInfo(txtDialogTitle, customTitleTextInfo);
                 useTextInfo(txtDialogTip, customContentTextInfo);
                 useTextInfo(btnSelectNegative, customButtonTextInfo);
@@ -413,6 +415,11 @@ public class SelectDialog extends ModalBaseDialog {
     
     public SelectDialog setOkButtonTextInfo(TextInfo textInfo) {
         this.customOkButtonTextInfo = textInfo;
+        return this;
+    }
+    
+    public SelectDialog setType(int type) {
+        this.type = type;
         return this;
     }
 }

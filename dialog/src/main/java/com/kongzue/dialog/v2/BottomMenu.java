@@ -38,6 +38,7 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class BottomMenu extends BaseDialog {
     
+    private int type = -1;
     private BottomMenu bottomMenu;
     private List<String> menuText;
     private AlertDialog alertDialog;
@@ -137,6 +138,7 @@ public class BottomMenu extends BaseDialog {
     @Override
     public void showDialog() {
         log("启动底部菜单 -> " + menuText.toString());
+        if (type == -1) type = DialogSettings.type;
         dialogList.add(bottomMenu);
         
         if (customMenuTextInfo == null) {
@@ -584,4 +586,8 @@ public class BottomMenu extends BaseDialog {
         return this;
     }
     
+    public BottomMenu setType(int type) {
+        this.type = type;
+        return this;
+    }
 }

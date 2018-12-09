@@ -26,6 +26,8 @@ import static com.kongzue.dialog.v2.DialogSettings.notificationTextInfo;
 
 public class Notification {
     
+    private int type = -1;
+    
     public static final int SHOW_TIME_SHORT = 0;
     public static final int SHOW_TIME_LONG = 1;
     
@@ -139,8 +141,9 @@ public class Notification {
     private TextView txtMessage;
     
     private void showDialog() {
-        
-        switch (DialogSettings.type) {
+        if (type == -1) type = DialogSettings.type;
+    
+        switch (type) {
             case DialogSettings.TYPE_IOS:
                 showIosNotification();
                 break;
@@ -473,6 +476,11 @@ public class Notification {
     
     public Notification setTextInfo(TextInfo textInfo) {
         customTextInfo = textInfo;
+        return this;
+    }
+    
+    public Notification setType(int type) {
+        this.type = type;
         return this;
     }
 }

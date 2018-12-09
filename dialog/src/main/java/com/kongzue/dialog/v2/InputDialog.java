@@ -35,6 +35,7 @@ public class InputDialog extends ModalBaseDialog {
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
     private InputInfo inputInfo;
+    private int type = -1;
     
     private TextInfo customTitleTextInfo;
     private TextInfo customContentTextInfo;
@@ -122,6 +123,7 @@ public class InputDialog extends ModalBaseDialog {
         
         dialogList.add(inputDialog);
         log("启动输入对话框 -> " + message);
+        if (type == -1) type = DialogSettings.type;
         modalDialogList.remove(inputDialog);
         AlertDialog.Builder builder;
         
@@ -533,6 +535,11 @@ public class InputDialog extends ModalBaseDialog {
     
     public InputDialog setOkButtonTextInfo(TextInfo textInfo) {
         this.customOkButtonTextInfo = textInfo;
+        return this;
+    }
+    
+    public InputDialog setType(int type) {
+        this.type = type;
         return this;
     }
 }

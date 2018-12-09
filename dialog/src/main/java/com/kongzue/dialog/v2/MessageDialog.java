@@ -28,6 +28,7 @@ public class MessageDialog extends ModalBaseDialog {
     private MessageDialog messageDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = true;
+    private int type = -1;
     
     private Context context;
     private String title;
@@ -98,6 +99,7 @@ public class MessageDialog extends ModalBaseDialog {
         }
         
         log("启动消息对话框 -> " + message);
+        if (type == -1) type = DialogSettings.type;
         dialogList.add(messageDialog);
         modalDialogList.remove(messageDialog);
         
@@ -360,6 +362,11 @@ public class MessageDialog extends ModalBaseDialog {
     
     public MessageDialog setOkButtonTextInfo(TextInfo textInfo) {
         this.customOkButtonTextInfo = textInfo;
+        return this;
+    }
+    
+    public MessageDialog setType(int type) {
+        this.type = type;
         return this;
     }
 }
