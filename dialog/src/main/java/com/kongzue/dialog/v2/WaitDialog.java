@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
+import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.OnBackPressListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
@@ -44,47 +45,34 @@ public class WaitDialog extends BaseDialog {
     }
     
     public static WaitDialog show(Context context, String tip) {
-        synchronized (WaitDialog.class) {
-            WaitDialog waitDialog = new WaitDialog();
-            waitDialog.cleanDialogLifeCycleListener();
-            waitDialog.context = context;
-            waitDialog.tip = tip;
-            waitDialog.log("装载等待对话框 -> " + tip);
-            waitDialog.waitDialog = waitDialog;
-            waitDialog.showDialog();
-            return waitDialog;
-        }
+        return show(context, tip, null, null, null);
+    }
+    
+    public static WaitDialog show(Context context, String tip, DialogLifeCycleListener lifeCycleListener) {
+        return show(context, tip, null, null, lifeCycleListener);
     }
     
     public static WaitDialog show(Context context, String tip, View customView) {
-        synchronized (WaitDialog.class) {
-            WaitDialog waitDialog = new WaitDialog();
-            waitDialog.cleanDialogLifeCycleListener();
-            waitDialog.context = context;
-            waitDialog.tip = tip;
-            waitDialog.log("装载等待对话框 -> " + tip);
-            waitDialog.waitDialog = waitDialog;
-            waitDialog.customView = customView;
-            waitDialog.showDialog();
-            return waitDialog;
-        }
+        return show(context, tip, customView, null, null);
+    }
+    
+    public static WaitDialog show(Context context, String tip, View customView, DialogLifeCycleListener lifeCycleListener) {
+        return show(context, tip, customView, null, lifeCycleListener);
     }
     
     public static WaitDialog show(Context context, String tip, TextInfo textInfo) {
-        synchronized (WaitDialog.class) {
-            WaitDialog waitDialog = new WaitDialog();
-            waitDialog.cleanDialogLifeCycleListener();
-            waitDialog.context = context;
-            waitDialog.tip = tip;
-            waitDialog.log("装载等待对话框 -> " + tip);
-            waitDialog.waitDialog = waitDialog;
-            waitDialog.customTextInfo = textInfo;
-            waitDialog.showDialog();
-            return waitDialog;
-        }
+        return show(context, tip, null, textInfo, null);
+    }
+    
+    public static WaitDialog show(Context context, String tip, TextInfo textInfo, DialogLifeCycleListener lifeCycleListener) {
+        return show(context, tip, null, textInfo, lifeCycleListener);
     }
     
     public static WaitDialog show(Context context, String tip, View customView, TextInfo textInfo) {
+        return show(context, tip, customView, textInfo,null);
+    }
+    
+    public static WaitDialog show(Context context, String tip, View customView, TextInfo textInfo, DialogLifeCycleListener lifeCycleListener) {
         synchronized (WaitDialog.class) {
             WaitDialog waitDialog = new WaitDialog();
             waitDialog.cleanDialogLifeCycleListener();
@@ -94,6 +82,7 @@ public class WaitDialog extends BaseDialog {
             waitDialog.waitDialog = waitDialog;
             waitDialog.customView = customView;
             waitDialog.customTextInfo = textInfo;
+            waitDialog.setDialogLifeCycleListener(lifeCycleListener);
             waitDialog.showDialog();
             return waitDialog;
         }
@@ -141,14 +130,14 @@ public class WaitDialog extends BaseDialog {
         
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog_wait);
-    
+        
         boxInfo = window.findViewById(R.id.box_info);
         boxBkg = window.findViewById(R.id.box_bkg);
         boxProgress = window.findViewById(R.id.box_progress);
         progress = window.findViewById(R.id.progress);
         txtInfo = window.findViewById(R.id.txt_info);
         
-        if (customView!=null){
+        if (customView != null) {
             progress.setVisibility(View.GONE);
             boxProgress.removeAllViews();
             boxProgress.addView(customView);
@@ -203,7 +192,7 @@ public class WaitDialog extends BaseDialog {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 dialogList.remove(waitDialog);
-                if (boxProgress!=null)boxProgress.removeAllViews();
+                if (boxProgress != null) boxProgress.removeAllViews();
                 if (boxBkg != null) boxBkg.removeAllViews();
                 if (getDialogLifeCycleListener() != null) {
                     getDialogLifeCycleListener().onDismiss();

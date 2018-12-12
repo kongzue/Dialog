@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.util.ModalBaseDialog;
@@ -73,6 +74,7 @@ public class CustomDialog extends ModalBaseDialog {
         builder = new AlertDialog.Builder(context, R.style.lightMode);
         builder.setCancelable(isCanCancel);
         alertDialog = builder.create();
+        alertDialog.setView(rootView);
         
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onCreate(alertDialog);
@@ -100,7 +102,7 @@ public class CustomDialog extends ModalBaseDialog {
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onShow(alertDialog);
         
-        window.setContentView(rootView);
+        //window.setContentView(rootView);
         if (bindView != null) bindView.onBind(rootView);
     }
     
