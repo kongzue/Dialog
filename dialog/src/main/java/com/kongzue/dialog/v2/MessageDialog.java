@@ -3,9 +3,11 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -16,7 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
+import com.kongzue.dialog.listener.OnDismissListener;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.ModalBaseDialog;
 import com.kongzue.dialog.util.TextInfo;
 
@@ -136,16 +140,19 @@ public class MessageDialog extends ModalBaseDialog {
                 builder = new AlertDialog.Builder(context);
                 break;
         }
-        builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        Window window = alertDialog.getWindow();
+    
+        View rootView;
+        FragmentTransaction mFragTransaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialog) {
+            public void onDismiss() {
                 dialogList.remove(messageDialog);
                 if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
@@ -153,26 +160,26 @@ public class MessageDialog extends ModalBaseDialog {
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 context = null;
-                
+    
                 if (!modalDialogList.isEmpty()) {
                     showNextModalDialog();
                 }
             }
         });
-        
-        Window window = alertDialog.getWindow();
+    
         switch (type) {
             case TYPE_KONGZUE:
-                alertDialog.show();
-                window.setContentView(R.layout.dialog_select);
+                rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
+                alertDialog.setView(rootView);
+                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
                 
-                bkg = (LinearLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
-                txtInput = window.findViewById(R.id.txt_input);
-                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
-                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
-                customView = window.findViewById(R.id.box_custom);
+                bkg = (LinearLayout) rootView.findViewById(R.id.bkg);
+                txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = rootView.findViewById(R.id.txt_dialog_tip);
+                txtInput = rootView.findViewById(R.id.txt_input);
+                btnSelectNegative = rootView.findViewById(R.id.btn_selectNegative);
+                btnSelectPositive = rootView.findViewById(R.id.btn_selectPositive);
+                customView = rootView.findViewById(R.id.box_custom);
                 
                 if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
@@ -223,22 +230,25 @@ public class MessageDialog extends ModalBaseDialog {
                     alertDialog.getWindow().getDecorView().setBackgroundResource(dialog_background_color);
                 }
                 if (customView != null) alertDialog.setView(customView);
-                alertDialog.show();
+               
+                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
                 break;
             case TYPE_IOS:
-                window.setWindowAnimations(R.style.iOSAnimStyle);
-                alertDialog.show();
-                window.setContentView(R.layout.dialog_select_ios);
+                rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
+                alertDialog.setView(rootView);
+                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
                 
-                bkg = (RelativeLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
-                txtInput = window.findViewById(R.id.txt_input);
-                splitHorizontal = window.findViewById(R.id.split_horizontal);
-                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
-                splitVertical = window.findViewById(R.id.split_vertical);
-                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
-                customView = window.findViewById(R.id.box_custom);
+                window.setWindowAnimations(R.style.iOSAnimStyle);
+                
+                bkg = (RelativeLayout) rootView.findViewById(R.id.bkg);
+                txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = rootView.findViewById(R.id.txt_dialog_tip);
+                txtInput = rootView.findViewById(R.id.txt_input);
+                splitHorizontal = rootView.findViewById(R.id.split_horizontal);
+                btnSelectNegative = rootView.findViewById(R.id.btn_selectNegative);
+                splitVertical = rootView.findViewById(R.id.split_vertical);
+                btnSelectPositive = rootView.findViewById(R.id.btn_selectPositive);
+                customView = rootView.findViewById(R.id.box_custom);
                 
                 if (isNull(title)) {
                     txtDialogTitle.setVisibility(View.GONE);
@@ -304,6 +314,7 @@ public class MessageDialog extends ModalBaseDialog {
         }
         isDialogShown = true;
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        kongzueDialogHelper.setCancelable(isCanCancel);
     }
     
     private void useTextInfo(TextView textView, TextInfo textInfo) {
@@ -336,6 +347,7 @@ public class MessageDialog extends ModalBaseDialog {
             customView.addView(view);
         } else {
             if (alertDialog != null && view != null) {
+                customView.removeAllViews();
                 customView.setVisibility(View.VISIBLE);
                 customView.addView(view);
             }

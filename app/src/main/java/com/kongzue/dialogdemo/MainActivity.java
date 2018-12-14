@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnShowBottomMenuWithTitleWithCustom;
     private Button btnShowMultipleDialogs;
     private Button btnShowCustomDialogs;
+    private Button btnWindowLeaked;
     
     private void initViews() {
         grp = findViewById(R.id.grp);
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         btnShowBottomMenuWithTitleWithCustom = findViewById(R.id.btn_show_bottom_menu_with_title_withCustom);
         btnShowMultipleDialogs = findViewById(R.id.btn_show_multiple_dialogs);
         btnShowCustomDialogs = findViewById(R.id.btn_show_custom_dialogs);
+        btnWindowLeaked = findViewById(R.id.btn_windowLeaked);
     }
     
     @Override
@@ -162,19 +164,6 @@ public class MainActivity extends AppCompatActivity {
         DialogSettings.type = TYPE_MATERIAL;
         DialogSettings.tip_theme = THEME_DARK;
         DialogSettings.dialog_theme = THEME_LIGHT;
-    
-//        DialogSettings.dialogContentTextInfo = new TextInfo()
-//                .setBold(true)
-//                .setFontColor(Color.rgb(253,130,255))
-//                .setFontSize(10)
-//        ;
-        
-//        DialogSettings.dialog_title_text_size = -1;     //设置对话框标题文字大小，<=0不启用
-//        DialogSettings.dialog_message_text_size = -1;   //设置对话框内容文字大小，<=0不启用
-//        DialogSettings.dialog_button_text_size = -1;    //设置对话框按钮文字大小，<=0不启用
-//        DialogSettings.tip_text_size = -1;              //设置提示框文字大小，<=0不启用
-//        DialogSettings.ios_normal_button_color = -1;    //设置iOS风格默认按钮文字颜色，=-1不启用
-//        DialogSettings.dialog_menu_text_size = -1;      //设置菜单默认字号，<=0不启用
         
         MessageDialog.show(me, "欢迎", "欢迎使用Kongzue家的对话框，此案例提供常用的几种对话框样式。\n如有问题可以在https://github.com/kongzue/Dialog提交反馈");
         
@@ -186,7 +175,21 @@ public class MainActivity extends AppCompatActivity {
     private CustomDialog customDialog;
     
     private void setEvents() {
-    
+        
+        btnWindowLeaked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WaitDialog.show(me, "请稍候...");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                        startActivity(new Intent(MainActivity.this, DismissTestActivity.class));
+                    }
+                }, 3000);
+            }
+        });
+        
         btnShowCustomDialogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onBind(View rootView) {
                         ImageView btnOk = rootView.findViewById(R.id.btn_ok);
-    
+                        
                         btnOk.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -597,6 +600,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DialogSettings.unloadAllDialog();           //卸载掉所有对话框
+        //DialogSettings.unloadAllDialog();           //卸载掉所有对话框
     }
 }

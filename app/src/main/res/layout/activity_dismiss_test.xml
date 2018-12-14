@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DismissTestActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="本测试是用于测试对话框不经过dismiss直接执行Activity.finish()是否会引发错误。"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="以往的做法是在上一个Activity的onDestroy()中执行DialogSettings.unloadAllDialog()，但因为onDestroy()会延迟执行，就会导致下一个界面要立即显示的对话框无法正常显示（显示后立即被unloadAllDialog方法关闭了）。"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="从上一个界面跳转到本界面的同时，上一个界面被直接finish()，同时，本界面在启动时会直接显示一个等待对话框，用于测试不执行DialogSettings.unloadAllDialog()的情况下，是否能够保持不发生崩溃且正常显示本界面的等待对话框。"/>
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="退出"/>
+
+</LinearLayout>

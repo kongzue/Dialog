@@ -2,14 +2,20 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
 import com.kongzue.dialog.R;
+import com.kongzue.dialog.listener.OnDismissListener;
+import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.ModalBaseDialog;
+
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
 
 /**
  * Author: @Kongzue
@@ -81,29 +87,29 @@ public class CustomDialog extends ModalBaseDialog {
         
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        FragmentTransaction mFragTransaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialog) {
+            public void onDismiss() {
                 dialogList.remove(customDialog);
                 rootView = null;
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 context = null;
-                
+    
                 if (!modalDialogList.isEmpty()) {
                     showNextModalDialog();
                 }
             }
         });
-        
-        Window window = alertDialog.getWindow();
-        alertDialog.show();
-        
+    
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onShow(alertDialog);
         
-        //window.setContentView(rootView);
         if (bindView != null) bindView.onBind(rootView);
+    
+        kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+        kongzueDialogHelper.setCancelable(isCanCancel);
     }
     
     @Override

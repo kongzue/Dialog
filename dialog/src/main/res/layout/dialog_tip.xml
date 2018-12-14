@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:maxLines="3"
                 android:text="Tip"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="14dp" />
 
         </RelativeLayout>

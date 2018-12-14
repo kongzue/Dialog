@@ -415,6 +415,12 @@
                         android:text="自定义对话框" />
 
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_windowLeaked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WindowLeaked测试" />
             </LinearLayout>
 
         </ScrollView>

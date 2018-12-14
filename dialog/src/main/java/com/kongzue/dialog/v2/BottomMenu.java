@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -26,14 +27,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
+import com.kongzue.dialog.listener.OnDismissListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.TextInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class BottomMenu extends BaseDialog {
@@ -221,9 +225,11 @@ public class BottomMenu extends BaseDialog {
             alertDialog.setCanceledOnTouchOutside(true);
             if (getDialogLifeCycleListener() != null)
                 getDialogLifeCycleListener().onCreate(alertDialog);
-            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        
+            FragmentTransaction mFragTransaction = activity.getSupportFragmentManager().beginTransaction();
+            KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
                 @Override
-                public void onDismiss(DialogInterface dialog) {
+                public void onDismiss() {
                     dialogList.remove(bottomMenu);
                     if (customView != null) customView.removeAllViews();
                     if (getDialogLifeCycleListener() != null)
@@ -232,15 +238,22 @@ public class BottomMenu extends BaseDialog {
                     activity = null;
                 }
             });
-            alertDialog.show();
-            Window window = alertDialog.getWindow();
-            WindowManager windowManager = activity.getWindowManager();
-            Display display = windowManager.getDefaultDisplay();
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = display.getWidth();
-            window.setGravity(Gravity.BOTTOM);
-            window.setAttributes(lp);
-            window.setWindowAnimations(R.style.bottomMenuAnimStyle);
+            kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+            kongzueDialogHelper.setCancelable(true);
+    
+            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Window window = alertDialog.getWindow();
+                    WindowManager windowManager = activity.getWindowManager();
+                    Display display = windowManager.getDefaultDisplay();
+                    WindowManager.LayoutParams lp = window.getAttributes();
+                    lp.width = display.getWidth();
+                    window.setGravity(Gravity.BOTTOM);
+                    window.setAttributes(lp);
+                    window.setWindowAnimations(R.style.bottomMenuAnimStyle);
+                }
+            });
             
             int resId = R.layout.bottom_menu_kongzue;
             int item_resId = R.layout.item_bottom_menu_kongzue;
@@ -254,13 +267,14 @@ public class BottomMenu extends BaseDialog {
                     item_resId = R.layout.item_bottom_menu_ios;
                     break;
             }
-            window.setContentView(resId);
+            View rootView = LayoutInflater.from(activity).inflate(resId, null);
+            alertDialog.setView(rootView);
             
-            listMenu = window.findViewById(R.id.list_menu);
-            btnCancel = window.findViewById(R.id.btn_cancel);
-            txtTitle = window.findViewById(R.id.title);
-            splitLine = window.findViewById(R.id.title_split_line);
-            customView = window.findViewById(R.id.box_custom);
+            listMenu = rootView.findViewById(R.id.list_menu);
+            btnCancel = rootView.findViewById(R.id.btn_cancel);
+            txtTitle = rootView.findViewById(R.id.title);
+            splitLine = rootView.findViewById(R.id.title_split_line);
+            customView = rootView.findViewById(R.id.box_custom);
             
             if (title != null && !title.trim().isEmpty()) {
                 txtTitle.setText(title);
@@ -286,11 +300,11 @@ public class BottomMenu extends BaseDialog {
             
             switch (type) {
                 case TYPE_KONGZUE:
-                    boxCancel = (LinearLayout) window.findViewById(R.id.box_cancel);
+                    boxCancel = (LinearLayout) rootView.findViewById(R.id.box_cancel);
                     break;
                 case TYPE_IOS:
-                    boxList = window.findViewById(R.id.box_list);
-                    boxCancel = (RelativeLayout) window.findViewById(R.id.box_cancel);
+                    boxList = rootView.findViewById(R.id.box_list);
+                    boxCancel = (RelativeLayout) rootView.findViewById(R.id.box_cancel);
                     if (use_blur) {
                         boxList.post(new Runnable() {
                             @Override

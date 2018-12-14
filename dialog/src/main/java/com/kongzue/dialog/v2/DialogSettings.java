@@ -23,6 +23,7 @@ public class DialogSettings {
     public static boolean DEBUGMODE = true;
     
     //此方法用于关闭所有已加载的 Dialog，防止 WindowLeaked 错误，建议将它加在你的 Activity 的 onDestroy() 里调用
+    @Deprecated
     public static void unloadAllDialog() {
         BaseDialog.unloadAllDialog();
     }

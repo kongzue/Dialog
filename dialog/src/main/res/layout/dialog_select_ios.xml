@@ -25,7 +25,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="标题"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/black"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="中文内容"
-                android:textColor="?attr/colorAccent"
+                android:textColor="@color/black"
                 android:textSize="13dp" />
 
             <RelativeLayout

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -17,8 +20,10 @@ import android.widget.TextView;
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.OnBackPressListener;
+import com.kongzue.dialog.listener.OnDismissListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
+import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.ProgressView;
 import com.kongzue.dialog.util.TextInfo;
 
@@ -90,6 +95,7 @@ public class WaitDialog extends BaseDialog {
     
     private BlurView blur;
     private int blur_front_color;
+    private int font_color;
     
     private RelativeLayout boxInfo;
     private RelativeLayout boxBkg;
@@ -112,30 +118,46 @@ public class WaitDialog extends BaseDialog {
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
                 blur_front_color = Color.argb(blur_alpha - 50, 255, 255, 255);
+                font_color= Color.rgb( 0, 0, 0);
                 break;
             default:
                 builder = new AlertDialog.Builder(context, R.style.darkMode);
                 bkgResId = R.drawable.rect_dark;
                 blur_front_color = Color.argb(blur_alpha, 0, 0, 0);
+                font_color= Color.rgb( 255, 255, 255);
                 break;
         }
-        builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
         
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
-        alertDialog.show();
+    
+        FragmentTransaction mFragTransaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                dialogList.remove(waitDialog);
+                if (boxProgress != null) boxProgress.removeAllViews();
+                if (boxBkg != null) boxBkg.removeAllViews();
+                if (getDialogLifeCycleListener() != null) {
+                    getDialogLifeCycleListener().onDismiss();
+                    alertDialog = null;
+                }
+            }
+        });
         
-        Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.dialog_wait);
+        View rootView = LayoutInflater.from(context).inflate(R.layout.dialog_wait, null);
+        alertDialog.setView(rootView);
         
-        boxInfo = window.findViewById(R.id.box_info);
-        boxBkg = window.findViewById(R.id.box_bkg);
-        boxProgress = window.findViewById(R.id.box_progress);
-        progress = window.findViewById(R.id.progress);
-        txtInfo = window.findViewById(R.id.txt_info);
+        boxInfo = rootView.findViewById(R.id.box_info);
+        boxBkg = rootView.findViewById(R.id.box_bkg);
+        boxProgress = rootView.findViewById(R.id.box_progress);
+        progress = rootView.findViewById(R.id.progress);
+        txtInfo = rootView.findViewById(R.id.txt_info);
+    
+        txtInfo.setTextColor(font_color);
         
         if (customView != null) {
             progress.setVisibility(View.GONE);
@@ -188,18 +210,6 @@ public class WaitDialog extends BaseDialog {
         }
         txtInfo.getPaint().setFakeBoldText(customTextInfo.isBold());
         
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                dialogList.remove(waitDialog);
-                if (boxProgress != null) boxProgress.removeAllViews();
-                if (boxBkg != null) boxBkg.removeAllViews();
-                if (getDialogLifeCycleListener() != null) {
-                    getDialogLifeCycleListener().onDismiss();
-                    alertDialog = null;
-                }
-            }
-        });
         alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -215,8 +225,10 @@ public class WaitDialog extends BaseDialog {
             }
         });
         
-        alertDialog.show();
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        
+        kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+        kongzueDialogHelper.setCancelable(isCanCancel);
     }
     
     @Override

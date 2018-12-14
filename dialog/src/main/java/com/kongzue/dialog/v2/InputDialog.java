@@ -3,11 +3,14 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,8 +23,10 @@ import android.widget.TextView;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
+import com.kongzue.dialog.listener.OnDismissListener;
 import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.InputInfo;
+import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.ModalBaseDialog;
 import com.kongzue.dialog.util.TextInfo;
 
@@ -159,17 +164,18 @@ public class InputDialog extends ModalBaseDialog {
                 builder = new AlertDialog.Builder(context);
                 break;
         }
-        builder.setCancelable(isCanCancel);
         
         alertDialog = builder.create();
         alertDialog.setView(new EditText(context));
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
-        
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+      
+        View rootView;
+        FragmentTransaction mFragTransaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialog) {
+            public void onDismiss() {
                 dialogList.remove(inputDialog);
                 if (bkg != null) bkg.removeAllViews();
                 if (alertDialog != null) alertDialog.dismiss();
@@ -178,7 +184,7 @@ public class InputDialog extends ModalBaseDialog {
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
-                
+    
                 if (!modalDialogList.isEmpty()) {
                     showNextModalDialog();
                 }
@@ -189,16 +195,17 @@ public class InputDialog extends ModalBaseDialog {
         Window window = alertDialog.getWindow();
         switch (type) {
             case TYPE_KONGZUE:
-                alertDialog.show();
-                window.setContentView(R.layout.dialog_select);
+                rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
+                alertDialog.setView(rootView);
+                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
                 
-                bkg = (LinearLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
-                txtInput = window.findViewById(R.id.txt_input);
-                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
-                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
-                customView = window.findViewById(R.id.box_custom);
+                bkg = (LinearLayout) rootView.findViewById(R.id.bkg);
+                txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = rootView.findViewById(R.id.txt_dialog_tip);
+                txtInput = rootView.findViewById(R.id.txt_input);
+                btnSelectNegative = rootView.findViewById(R.id.btn_selectNegative);
+                btnSelectPositive = rootView.findViewById(R.id.btn_selectPositive);
+                customView = rootView.findViewById(R.id.box_custom);
                 
                 if (inputInfo != null) {
                     txtInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputInfo.getMAX_LENGTH())});
@@ -269,6 +276,8 @@ public class InputDialog extends ModalBaseDialog {
                 
                 break;
             case TYPE_MATERIAL:
+                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+                
                 txtInput = new EditText(context);
                 txtInput.post(new Runnable() {
                     @Override
@@ -292,22 +301,12 @@ public class InputDialog extends ModalBaseDialog {
                 alertDialog.setButton(BUTTON_POSITIVE, okButtonCaption, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    
+        
                     }
                 });
                 alertDialog.setButton(BUTTON_NEGATIVE, cancelButtonCaption, onCancelButtonClickListener);
                 
                 if (customView != null) alertDialog.setView(customView);
-                
-                alertDialog.show();
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (onOkButtonClickListener != null)
-                            onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
-                        onCancelButtonClickListener = null;
-                    }
-                });
                 
                 if (dialog_theme == THEME_DARK) {
                     txtInput.setTextColor(Color.rgb(255, 255, 255));
@@ -317,29 +316,45 @@ public class InputDialog extends ModalBaseDialog {
                 if (dialog_background_color != -1) {
                     alertDialog.getWindow().getDecorView().setBackgroundResource(dialog_background_color);
                 }
+    
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (onOkButtonClickListener != null)
+                                    onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
+                                onCancelButtonClickListener = null;
+                            }
+                        });
+                    }
+                });
+                
                 break;
             case TYPE_IOS:
-                window.setWindowAnimations(R.style.iOSAnimStyle);
-                alertDialog.show();
-                window.setContentView(R.layout.dialog_select_ios);
+                rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
+                alertDialog.setView(rootView);
+                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
                 
-                bkg = (RelativeLayout) window.findViewById(R.id.bkg);
-                txtDialogTitle = window.findViewById(R.id.txt_dialog_title);
-                txtDialogTip = window.findViewById(R.id.txt_dialog_tip);
-                txtInput = window.findViewById(R.id.txt_input);
-                splitHorizontal = window.findViewById(R.id.split_horizontal);
-                btnSelectNegative = window.findViewById(R.id.btn_selectNegative);
-                splitVertical = window.findViewById(R.id.split_vertical);
-                btnSelectPositive = window.findViewById(R.id.btn_selectPositive);
-                txtInput = window.findViewById(R.id.txt_input);
-                customView = window.findViewById(R.id.box_custom);
+                window.setWindowAnimations(R.style.iOSAnimStyle);
+                bkg = (RelativeLayout) rootView.findViewById(R.id.bkg);
+                txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
+                txtDialogTip = rootView.findViewById(R.id.txt_dialog_tip);
+                txtInput = rootView.findViewById(R.id.txt_input);
+                splitHorizontal = rootView.findViewById(R.id.split_horizontal);
+                btnSelectNegative = rootView.findViewById(R.id.btn_selectNegative);
+                splitVertical = rootView.findViewById(R.id.split_vertical);
+                btnSelectPositive = rootView.findViewById(R.id.btn_selectPositive);
+                txtInput = rootView.findViewById(R.id.txt_input);
+                customView = rootView.findViewById(R.id.box_custom);
                 
                 if (inputInfo != null) {
                     txtInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputInfo.getMAX_LENGTH())});
                     txtInput.setInputType(inputInfo.getInputType());
                 }
                 
-                ImageView splitVertical = window.findViewById(R.id.split_vertical);
+                ImageView splitVertical = rootView.findViewById(R.id.split_vertical);
                 splitVertical.setVisibility(View.VISIBLE);
                 txtInput.setVisibility(View.VISIBLE);
                 txtInput.setText(defaultInputText);
@@ -427,6 +442,7 @@ public class InputDialog extends ModalBaseDialog {
         }
         isDialogShown = true;
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        kongzueDialogHelper.setCancelable(isCanCancel);
     }
     
     private void useTextInfo(TextView textView, TextInfo textInfo) {

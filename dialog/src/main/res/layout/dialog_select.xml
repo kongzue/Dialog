@@ -21,7 +21,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="标题"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <TextView
@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
             android:gravity="center_horizontal"
             android:text="测试文本"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/black"
             android:textSize="14dp" />
 
         <RelativeLayout
@@ -50,8 +50,8 @@
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/editbox_bkg"
             android:gravity="center"
             android:singleLine="true"

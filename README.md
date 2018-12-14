@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.1-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.2-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.1/link">
-<img src="https://img.shields.io/badge/Maven-2.4.1-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.4.2/link">
+<img src="https://img.shields.io/badge/Maven-2.4.2-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -68,7 +68,7 @@
 
 · <a href="#modal">模态化（序列化）</a>
 
-· <a href="#一些建议重要">一些建议（重要）</a>
+· <a href="#一些建议">一些建议</a>
 
 · <a href="#开源协议">开源协议</a>
 
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.1</version>
+  <version>2.4.2</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.1'
+implementation 'com.kongzue.dialog:dialog:2.4.2'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -617,8 +617,11 @@ InputDialog.build(context, "提示", "这是最后一个对话框，序列即将
 
 上述代码在执行时默认就会按照一个关闭再先试下一个的方式进行。
 
-## 一些建议（重要）
-由于 Dialog 的模态化实现、等待对话框（WaitDialog）、提示对话框（TipDialog）都需要至少显示一段时间，而 Dialog 的显示是依赖于 Context（更准确说是Activity） 的，那么在这段时间内，若 Activity 被卸载，则有可能发生 WindowLeaked 错误，针对此问题，建议在 Activity 的 onDestroy() 加入以下代码以确保所有 Dialog 完全卸载：
+## 一些建议
+从 2.4.2 版本起，使用全新的Dialog创建方式，此方式在您finish掉Activity的情况下不会引发WindowLeaked错误，因此无需像之前的方式一样执行 unloadAllDialog(); 方法。
+
+若您使用 2.4.2 版本前，我的建议如下：
+~~由于 Dialog 的模态化实现、等待对话框（WaitDialog）、提示对话框（TipDialog）都需要至少显示一段时间，而 Dialog 的显示是依赖于 Context（更准确说是Activity） 的，那么在这段时间内，若 Activity 被卸载，则有可能发生 WindowLeaked 错误，针对此问题，建议在 Activity 的 onDestroy() 加入以下代码以确保所有 Dialog 完全卸载：~~
 ```
 @Override
 protected void onDestroy() {
@@ -645,6 +648,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.2:
+- 使用了新的对话框组件创建模式，不再需要在 Activity 的 onDestroy() 中执行 DialogSettings.unloadAllDialog() 亦可保证不会引发 WindowLeaked 错误；
+- 修复了一些遗留 bug；
+
 v2.4.1:
 - 修复了 CustomDialog 若用户自定义布局中有输入框无法弹出软键盘的问题；
 - WaitDialog 新增生命周期 DialogLifeCycleListener 参数；
