@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.2-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.3-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.2/link">
-<img src="https://img.shields.io/badge/Maven-2.4.2-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.4.3/link">
+<img src="https://img.shields.io/badge/Maven-2.4.3-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.2</version>
+  <version>2.4.3</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.2'
+implementation 'com.kongzue.dialog:dialog:2.4.3'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -648,6 +648,11 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.3:
+- 修复了 TextInfo 中设置文字颜色为纯白色无效的 bug；
+- WaitDialog 新增 setText(...) 方法，用于动态改变等待对话框中的文字；
+- 对对话框组件（不包含底部菜单、通知和Pop提示），新增 getAlertDialog() 方法以获取实例化的 alertDialog 对象以便于实现更多骚操作；
+
 v2.4.2:
 - 使用了新的对话框组件创建模式，不再需要在 Activity 的 onDestroy() 中执行 DialogSettings.unloadAllDialog() 亦可保证不会引发 WindowLeaked 错误；
 - 修复了一些遗留 bug；

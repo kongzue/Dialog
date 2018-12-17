@@ -202,7 +202,7 @@ public class WaitDialog extends BaseDialog {
         if (customTextInfo.getFontSize() > 0) {
             txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
-        if (customTextInfo.getFontColor() != -1) {
+        if (customTextInfo.getFontColor() != 1) {
             txtInfo.setTextColor(customTextInfo.getFontColor());
         }
         if (customTextInfo.getGravity() != -1) {
@@ -253,5 +253,15 @@ public class WaitDialog extends BaseDialog {
                 dialog.doDismiss();
             }
         }
+    }
+    
+    public void setText(String s){
+        if (waitDialog!=null && waitDialog.txtInfo!=null){
+            waitDialog.txtInfo.setText(s);
+        }
+    }
+    
+    public AlertDialog getAlertDialog() {
+        return alertDialog;
     }
 }

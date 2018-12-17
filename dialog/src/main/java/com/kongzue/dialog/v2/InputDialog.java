@@ -449,7 +449,7 @@ public class InputDialog extends ModalBaseDialog {
         if (textInfo.getFontSize() > 0) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textInfo.getFontSize());
         }
-        if (textInfo.getFontColor() != -1) {
+        if (textInfo.getFontColor() != 1) {
             textView.setTextColor(textInfo.getFontColor());
         }
         if (textInfo.getGravity() != -1) {
@@ -557,5 +557,9 @@ public class InputDialog extends ModalBaseDialog {
     public InputDialog setType(int type) {
         this.type = type;
         return this;
+    }
+    
+    public AlertDialog getAlertDialog() {
+        return alertDialog;
     }
 }

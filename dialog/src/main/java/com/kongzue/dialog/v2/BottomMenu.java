@@ -167,7 +167,7 @@ public class BottomMenu extends BaseDialog {
             if (customButtonTextInfo.getGravity() != -1) {
                 btnCancel.setGravity(customButtonTextInfo.getGravity());
             }
-            if (customButtonTextInfo.getFontColor() != -1) {
+            if (customButtonTextInfo.getFontColor() != 1) {
                 btnCancel.setTextColor(customButtonTextInfo.getFontColor());
             }
             btnCancel.getPaint().setFakeBoldText(customButtonTextInfo.isBold());
@@ -291,7 +291,7 @@ public class BottomMenu extends BaseDialog {
             if (customButtonTextInfo.getGravity() != -1) {
                 btnCancel.setGravity(customButtonTextInfo.getGravity());
             }
-            if (customButtonTextInfo.getFontColor() != -1) {
+            if (customButtonTextInfo.getFontColor() != 1) {
                 btnCancel.setTextColor(customButtonTextInfo.getFontColor());
             }
             btnCancel.getPaint().setFakeBoldText(customButtonTextInfo.isBold());
@@ -427,7 +427,7 @@ public class BottomMenu extends BaseDialog {
                 if (customMenuTextInfo.getGravity() != -1) {
                     viewHolder.textView.setGravity(customMenuTextInfo.getGravity());
                 }
-                if (customMenuTextInfo.getFontColor() != -1) {
+                if (customMenuTextInfo.getFontColor() != 1) {
                     viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
                 }
                 viewHolder.textView.getPaint().setFakeBoldText(customMenuTextInfo.isBold());
@@ -465,7 +465,7 @@ public class BottomMenu extends BaseDialog {
                 if (customMenuTextInfo.getGravity() != -1) {
                     viewHolder.textView.setGravity(customMenuTextInfo.getGravity());
                 }
-                if (customMenuTextInfo.getFontColor() != -1) {
+                if (customMenuTextInfo.getFontColor() != 1) {
                     viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
                 }
                 viewHolder.textView.getPaint().setFakeBoldText(customMenuTextInfo.isBold());

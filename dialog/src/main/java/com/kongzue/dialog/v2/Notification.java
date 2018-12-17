@@ -174,7 +174,7 @@ public class Notification {
             txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
             txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
-        if (customTextInfo.getFontColor() != -1) {
+        if (customTextInfo.getFontColor() != 1) {
             txtTitle.setTextColor(customTextInfo.getFontColor());
             txtMessage.setTextColor(customTextInfo.getFontColor());
         }
@@ -244,7 +244,7 @@ public class Notification {
             txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
             txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
-        if (customTextInfo.getFontColor() != -1) {
+        if (customTextInfo.getFontColor() != 1) {
             txtTitle.setTextColor(customTextInfo.getFontColor());
             txtMessage.setTextColor(customTextInfo.getFontColor());
         }
@@ -315,7 +315,7 @@ public class Notification {
             txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
             txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
-        if (customTextInfo.getFontColor() != -1) {
+        if (customTextInfo.getFontColor() != 1) {
             txtTitle.setTextColor(customTextInfo.getFontColor());
             txtMessage.setTextColor(customTextInfo.getFontColor());
         }

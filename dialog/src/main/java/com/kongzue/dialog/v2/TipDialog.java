@@ -257,7 +257,7 @@ public class TipDialog extends BaseDialog {
         if (customTextInfo.getFontSize() > 0) {
             txtInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
         }
-        if (customTextInfo.getFontColor() != -1) {
+        if (customTextInfo.getFontColor() != 1) {
             txtInfo.setTextColor(customTextInfo.getFontColor());
         }
         if (customTextInfo.getGravity() != -1) {
@@ -301,5 +301,9 @@ public class TipDialog extends BaseDialog {
     public TipDialog setTxtInfo(TextView txtInfo) {
         this.txtInfo = txtInfo;
         return this;
+    }
+    
+    public AlertDialog getAlertDialog() {
+        return alertDialog;
     }
 }

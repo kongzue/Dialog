@@ -126,4 +126,8 @@ public class CustomDialog extends ModalBaseDialog {
     public interface BindView {
         void onBind(View rootView);
     }
+    
+    public AlertDialog getAlertDialog() {
+        return alertDialog;
+    }
 }
