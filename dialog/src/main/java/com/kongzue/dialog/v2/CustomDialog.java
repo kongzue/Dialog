@@ -2,6 +2,7 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -87,7 +88,7 @@ public class CustomDialog extends ModalBaseDialog {
         
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
-        FragmentTransaction mFragTransaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
         KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -108,7 +109,7 @@ public class CustomDialog extends ModalBaseDialog {
         
         if (bindView != null) bindView.onBind(rootView);
     
-        kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+        kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
         kongzueDialogHelper.setCancelable(isCanCancel);
     }
     

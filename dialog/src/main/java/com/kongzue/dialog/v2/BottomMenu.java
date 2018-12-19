@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -225,8 +226,8 @@ public class BottomMenu extends BaseDialog {
             alertDialog.setCanceledOnTouchOutside(true);
             if (getDialogLifeCycleListener() != null)
                 getDialogLifeCycleListener().onCreate(alertDialog);
-        
-            FragmentTransaction mFragTransaction = activity.getSupportFragmentManager().beginTransaction();
+            
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
             KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -238,7 +239,7 @@ public class BottomMenu extends BaseDialog {
                     activity = null;
                 }
             });
-            kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+            kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
             kongzueDialogHelper.setCancelable(true);
     
             alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {

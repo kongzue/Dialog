@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -169,7 +170,7 @@ public class SelectDialog extends ModalBaseDialog {
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         View rootView;
-        FragmentTransaction mFragTransaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
         KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -191,7 +192,7 @@ public class SelectDialog extends ModalBaseDialog {
             case TYPE_KONGZUE:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
                 alertDialog.setView(rootView);
-                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
                 
                 bkg = (LinearLayout) rootView.findViewById(R.id.bkg);
                 txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
@@ -266,12 +267,12 @@ public class SelectDialog extends ModalBaseDialog {
                 
                 if (customView != null) alertDialog.setView(customView);
                 
-                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
                 break;
             case TYPE_IOS:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
                 alertDialog.setView(rootView);
-                kongzueDialogHelper.show(mFragTransaction, "kongzueDialog");
+                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
                 
                 window.setWindowAnimations(R.style.iOSAnimStyle);
                 
