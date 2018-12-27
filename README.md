@@ -104,7 +104,7 @@ implementation 'com.kongzue.dialog:dialog:2.1.0'        //警告：不再提供�
 ## 使用说明
 1) 组件启用前请先初始化全局的风格样式，具体方法为
 ```
-DialogSettings.type = STYLE_MATERIAL;
+DialogSettings.style = STYLE_MATERIAL;
 ```
 
 Material 风格对应 DialogSettings.STYLE_MATERIAL，
@@ -163,7 +163,7 @@ android {
     }
 }
 ```
-模糊效果目前仅对当 DialogSettings.type = STYLE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
+模糊效果目前仅对当 DialogSettings.style = STYLE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
 
 可以通过以下方法修改模糊透明度：
 ```
@@ -651,17 +651,17 @@ limitations under the License.
 v2.4.5:
 - ⚠设置行为变更警告！
 
-&emsp;&emsp;&ensp;请仔细阅读以下说明：
+&emsp;&emsp;请仔细阅读以下说明：
 
-&emsp;&emsp;&ensp;为解决可能引发的歧义问题，现将 DialogSettings 中的 TYPE_MATERIAL、TYPE_KONGZUE 和 TYPE_IOS，值不发生任何变化
+&emsp;&emsp;为解决可能引发的歧义问题，现将 DialogSettings 中的 TYPE_MATERIAL、TYPE_KONGZUE 和 TYPE_IOS，值不发生任何变化
 ```
-STYLE_MATERIAL = 0;
-STYLE_KONGZUE = 1;
-STYLE_IOS = 2;
+DialogSettings.STYLE_MATERIAL = 0;
+DialogSettings.STYLE_KONGZUE = 1;
+DialogSettings.STYLE_IOS = 2;
 ```
-&emsp;&emsp;&ensp;设置参数由 DialogSettings.type 变更为 DialogSettings.style
+&emsp;&emsp;设置参数由 DialogSettings.type 变更为 DialogSettings.style
 
-&emsp;&emsp;&ensp;并且任何 Dialog 组件中可以使用 setDialogStyle(int style) 来临时单独设置改变当前对话框的风格；
+&emsp;&emsp;并且任何 Dialog 组件中可以使用 setDialogStyle(int style) 来临时单独设置改变当前对话框的风格；
 
 
 v2.4.4:
