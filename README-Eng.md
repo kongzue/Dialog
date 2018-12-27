@@ -46,14 +46,14 @@ implementation 'com.kongzue.dialog:dialog:2.3.4'
 ## Explanation
 1) Initialization style of Kongzue's Dialog:
 ```
-DialogSettings.type = TYPE_MATERIAL;
+DialogSettings.type = STYLE_MATERIAL;
 ```
 
-Material style: DialogSettings.TYPE_MATERIAL，
+Material style: DialogSettings.STYLE_MATERIAL，
 
-Kongzue style: DialogSettings.TYPE_KONGZUE，
+Kongzue style: DialogSettings.STYLE_KONGZUE，
 
-iOS style: DialogSettings.TYPE_IOS
+iOS style: DialogSettings.STYLE_IOS
 
 Style settings are only for dialog boxes, not include prompt and wait boxes
 
@@ -97,7 +97,7 @@ android {
     }
 }
 ```
-The blur effect is currently valid only for three dialog boxes, prompt boxes, wait boxes, and bottom menus when DialogSettings.type = TYPE_IOS.
+The blur effect is currently valid only for three dialog boxes, prompt boxes, wait boxes, and bottom menus when DialogSettings.type = STYLE_IOS.
 
 ### Message Dialog：
 ```

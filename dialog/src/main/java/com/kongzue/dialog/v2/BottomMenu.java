@@ -43,7 +43,7 @@ import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class BottomMenu extends BaseDialog {
     
-    private int type = -1;
+    private int style = -1;
     private BottomMenu bottomMenu;
     private List<String> menuText;
     private AlertDialog alertDialog;
@@ -143,7 +143,7 @@ public class BottomMenu extends BaseDialog {
     @Override
     public void showDialog() {
         log("启动底部菜单 -> " + menuText.toString());
-        if (type == -1) type = DialogSettings.type;
+        if (style == -1) style = DialogSettings.style;
         dialogList.add(bottomMenu);
         
         if (customMenuTextInfo == null) {
@@ -153,7 +153,7 @@ public class BottomMenu extends BaseDialog {
             customButtonTextInfo = dialogButtonTextInfo;
         }
         
-        if (type == TYPE_MATERIAL) {
+        if (style == STYLE_MATERIAL) {
             bottomSheetDialog = new MyBottomSheetDialog(activity);
             View box_view = LayoutInflater.from(activity).inflate(R.layout.bottom_menu_material, null);
             
@@ -258,12 +258,12 @@ public class BottomMenu extends BaseDialog {
             
             int resId = R.layout.bottom_menu_kongzue;
             int item_resId = R.layout.item_bottom_menu_kongzue;
-            switch (type) {
-                case TYPE_KONGZUE:
+            switch (style) {
+                case STYLE_KONGZUE:
                     resId = R.layout.bottom_menu_kongzue;
                     item_resId = R.layout.item_bottom_menu_kongzue;
                     break;
-                case TYPE_IOS:
+                case STYLE_IOS:
                     resId = R.layout.bottom_menu_ios;
                     item_resId = R.layout.item_bottom_menu_ios;
                     break;
@@ -299,11 +299,11 @@ public class BottomMenu extends BaseDialog {
             
             btnCancel.setText(cancelButtonCaption);
             
-            switch (type) {
-                case TYPE_KONGZUE:
+            switch (style) {
+                case STYLE_KONGZUE:
                     boxCancel = (LinearLayout) rootView.findViewById(R.id.box_cancel);
                     break;
-                case TYPE_IOS:
+                case STYLE_IOS:
                     boxList = rootView.findViewById(R.id.box_list);
                     boxCancel = (RelativeLayout) rootView.findViewById(R.id.box_cancel);
                     if (use_blur) {
@@ -340,12 +340,12 @@ public class BottomMenu extends BaseDialog {
                 if (boxCancel != null) boxCancel.setVisibility(View.GONE);
             }
             
-            switch (type) {
-                case TYPE_KONGZUE:
+            switch (style) {
+                case STYLE_KONGZUE:
                     menuArrayAdapter = new NormalMenuArrayAdapter(activity, item_resId, menuText);
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
-                case TYPE_IOS:
+                case STYLE_IOS:
                     menuArrayAdapter = new IOSMenuArrayAdapter(activity, item_resId, menuText);
                     listMenu.setAdapter(menuArrayAdapter);
                     break;
@@ -510,8 +510,8 @@ public class BottomMenu extends BaseDialog {
     
     public BottomMenu setTitle(String title) {
         this.title = title;
-        switch (type) {
-            case TYPE_MATERIAL:
+        switch (style) {
+            case STYLE_MATERIAL:
                 if (bottomSheetDialog != null && txtTitle != null) {
                     if (title != null && !title.trim().isEmpty()) {
                         txtTitle.setText(title);
@@ -601,8 +601,8 @@ public class BottomMenu extends BaseDialog {
         return this;
     }
     
-    public BottomMenu setType(int type) {
-        this.type = type;
+    public BottomMenu setDialogStyle(int style) {
+        this.style = style;
         return this;
     }
 }

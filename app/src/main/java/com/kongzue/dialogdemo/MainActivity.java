@@ -47,9 +47,9 @@ import java.util.List;
 
 import static com.kongzue.dialog.v2.DialogSettings.THEME_DARK;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
-import static com.kongzue.dialog.v2.DialogSettings.TYPE_IOS;
-import static com.kongzue.dialog.v2.DialogSettings.TYPE_KONGZUE;
-import static com.kongzue.dialog.v2.DialogSettings.TYPE_MATERIAL;
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_KONGZUE;
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_MATERIAL;
 import static com.kongzue.dialog.v2.Notification.SHOW_TIME_SHORT;
 import static com.kongzue.dialog.v2.Notification.TYPE_ERROR;
 import static com.kongzue.dialog.v2.Notification.TYPE_FINISH;
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     private void initDatas() {
         DialogSettings.use_blur = true;                 //设置是否启用模糊
         
-        DialogSettings.type = TYPE_MATERIAL;
+        DialogSettings.type = STYLE_MATERIAL;
         DialogSettings.tip_theme = THEME_DARK;
         DialogSettings.dialog_theme = THEME_LIGHT;
         
@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
         btnMsgWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DialogSettings.type == TYPE_MATERIAL) {
+                if (DialogSettings.type == STYLE_MATERIAL) {
                     MessageDialog.build(me, null, null, "知道了", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         btnSelectWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DialogSettings.type == TYPE_MATERIAL) {
+                if (DialogSettings.type == STYLE_MATERIAL) {
                     SelectDialog.build(me, null, null, "确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
         btnInputWithCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DialogSettings.type == TYPE_MATERIAL) {
+                if (DialogSettings.type == STYLE_MATERIAL) {
                     InputDialog.build(me, null, null, "确定", new InputDialogOkButtonClickListener() {
                         @Override
                         public void onClick(Dialog dialog, String inputText) {
@@ -496,13 +496,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rdoMaterial.getId() == checkedId) {
-                    DialogSettings.type = TYPE_MATERIAL;
+                    DialogSettings.type = STYLE_MATERIAL;
                 }
                 if (rdoKongzue.getId() == checkedId) {
-                    DialogSettings.type = TYPE_KONGZUE;
+                    DialogSettings.type = STYLE_KONGZUE;
                 }
                 if (rdoIos.getId() == checkedId) {
-                    DialogSettings.type = TYPE_IOS;
+                    DialogSettings.type = STYLE_IOS;
                 }
             }
         });

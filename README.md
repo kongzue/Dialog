@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.4-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.5-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.4/link">
-<img src="https://img.shields.io/badge/Maven-2.4.4-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.4.5/link">
+<img src="https://img.shields.io/badge/Maven-2.4.5-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.4</version>
+  <version>2.4.5</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.4'
+implementation 'com.kongzue.dialog:dialog:2.4.5'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -104,14 +104,14 @@ implementation 'com.kongzue.dialog:dialog:2.1.0'        //警告：不再提供�
 ## 使用说明
 1) 组件启用前请先初始化全局的风格样式，具体方法为
 ```
-DialogSettings.type = TYPE_MATERIAL;
+DialogSettings.type = STYLE_MATERIAL;
 ```
 
-Material 风格对应 DialogSettings.TYPE_MATERIAL，
+Material 风格对应 DialogSettings.STYLE_MATERIAL，
 
-Kongzue 风格对应 DialogSettings.TYPE_KONGZUE，
+Kongzue 风格对应 DialogSettings.STYLE_KONGZUE，
 
-iOS 风格对应 DialogSettings.TYPE_IOS
+iOS 风格对应 DialogSettings.STYLE_IOS
 
 需要注意的是风格设置仅针对对话框，提示框样式不会改变。
 
@@ -163,7 +163,7 @@ android {
     }
 }
 ```
-模糊效果目前仅对当 DialogSettings.type = TYPE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
+模糊效果目前仅对当 DialogSettings.type = STYLE_IOS 时三种对话框、提示框、等待框以及底部菜单有效。
 
 可以通过以下方法修改模糊透明度：
 ```
@@ -351,7 +351,7 @@ BottomMenu.show(context, list, new OnMenuItemClickListener() {
 activity | 必须继承自 AppCompatActivity  | 必须
 list | 泛型为 String 的列表 | 必须
 OnMenuItemClickListener | 点击回调 | 可选
-isShowCancelButton | 是否显示“取消”按钮，注意，TYPE_MATERIAL 风格对此无效 | 可选
+isShowCancelButton | 是否显示“取消”按钮，注意，STYLE_MATERIAL 风格对此无效 | 可选
 cancelButtonCaption | 设置“取消”按钮的文字 | 可选
 
 另外，本菜单暂时对夜间模式（THEME_DARK）不受影响，只提供Light Theme，但不排除接下来的版本对此更新。
@@ -471,7 +471,7 @@ customDialog = CustomDialog.show(me, R.layout.layout_custom_dialog, new CustomDi
 ## 自定义布局：
 从 2.2.3 版本起支持 MessageDialog、SelectDialog、InputDialog和BottomMenu 的自定义布局。
 
-由于调用逻辑顺序不同，在 type 为 TYPE_KONGZUE 和 TYPE_IOS 使用方法举例：
+由于调用逻辑顺序不同，在 type 为 STYLE_KONGZUE 和 STYLE_IOS 使用方法举例：
 ```
 //初始化布局：
 View customView = LayoutInflater.from(context).inflate(R.layout.layout_custom, null);
@@ -484,7 +484,7 @@ MessageDialog.show(context, null, null, "知道了", new DialogInterface.OnClick
                 }).setCustomView(customView);
 ```
 
-在 type 为 TYPE_MATERIAL 时，请先使用 build(...) 方法创建 Dialog，接着设置好自定义布局后再执行 showDialog() 方法，使用方法举例：
+在 type 为 STYLE_MATERIAL 时，请先使用 build(...) 方法创建 Dialog，接着设置好自定义布局后再执行 showDialog() 方法，使用方法举例：
 ```
 //初始化布局：
 View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
@@ -529,7 +529,7 @@ WaitDialog.show(context, "载入中...").setCanCancel(true).setDialogLifeCycleLi
 
 另外提供一些定制属性：
 ```
-DialogSettings.dialog_background_color = R.color.white;     //控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色，=-1时不启用
+DialogSettings.dialog_background_color = R.color.white;     //控制 STYLE_MATERIAL 和 STYLE_KONGZUE 两种风格时对话框的背景色，=-1时不启用
 
 //v2.3.1新增：
 DialogSettings.dialog_cancelable_default = -1;              //控制消息对话框、选择对话框和输入对话框默认是否可点击外部遮罩层区域关闭，=-1不启用
@@ -648,6 +648,22 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.5:
+- ⚠设置行为变更警告！
+
+&emsp;&emsp;&ensp;请仔细阅读以下说明：
+
+&emsp;&emsp;&ensp;为解决可能引发的歧义问题，现将 DialogSettings 中的 TYPE_MATERIAL、TYPE_KONGZUE 和 TYPE_IOS，值不发生任何变化
+```
+STYLE_MATERIAL = 0;
+STYLE_KONGZUE = 1;
+STYLE_IOS = 2;
+```
+&emsp;&emsp;&ensp;设置参数由 DialogSettings.type 变更为 DialogSettings.style
+
+&emsp;&emsp;&ensp;并且任何 Dialog 组件中可以使用 setDialogStyle(int style) 来临时单独设置改变当前对话框的风格；
+
+
 v2.4.4:
 - 兼容性和稳定性更新。
 
@@ -696,7 +712,7 @@ v2.3.4:
 - 新增气泡提示功能，具体请参考<a href="#气泡提示">气泡提示</a>；
 
 v2.3.3:
-- 修复当 type == TYPE_MATERIAL 时自定义布局的问题，具体请参考章节：<a href="#自定义布局">自定义布局</a>；
+- 修复当 type == STYLE_MATERIAL 时自定义布局的问题，具体请参考章节：<a href="#自定义布局">自定义布局</a>；
 - 新增模糊度调节，具体亲参考章节：<a href="#关于模糊效果">关于模糊效果</a>；
 
 v2.3.2:
@@ -756,7 +772,7 @@ v2.2.5:
 此问题导致接下来用户程序在未结束掉全部进程的情况下，再无法重新启动任何对话框
 在 2.2.5 版本中我们将提供方法 DialogSettings.unloadAllDialog()，您可以在 Activity 的 onDestroy() 事件执行此方法来关闭所有在队列中的 Dialog。
 ```
-- 新增 DialogSettings.dialog_background_color 可控制 TYPE_MATERIAL 和 TYPE_KONGZUE 两种风格时对话框的背景色。
+- 新增 DialogSettings.dialog_background_color 可控制 STYLE_MATERIAL 和 STYLE_KONGZUE 两种风格时对话框的背景色。
 
 v2.2.4:
 - TipDialog 和 WaitDialog 现在可以支持更多文字的扩展了，且最大行数限定为3行；

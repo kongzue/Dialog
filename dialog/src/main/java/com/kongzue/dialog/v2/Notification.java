@@ -26,7 +26,7 @@ import static com.kongzue.dialog.v2.DialogSettings.notificationTextInfo;
 
 public class Notification {
     
-    private int type = -1;
+    private int style = -1;
     
     public static final int SHOW_TIME_SHORT = 0;
     public static final int SHOW_TIME_LONG = 1;
@@ -65,6 +65,14 @@ public class Notification {
     
     public static Notification show(Context context, int id, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
+            Notification notification = build(context, id, title, message, howLong, colorType);
+            notification.showDialog();
+            return notification;
+        }
+    }
+    
+    public static Notification build(Context context, int id, String title, String message, int howLong, int colorType) {
+        synchronized (Notification.class) {
             Notification notification = new Notification();
             notification.context = context;
             notification.id = id;
@@ -75,13 +83,20 @@ public class Notification {
             notification.iconBitmap = null;
             notification.howLong = howLong;
             notification.colorType = colorType;
-            notification.showDialog();
             notification.log("显示通知 -> " + message);
             return notification;
         }
     }
     
     public static Notification show(Context context, int id, int iconResId, String title, String message, int howLong, int colorType) {
+        synchronized (Notification.class) {
+            Notification notification = build(context, id, iconResId, title, message, howLong, colorType);
+            notification.showDialog();
+            return notification;
+        }
+    }
+    
+    public static Notification build(Context context, int id, int iconResId, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             Notification notification = new Notification();
             notification.context = context;
@@ -93,13 +108,20 @@ public class Notification {
             notification.howLong = howLong;
             notification.colorType = colorType;
             notification.message = message;
-            notification.showDialog();
             notification.log("显示通知 -> " + message);
             return notification;
         }
     }
     
     public static Notification show(Context context, int id, Drawable iconDrawable, String title, String message, int howLong, int colorType) {
+        synchronized (Notification.class) {
+            Notification notification = build(context, id, iconDrawable, title, message, howLong, colorType);
+            notification.showDialog();
+            return notification;
+        }
+    }
+    
+    public static Notification build(Context context, int id, Drawable iconDrawable, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             Notification notification = new Notification();
             notification.context = context;
@@ -111,13 +133,21 @@ public class Notification {
             notification.howLong = howLong;
             notification.colorType = colorType;
             notification.message = message;
-            notification.showDialog();
             notification.log("显示通知 -> " + message);
             return notification;
         }
     }
     
     public static Notification show(Context context, int id, Bitmap iconBitmap, String title, String message, int howLong, int colorType) {
+        synchronized (Notification.class) {
+            Notification notification = build(context, id, iconBitmap, title, message, howLong, colorType);
+            notification.showDialog();
+            return notification;
+        }
+    }
+    
+    
+    public static Notification build(Context context, int id, Bitmap iconBitmap, String title, String message, int howLong, int colorType) {
         synchronized (Notification.class) {
             Notification notification = new Notification();
             notification.context = context;
@@ -129,7 +159,6 @@ public class Notification {
             notification.howLong = howLong;
             notification.colorType = colorType;
             notification.message = message;
-            notification.showDialog();
             notification.log("显示通知 -> " + message);
             return notification;
         }
@@ -140,14 +169,14 @@ public class Notification {
     private TextView txtTitle;
     private TextView txtMessage;
     
-    private void showDialog() {
-        if (type == -1) type = DialogSettings.type;
-    
-        switch (type) {
-            case DialogSettings.TYPE_IOS:
+    public void showDialog() {
+        if (style == -1) style = DialogSettings.style;
+        
+        switch (style) {
+            case DialogSettings.STYLE_IOS:
                 showIosNotification();
                 break;
-            case DialogSettings.TYPE_MATERIAL:
+            case DialogSettings.STYLE_MATERIAL:
                 showMaterialNotification();
                 break;
             default:
@@ -235,11 +264,11 @@ public class Notification {
         imgIcon = (ImageView) view.findViewById(R.id.img_icon);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         txtMessage = (TextView) view.findViewById(R.id.txt_message);
-    
+        
         if (customTextInfo == null) {
             customTextInfo = notificationTextInfo;
         }
-    
+        
         if (customTextInfo.getFontSize() != -1) {
             txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
             txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
@@ -306,11 +335,11 @@ public class Notification {
         imgIcon = view.findViewById(R.id.img_icon);
         txtTitle = view.findViewById(R.id.txt_title);
         txtMessage = view.findViewById(R.id.txt_message);
-    
+        
         if (customTextInfo == null) {
             customTextInfo = notificationTextInfo;
         }
-    
+        
         if (customTextInfo.getFontSize() != -1) {
             txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
             txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, customTextInfo.getFontSize());
@@ -479,8 +508,8 @@ public class Notification {
         return this;
     }
     
-    public Notification setType(int type) {
-        this.type = type;
+    public Notification setDialogStyle(int style) {
+        this.style = style;
         return this;
     }
 }

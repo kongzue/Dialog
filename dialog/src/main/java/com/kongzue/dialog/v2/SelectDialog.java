@@ -35,7 +35,7 @@ public class SelectDialog extends ModalBaseDialog {
     private SelectDialog selectDialog;
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
-    private int type = -1;
+    private int style = -1;
     
     private Context context;
     private String title;
@@ -128,11 +128,11 @@ public class SelectDialog extends ModalBaseDialog {
         dialogList.add(selectDialog);
         modalDialogList.remove(selectDialog);
         log("显示选择对话框 -> " + message);
-        if (type == -1) type = DialogSettings.type;
+        if (style == -1) style = DialogSettings.style;
         
         AlertDialog.Builder builder;
-        switch (type) {
-            case TYPE_IOS:
+        switch (style) {
+            case STYLE_IOS:
                 switch (dialog_theme) {
                     case THEME_DARK:
                         builder = new AlertDialog.Builder(context, R.style.darkMode);
@@ -142,14 +142,14 @@ public class SelectDialog extends ModalBaseDialog {
                         break;
                 }
                 break;
-            case TYPE_MATERIAL:
+            case STYLE_MATERIAL:
                 if (dialog_theme == THEME_DARK) {
                     builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
                 } else {
                     builder = new AlertDialog.Builder(context);
                 }
                 break;
-            case TYPE_KONGZUE:
+            case STYLE_KONGZUE:
                 switch (dialog_theme) {
                     case THEME_DARK:
                         builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
@@ -188,8 +188,8 @@ public class SelectDialog extends ModalBaseDialog {
         });
         
         Window window = alertDialog.getWindow();
-        switch (type) {
-            case TYPE_KONGZUE:
+        switch (style) {
+            case STYLE_KONGZUE:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
                 alertDialog.setView(rootView);
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
@@ -256,7 +256,7 @@ public class SelectDialog extends ModalBaseDialog {
                     bkg.setBackgroundResource(dialog_background_color);
                 }
                 break;
-            case TYPE_MATERIAL:
+            case STYLE_MATERIAL:
                 alertDialog.setTitle(title);
                 alertDialog.setMessage(message);
                 alertDialog.setButton(BUTTON_POSITIVE, okButtonCaption, onOkButtonClickListener);
@@ -269,7 +269,7 @@ public class SelectDialog extends ModalBaseDialog {
                 
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
                 break;
-            case TYPE_IOS:
+            case STYLE_IOS:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
                 alertDialog.setView(rootView);
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
@@ -390,7 +390,7 @@ public class SelectDialog extends ModalBaseDialog {
     }
     
     public SelectDialog setCustomView(View view) {
-        if (type == TYPE_MATERIAL) {
+        if (style == STYLE_MATERIAL) {
             customView = new RelativeLayout(context);
             customView.addView(view);
         } else {
@@ -429,8 +429,8 @@ public class SelectDialog extends ModalBaseDialog {
         return this;
     }
     
-    public SelectDialog setType(int type) {
-        this.type = type;
+    public SelectDialog setDialogStyle(int style) {
+        this.style = style;
         return this;
     }
     

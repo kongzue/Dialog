@@ -15,9 +15,16 @@ public class DialogSettings {
     public static final int THEME_LIGHT = 0;
     public static final int THEME_DARK = 1;
     
+    @Deprecated
     public static final int TYPE_MATERIAL = 0;
+    @Deprecated
     public static final int TYPE_KONGZUE = 1;
+    @Deprecated
     public static final int TYPE_IOS = 2;
+    
+    public static final int STYLE_MATERIAL = 0;
+    public static final int STYLE_KONGZUE = 1;
+    public static final int STYLE_IOS = 2;
     
     //是否打印日志
     public static boolean DEBUGMODE = true;
@@ -34,8 +41,8 @@ public class DialogSettings {
     //决定等待框、提示框以及iOS风格的对话框的模糊背景透明度（50-255）
     public static int blur_alpha = 200;
     
-    //决定对话框的默认样式，请使用 TYPE_MATERIAL、TYPE_KONGZUE、TYPE_IOS 赋值
-    public static int type = 0;
+    //决定对话框的默认样式，请使用 STYLE_MATERIAL、STYLE_KONGZUE、STYLE_IOS 赋值
+    public static int style = 0;
     
     //决定对话框的模式（亮色和暗色两种），请使用 THEME_LIGHT、THEME_DARK 赋值
     public static int dialog_theme = 0;
@@ -45,7 +52,6 @@ public class DialogSettings {
     
     //决定提示框的模式（亮色和暗色两种），请使用 THEME_LIGHT、THEME_DARK 赋值
     public static int tip_theme = 1;
-    
     
     /*
      *  文字大小设定

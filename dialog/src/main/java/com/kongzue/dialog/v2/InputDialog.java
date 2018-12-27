@@ -41,7 +41,7 @@ public class InputDialog extends ModalBaseDialog {
     private AlertDialog alertDialog;
     private boolean isCanCancel = false;
     private InputInfo inputInfo;
-    private int type = -1;
+    private int style = -1;
     
     private TextInfo customTitleTextInfo;
     private TextInfo customContentTextInfo;
@@ -129,12 +129,12 @@ public class InputDialog extends ModalBaseDialog {
         
         dialogList.add(inputDialog);
         log("启动输入对话框 -> " + message);
-        if (type == -1) type = DialogSettings.type;
+        if (style == -1) style = DialogSettings.style;
         modalDialogList.remove(inputDialog);
         AlertDialog.Builder builder;
         
-        switch (type) {
-            case TYPE_IOS:
+        switch (style) {
+            case STYLE_IOS:
                 switch (dialog_theme) {
                     case THEME_DARK:
                         builder = new AlertDialog.Builder(context, R.style.darkMode);
@@ -144,14 +144,14 @@ public class InputDialog extends ModalBaseDialog {
                         break;
                 }
                 break;
-            case TYPE_MATERIAL:
+            case STYLE_MATERIAL:
                 if (dialog_theme == THEME_DARK) {
                     builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
                 } else {
                     builder = new AlertDialog.Builder(context);
                 }
                 break;
-            case TYPE_KONGZUE:
+            case STYLE_KONGZUE:
                 switch (dialog_theme) {
                     case THEME_DARK:
                         builder = new AlertDialog.Builder(context, R.style.materialDialogDark);
@@ -194,8 +194,8 @@ public class InputDialog extends ModalBaseDialog {
         });
         
         Window window = alertDialog.getWindow();
-        switch (type) {
-            case TYPE_KONGZUE:
+        switch (style) {
+            case STYLE_KONGZUE:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
                 alertDialog.setView(rootView);
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
@@ -276,7 +276,7 @@ public class InputDialog extends ModalBaseDialog {
                 }
                 
                 break;
-            case TYPE_MATERIAL:
+            case STYLE_MATERIAL:
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
                 
                 txtInput = new EditText(context);
@@ -333,7 +333,7 @@ public class InputDialog extends ModalBaseDialog {
                 });
                 
                 break;
-            case TYPE_IOS:
+            case STYLE_IOS:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
                 alertDialog.setView(rootView);
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
@@ -494,7 +494,7 @@ public class InputDialog extends ModalBaseDialog {
     }
     
     public InputDialog setCustomView(View view) {
-        if (type == TYPE_MATERIAL) {
+        if (style == STYLE_MATERIAL) {
             customView = new RelativeLayout(context);
             customView.addView(view);
         } else {
@@ -555,8 +555,8 @@ public class InputDialog extends ModalBaseDialog {
         return this;
     }
     
-    public InputDialog setType(int type) {
-        this.type = type;
+    public InputDialog setDialogStyle(int style) {
+        this.style = style;
         return this;
     }
     
