@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -171,7 +172,8 @@ public class BottomMenu extends BaseDialog {
             if (customButtonTextInfo.getFontColor() != 1) {
                 btnCancel.setTextColor(customButtonTextInfo.getFontColor());
             }
-            btnCancel.getPaint().setFakeBoldText(customButtonTextInfo.isBold());
+            Typeface font = Typeface.create(Typeface.SANS_SERIF, customButtonTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+            btnCancel.setTypeface(font);
             btnCancel.setText(cancelButtonCaption);
             
             if (title != null && !title.trim().isEmpty()) {
@@ -295,7 +297,8 @@ public class BottomMenu extends BaseDialog {
             if (customButtonTextInfo.getFontColor() != 1) {
                 btnCancel.setTextColor(customButtonTextInfo.getFontColor());
             }
-            btnCancel.getPaint().setFakeBoldText(customButtonTextInfo.isBold());
+            Typeface font = Typeface.create(Typeface.SANS_SERIF, customButtonTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+            btnCancel.setTypeface(font);
             
             btnCancel.setText(cancelButtonCaption);
             
@@ -431,7 +434,8 @@ public class BottomMenu extends BaseDialog {
                 if (customMenuTextInfo.getFontColor() != 1) {
                     viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
                 }
-                viewHolder.textView.getPaint().setFakeBoldText(customMenuTextInfo.isBold());
+                Typeface font = Typeface.create(Typeface.SANS_SERIF, customMenuTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+                viewHolder.textView.setTypeface(font);
             }
             
             return convertView;
@@ -469,7 +473,8 @@ public class BottomMenu extends BaseDialog {
                 if (customMenuTextInfo.getFontColor() != 1) {
                     viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
                 }
-                viewHolder.textView.getPaint().setFakeBoldText(customMenuTextInfo.isBold());
+                Typeface font = Typeface.create(Typeface.SANS_SERIF, customMenuTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+                viewHolder.textView.setTypeface(font);
                 
                 if (objects.size() == 1) {
                     if (title != null && !title.trim().isEmpty()) {

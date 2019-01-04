@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -209,7 +210,9 @@ public class WaitDialog extends BaseDialog {
         if (customTextInfo.getGravity() != -1) {
             txtInfo.setGravity(customTextInfo.getGravity());
         }
-        txtInfo.getPaint().setFakeBoldText(customTextInfo.isBold());
+    
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        txtInfo.setTypeface(font);
         
         alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override

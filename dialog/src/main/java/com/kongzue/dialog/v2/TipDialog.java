@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -264,7 +265,8 @@ public class TipDialog extends BaseDialog {
         if (customTextInfo.getGravity() != -1) {
             txtInfo.setGravity(customTextInfo.getGravity());
         }
-        txtInfo.getPaint().setFakeBoldText(customTextInfo.isBold());
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        txtInfo.setTypeface(font);
         
         if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
         

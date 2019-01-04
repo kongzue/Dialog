@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -375,7 +376,8 @@ public class SelectDialog extends ModalBaseDialog {
         if (textInfo.getGravity() != -1) {
             textView.setGravity(textInfo.getGravity());
         }
-        textView.getPaint().setFakeBoldText(textInfo.isBold());
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, textInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        textView.setTypeface(font);
     }
     
     @Override

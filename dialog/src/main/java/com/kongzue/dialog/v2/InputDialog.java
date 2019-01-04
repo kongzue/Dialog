@@ -3,6 +3,7 @@ package com.kongzue.dialog.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -280,6 +281,7 @@ public class InputDialog extends ModalBaseDialog {
                 kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
                 
                 txtInput = new EditText(context);
+                txtInput.setSingleLine();
                 txtInput.post(new Runnable() {
                     @Override
                     public void run() {
@@ -327,6 +329,14 @@ public class InputDialog extends ModalBaseDialog {
                                 if (onOkButtonClickListener != null)
                                     onOkButtonClickListener.onClick(alertDialog, txtInput.getText().toString());
                                 onCancelButtonClickListener = null;
+                                
+                                if (txtInput!=null){
+                                    txtInput.setFocusable(true);
+                                    txtInput.setFocusableInTouchMode(true);
+                                    txtInput.requestFocus();
+                                    InputMethodManager inputManager = (InputMethodManager) txtInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    inputManager.showSoftInput(txtInput, 0);
+                                }
                             }
                         });
                     }
@@ -456,7 +466,8 @@ public class InputDialog extends ModalBaseDialog {
         if (textInfo.getGravity() != -1) {
             textView.setGravity(textInfo.getGravity());
         }
-        textView.getPaint().setFakeBoldText(textInfo.isBold());
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, textInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        textView.setTypeface(font);
     }
     
     @Override

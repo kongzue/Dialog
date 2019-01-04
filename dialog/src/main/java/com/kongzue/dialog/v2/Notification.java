@@ -2,6 +2,7 @@ package com.kongzue.dialog.v2;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.Log;
@@ -210,7 +211,8 @@ public class Notification {
         if (customTextInfo.getGravity() != -1) {
             txtMessage.setGravity(customTextInfo.getGravity());
         }
-        txtMessage.getPaint().setFakeBoldText(customTextInfo.isBold());
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        txtMessage.setTypeface(font);
         
         btnNotic.setPadding(dip2px(context, 15), getStatusBarHeight() + dip2px(context, 15), dip2px(context, 15), dip2px(context, 15));
         
@@ -280,7 +282,8 @@ public class Notification {
         if (customTextInfo.getGravity() != -1) {
             txtMessage.setGravity(customTextInfo.getGravity());
         }
-        txtMessage.getPaint().setFakeBoldText(customTextInfo.isBold());
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        txtMessage.setTypeface(font);
         
         boxBody.setPadding(0, getStatusBarHeight(), 0, 0);
         
@@ -351,7 +354,8 @@ public class Notification {
         if (customTextInfo.getGravity() != -1) {
             txtMessage.setGravity(customTextInfo.getGravity());
         }
-        txtMessage.getPaint().setFakeBoldText(customTextInfo.isBold());
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        txtMessage.setTypeface(font);
         
         btnNotic.setPadding(dip2px(context, 10), getStatusBarHeight(), dip2px(context, 10), 0);
         
