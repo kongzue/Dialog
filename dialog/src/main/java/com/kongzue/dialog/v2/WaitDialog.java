@@ -40,7 +40,7 @@ public class WaitDialog extends BaseDialog {
     private OnBackPressListener onBackPressListener;
     private AlertDialog alertDialog;
     private WaitDialog waitDialog;
-    private boolean isCanCancel = false;
+    private static boolean isCanCancel = false;
     
     private View customView;
     private TextInfo customTextInfo;
@@ -76,7 +76,7 @@ public class WaitDialog extends BaseDialog {
     }
     
     public static WaitDialog show(Context context, String tip, View customView, TextInfo textInfo) {
-        return show(context, tip, customView, textInfo,null);
+        return show(context, tip, customView, textInfo, null);
     }
     
     public static WaitDialog show(Context context, String tip, View customView, TextInfo textInfo, DialogLifeCycleListener lifeCycleListener) {
@@ -120,13 +120,13 @@ public class WaitDialog extends BaseDialog {
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
                 blur_front_color = Color.argb(blur_alpha - 50, 255, 255, 255);
-                font_color= Color.rgb( 0, 0, 0);
+                font_color = Color.rgb(0, 0, 0);
                 break;
             default:
                 builder = new AlertDialog.Builder(context, R.style.darkMode);
                 bkgResId = R.drawable.rect_dark;
                 blur_front_color = Color.argb(blur_alpha, 0, 0, 0);
-                font_color= Color.rgb( 255, 255, 255);
+                font_color = Color.rgb(255, 255, 255);
                 break;
         }
         
@@ -135,8 +135,8 @@ public class WaitDialog extends BaseDialog {
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
-    
-        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+        
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -158,7 +158,7 @@ public class WaitDialog extends BaseDialog {
         boxProgress = rootView.findViewById(R.id.box_progress);
         progress = rootView.findViewById(R.id.progress);
         txtInfo = rootView.findViewById(R.id.txt_info);
-    
+        
         txtInfo.setTextColor(font_color);
         
         if (customView != null) {
@@ -210,8 +210,8 @@ public class WaitDialog extends BaseDialog {
         if (customTextInfo.getGravity() != -1) {
             txtInfo.setGravity(customTextInfo.getGravity());
         }
-    
-        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
         txtInfo.setTypeface(font);
         
         alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -241,9 +241,12 @@ public class WaitDialog extends BaseDialog {
     }
     
     public WaitDialog setCanCancel(boolean canCancel) {
-        isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
+    }
+    
+    public static void setCanCancelGlobal(boolean canCancel) {
+        isCanCancel = canCancel;
     }
     
     public WaitDialog setOnBackPressListener(OnBackPressListener onBackPressListener) {
@@ -259,8 +262,8 @@ public class WaitDialog extends BaseDialog {
         }
     }
     
-    public void setText(String s){
-        if (waitDialog!=null && waitDialog.txtInfo!=null){
+    public void setText(String s) {
+        if (waitDialog != null && waitDialog.txtInfo != null) {
             waitDialog.txtInfo.setText(s);
         }
     }

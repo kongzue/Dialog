@@ -52,4 +52,12 @@ public class KongzueDialogHelper extends DialogFragment {
             e.printStackTrace();
         }
     }
+    
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        if (getDialog() == null) {
+            setShowsDialog(false);
+        }
+        super.onActivityCreated(savedInstanceState);
+    }
 }

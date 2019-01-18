@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.6-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.7-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.6/link">
-<img src="https://img.shields.io/badge/Maven-2.4.6-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.4.7/link">
+<img src="https://img.shields.io/badge/Maven-2.4.7-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.6</version>
+  <version>2.4.7</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.6'
+implementation 'com.kongzue.dialog:dialog:2.4.7'
 ```
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -648,6 +648,12 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.7:
+- WaitDialog 默认情况下，在show(...)方法后使用setCanCancel(boolean) 则为单独设置本次是否可取消，如果在show(...)方法前使用setCanCancelGlobal(boolean) 方法则可设置全局是否可取消。
+- 修复因改变屏幕横竖向可能引发的崩溃问题；
+- 升级 Gradle 版本至 3.3.0；
+- 升级 buildToolsVersion 至 28.0.3；
+
 v2.4.6:
 - 修复了iOS模式下标题粗体设置无效的问题；
 - 输入对话框默认为单行模式；
