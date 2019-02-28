@@ -561,7 +561,7 @@ public class MainActivity extends AppCompatActivity {
         btnPsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WaitDialog.show(me, "载入中...");
+                WaitDialog.show(me, null);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

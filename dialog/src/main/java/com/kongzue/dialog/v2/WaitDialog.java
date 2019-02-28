@@ -194,11 +194,17 @@ public class WaitDialog extends BaseDialog {
             boxBkg.setBackgroundResource(bkgResId);
         }
         
-        if (!tip.isEmpty()) {
-            boxInfo.setVisibility(View.VISIBLE);
+        if (tip!=null && !tip.isEmpty()) {
+            txtInfo.setVisibility(View.VISIBLE);
             txtInfo.setText(tip);
         } else {
-            boxInfo.setVisibility(View.GONE);
+            txtInfo.setVisibility(View.GONE);
+            
+            RelativeLayout.LayoutParams lp = ((RelativeLayout.LayoutParams) boxProgress.getLayoutParams());
+            lp.setMargins(0, 0, 0, 0);
+            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            boxProgress.setLayoutParams(lp);
+            
         }
         
         if (customTextInfo.getFontSize() > 0) {

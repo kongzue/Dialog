@@ -91,6 +91,14 @@ Gradle：
 implementation 'com.kongzue.dialog:dialog:2.4.7'
 ```
 
+部分 Material 组件需要依赖：
+```
+implementation 'com.android.support:appcompat-v7:28.0.0'
+implementation 'com.android.support:design:28.0.0'
+```
+
+此外，
+
 若需要使用 v1 兼容库的老版本，可使用：
 ```
 implementation 'com.kongzue.dialog:dialog:2.2.8'        //警告：不再提供更新
@@ -268,6 +276,8 @@ WaitDialog.show(context, "载入中...");
 View customView = LayoutInflater.from(me).inflate(R.layout.layout_custom, null);
 WaitDialog.show(context, "载入中...", customView);
 ```
+
+要动态修改正在显示的文本，可以先使用 show(...) 方法获取 WaitDialog 对象，然后使用 setText(...) 修改正在显示的文本。
 
 但请注意，设置自定义布局并不会隐藏提示文本信息。
 
@@ -648,6 +658,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.7.2(beta):
+- 修复了 TipDialog 非主线程活跃情况导致不消失的问题；
+- WaitDialog 支持 tip 设置为 null；
+
 v2.4.7:
 - WaitDialog 默认情况下，在show(...)方法后使用setCanCancel(boolean) 则为单独设置本次是否可取消，如果在show(...)方法前使用setCanCancelGlobal(boolean) 方法则可设置全局是否可取消。
 - 修复因改变屏幕横竖向可能引发的崩溃问题；

@@ -27,6 +27,9 @@ import com.kongzue.dialog.util.BlurView;
 import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.TextInfo;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 import static com.kongzue.dialog.v2.DialogSettings.blur_alpha;
 import static com.kongzue.dialog.v2.DialogSettings.tipTextInfo;
@@ -279,12 +282,12 @@ public class TipDialog extends BaseDialog {
                 time = 3000;
                 break;
         }
-        new Handler().postDelayed(new Runnable() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 if (alertDialog != null) alertDialog.dismiss();
             }
-        }, time);
+        },time);
     
         kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
         kongzueDialogHelper.setCancelable(isCanCancel);
