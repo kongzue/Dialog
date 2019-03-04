@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 customDialog = CustomDialog.show(me, R.layout.layout_custom_dialog, new CustomDialog.BindView() {
                     @Override
-                    public void onBind(View rootView) {
+                    public void onBind(CustomDialog dialog,View rootView) {
                         ImageView btnOk = rootView.findViewById(R.id.btn_ok);
                         
                         btnOk.setOnClickListener(new View.OnClickListener() {

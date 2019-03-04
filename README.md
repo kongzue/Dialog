@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.7-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.8-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.7/link">
-<img src="https://img.shields.io/badge/Maven-2.4.7-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.4.8/link">
+<img src="https://img.shields.io/badge/Maven-2.4.8-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -81,14 +81,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.7</version>
+  <version>2.4.8</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.7'
+implementation 'com.kongzue.dialog:dialog:2.4.8'
 ```
 
 部分 Material 组件需要依赖：
@@ -182,6 +182,8 @@ DialogSettings.blur_alpha = 200;
 ```
 
 ## 使用方法
+
+提示：所有对话框组件均提供相应的 build(...) 方法用于预先创建，如需要对对话框部分参数进行微调的，可使用 build(...) 方法先创建对话框，然后调用相应的方法进行属性设置，再使用 showDialog() 方法显示对话框。
 
 ### 调用消息对话框的方法：
 ```
@@ -439,14 +441,15 @@ pop.dismiss();
 ```
 CustomDialog.show(context, R.layout.layout_custom_dialog, new CustomDialog.BindView() {
     @Override
-    public void onBind(View rootView) {
+    public void onBind(CustomDialog dialog, View rootView) {
         //绑定布局
         ImageView btnOk = rootView.findViewById(R.id.btn_ok);
         //绑定事件
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //...
+                //Example：让对话框消失
+                dialog.doDismiss();
             }
         });
     }
@@ -658,7 +661,10 @@ limitations under the License.
 ```
 
 ## 更新日志：
-v2.4.7.2(beta):
+v2.4.8:
+- CustomDialog 支持使用 build(...) 方法创建，并修复了 setCanCancel(boolean) 无效的bug；
+- CustomDialog 的 BindView 增加提供参数 CustomDialog 以简化进行相应的业务处理；
+- BottomMenu 提供额外的 build(...) 方法创建；
 - 修复了 TipDialog 非主线程活跃情况导致不消失的问题；
 - WaitDialog 支持 tip 设置为 null；
 

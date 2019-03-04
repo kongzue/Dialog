@@ -72,6 +72,13 @@ public class CustomDialog extends ModalBaseDialog {
         }
     }
     
+    public static CustomDialog build(Context context, int layoutResId, BindView bindView) {
+        View customView = LayoutInflater.from(context).inflate(layoutResId, null);
+        return build(context, customView, bindView);
+    }
+    
+    private KongzueDialogHelper kongzueDialogHelper;
+    
     @Override
     public void showDialog() {
         log("启动自定义对话框");
@@ -88,8 +95,8 @@ public class CustomDialog extends ModalBaseDialog {
         
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
-        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
                 dialogList.remove(customDialog);
@@ -97,18 +104,18 @@ public class CustomDialog extends ModalBaseDialog {
                 if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
                 isDialogShown = false;
                 context = null;
-    
+                
                 if (!modalDialogList.isEmpty()) {
                     showNextModalDialog();
                 }
             }
         });
-    
+        
         if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onShow(alertDialog);
         
-        if (bindView != null) bindView.onBind(rootView);
-    
+        if (bindView != null) bindView.onBind(this, rootView);
+        
         kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
         kongzueDialogHelper.setCancelable(isCanCancel);
     }
@@ -121,11 +128,12 @@ public class CustomDialog extends ModalBaseDialog {
     public CustomDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
         if (alertDialog != null) alertDialog.setCancelable(canCancel);
+        if (kongzueDialogHelper!=null) kongzueDialogHelper.setCancelable(isCanCancel);
         return this;
     }
     
     public interface BindView {
-        void onBind(View rootView);
+        void onBind(CustomDialog dialog, View rootView);
     }
     
     public AlertDialog getAlertDialog() {

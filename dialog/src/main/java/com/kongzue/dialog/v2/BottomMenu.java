@@ -81,6 +81,14 @@ public class BottomMenu extends BaseDialog {
         return show(activity, list, onMenuItemClickListener, true, "取消");
     }
     
+    public static BottomMenu build(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener) {
+        List<String> list = new ArrayList<>();
+        for (String s : menuText) {
+            list.add(s);
+        }
+        return build(activity, list, onMenuItemClickListener, true, "取消");
+    }
+    
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener) {
         return show(activity, menuText, onMenuItemClickListener, true, "取消");
     }
@@ -97,6 +105,14 @@ public class BottomMenu extends BaseDialog {
         return show(activity, menuText, onMenuItemClickListener, isShowCancelButton, "取消");
     }
     
+    public static BottomMenu build(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
+        List<String> list = new ArrayList<>();
+        for (String s : menuText) {
+            list.add(s);
+        }
+        return build(activity, list, onMenuItemClickListener, isShowCancelButton, cancelButtonCaption);
+    }
+    
     public static BottomMenu show(AppCompatActivity activity, String[] menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         List<String> list = new ArrayList<>();
         for (String s : menuText) {
@@ -106,6 +122,14 @@ public class BottomMenu extends BaseDialog {
     }
     
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
+        synchronized (BottomMenu.class) {
+            BottomMenu bottomMenu = build(activity,menuText,onMenuItemClickListener,isShowCancelButton,cancelButtonCaption);
+            bottomMenu.showDialog();
+            return bottomMenu;
+        }
+    }
+    
+    public static BottomMenu build(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
             BottomMenu bottomMenu = new BottomMenu();
             bottomMenu.cleanDialogLifeCycleListener();
@@ -120,7 +144,6 @@ public class BottomMenu extends BaseDialog {
                 return bottomMenu;
             }
             bottomMenu.log("装载底部菜单 -> " + menuText.toString());
-            bottomMenu.showDialog();
             bottomMenu.bottomMenu = bottomMenu;
             return bottomMenu;
         }
