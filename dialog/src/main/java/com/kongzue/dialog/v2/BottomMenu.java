@@ -164,6 +164,8 @@ public class BottomMenu extends BaseDialog {
     
     private RelativeLayout boxList;
     
+    private KongzueDialogHelper kongzueDialogHelper;
+    
     @Override
     public void showDialog() {
         log("启动底部菜单 -> " + menuText.toString());
@@ -253,7 +255,7 @@ public class BottomMenu extends BaseDialog {
                 getDialogLifeCycleListener().onCreate(alertDialog);
             
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
-            KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+            kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
                 @Override
                 public void onDismiss() {
                     dialogList.remove(bottomMenu);

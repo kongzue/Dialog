@@ -105,6 +105,8 @@ public class WaitDialog extends BaseDialog {
     private ProgressView progress;
     private TextView txtInfo;
     
+    private KongzueDialogHelper kongzueDialogHelper;
+    
     public void showDialog() {
         if (customTextInfo == null) {
             customTextInfo = tipTextInfo;
@@ -137,7 +139,7 @@ public class WaitDialog extends BaseDialog {
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+        kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
                 dialogList.remove(waitDialog);
@@ -243,11 +245,11 @@ public class WaitDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog != null) alertDialog.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
     }
     
     public WaitDialog setCanCancel(boolean canCancel) {
-        if (alertDialog != null) alertDialog.setCancelable(canCancel);
+        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
         return this;
     }
     

@@ -148,6 +148,8 @@ public class TipDialog extends BaseDialog {
     private int blur_front_color;
     private int font_color;
     
+    private KongzueDialogHelper kongzueDialogHelper;
+    
     public void showDialog() {
         if (customTextInfo == null) {
             customTextInfo = tipTextInfo;
@@ -179,7 +181,7 @@ public class TipDialog extends BaseDialog {
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
     
         FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+        kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
                 dialogList.remove(tipDialog);
@@ -285,7 +287,7 @@ public class TipDialog extends BaseDialog {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (alertDialog != null) alertDialog.dismiss();
+                if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
             }
         },time);
     
@@ -295,12 +297,12 @@ public class TipDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog != null) alertDialog.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
     }
     
     public TipDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
-        if (alertDialog != null) alertDialog.setCancelable(canCancel);
+        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
         return this;
     }
     

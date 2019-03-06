@@ -94,6 +94,8 @@ public class MessageDialog extends ModalBaseDialog {
     
     int blur_front_color;
     
+    private KongzueDialogHelper kongzueDialogHelper;
+    
     public void showDialog() {
         if (customTitleTextInfo == null) {
             customTitleTextInfo = dialogTitleTextInfo;
@@ -153,7 +155,7 @@ public class MessageDialog extends ModalBaseDialog {
     
         View rootView;
         FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-        KongzueDialogHelper kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+        kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
                 dialogList.remove(messageDialog);
@@ -272,7 +274,7 @@ public class MessageDialog extends ModalBaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
+                        kongzueDialogHelper.dismiss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
@@ -337,12 +339,12 @@ public class MessageDialog extends ModalBaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog != null) alertDialog.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
     }
     
     public MessageDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
-        if (alertDialog != null) alertDialog.setCancelable(canCancel);
+        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
         return this;
     }
     

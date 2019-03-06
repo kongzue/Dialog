@@ -122,12 +122,11 @@ public class CustomDialog extends ModalBaseDialog {
     
     @Override
     public void doDismiss() {
-        if (alertDialog != null) alertDialog.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
     }
     
     public CustomDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
-        if (alertDialog != null) alertDialog.setCancelable(canCancel);
         if (kongzueDialogHelper!=null) kongzueDialogHelper.setCancelable(isCanCancel);
         return this;
     }

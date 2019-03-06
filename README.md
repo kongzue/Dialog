@@ -661,6 +661,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.8.1(beta):
+- 修复了其他各组件 setCanCancel(boolean) 无效的bug；
+
 v2.4.8:
 - CustomDialog 支持使用 build(...) 方法创建，并修复了 setCanCancel(boolean) 无效的bug；
 - CustomDialog 的 BindView 增加提供参数 CustomDialog 以简化进行相应的业务处理；
