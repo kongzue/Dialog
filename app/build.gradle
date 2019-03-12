@@ -7,8 +7,8 @@ android {
         applicationId "com.kongzue.dialogdemo"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 5
-        versionName "2.4.2"
+        versionCode 53
+        versionName "2.4.8.2"
 
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
@@ -29,9 +29,9 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
 
-//    compile 'com.kongzue.dialog:dialog:2.2.6.3'
+    //implementation 'com.kongzue.dialog:dialog:2.4.8'
     implementation project(':dialog')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

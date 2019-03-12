@@ -97,6 +97,8 @@ implementation 'com.android.support:appcompat-v7:28.0.0'
 implementation 'com.android.support:design:28.0.0'
 ```
 
+⚠现有 Beta 版本提供，具体详情请转至 <a href="#更新日志">更新日志</a> 查看。
+
 此外，
 
 若需要使用 v1 兼容库的老版本，可使用：
@@ -661,7 +663,11 @@ limitations under the License.
 ```
 
 ## 更新日志：
-v2.4.8.1(beta):
+(beta)v2.4.8.2:
+- 迁移至 Android X；
+&emsp;&emsp;注意，此版本尚处测试阶段，且不确定若出现重大 Bug 反档。
+
+(beta)v2.4.8.1:
 - 修复了其他各组件 setCanCancel(boolean) 无效的bug；
 
 v2.4.8:

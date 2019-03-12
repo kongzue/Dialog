@@ -1,14 +1,10 @@
 package com.kongzue.dialog.v2;
 
-import android.support.annotation.ColorInt;
-import android.support.annotation.IdRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
 
 import com.kongzue.dialog.util.BaseDialog;
-import com.kongzue.dialog.util.ModalBaseDialog;
 import com.kongzue.dialog.util.TextInfo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DialogSettings {
     

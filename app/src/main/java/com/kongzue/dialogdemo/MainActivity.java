@@ -1,36 +1,26 @@
 package com.kongzue.dialogdemo;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kongzue.dialog.listener.DialogLifeCycleListener;
 import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.InputInfo;
-import com.kongzue.dialog.util.ModalBaseDialog;
-import com.kongzue.dialog.util.TextInfo;
 import com.kongzue.dialog.v2.CustomDialog;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.InputDialog;
@@ -382,12 +372,12 @@ public class MainActivity extends AppCompatActivity {
                 list.add("菜单1");
                 list.add("菜单2");
                 list.add("菜单3");
-                BottomMenu.show(me, list, new OnMenuItemClickListener() {
+                BottomMenu.build(me, list, new OnMenuItemClickListener() {
                     @Override
                     public void onClick(String text, int index) {
                         Toast.makeText(me, "菜单 " + text + " 被点击了", SHOW_TIME_SHORT).show();
                     }
-                }, true);
+                }, true,"取消").showDialog();
             }
         });
         
@@ -561,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
         btnPsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WaitDialog.show(me, null);
+                WaitDialog.show(me, "请稍候...");
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

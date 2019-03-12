@@ -5,13 +5,12 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -39,7 +38,6 @@ import com.kongzue.dialog.util.TextInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.DialogInterface.BUTTON_NEGATIVE;
 import static com.kongzue.dialog.v2.DialogSettings.*;
 
 public class BottomMenu extends BaseDialog {
