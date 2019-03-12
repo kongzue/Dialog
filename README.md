@@ -99,6 +99,8 @@ implementation 'com.android.support:design:28.0.0'
 
 ⚠现有 Beta 版本提供，具体详情请转至 <a href="#更新日志">更新日志</a> 查看。
 
+⚠现有 Android X 版本提供，具体请转至 <a href="https://github.com/kongzue/Dialog/tree/AndroidX">Android X分支</a> 查看
+
 此外，
 
 若需要使用 v1 兼容库的老版本，可使用：
