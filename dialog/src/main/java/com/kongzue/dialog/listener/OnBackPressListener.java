@@ -1,6 +1,6 @@
 package com.kongzue.dialog.listener;
 
-import androidx.appcompat.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 
 /**
  * Author: @Kongzue

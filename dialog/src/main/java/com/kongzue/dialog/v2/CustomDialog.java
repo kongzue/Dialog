@@ -1,17 +1,22 @@
 package com.kongzue.dialog.v2;
 
 import android.content.Context;
-
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
 
 import com.kongzue.dialog.R;
 import com.kongzue.dialog.listener.OnDismissListener;
 import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.ModalBaseDialog;
+
+import static android.content.DialogInterface.BUTTON_NEGATIVE;
 
 /**
  * Author: @Kongzue
