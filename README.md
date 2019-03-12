@@ -665,6 +665,7 @@ limitations under the License.
 ## 更新日志：
 (beta)v2.4.8.2:
 - 迁移至 Android X；
+
 &emsp;&emsp;注意，此版本尚处测试阶段，且不确定若出现重大 Bug 反档。
 
 (beta)v2.4.8.1:
