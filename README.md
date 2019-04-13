@@ -28,7 +28,7 @@
 
 本项目遵循Apache-2.0开源协议，具体可参考：http://www.opensource.org/licenses/apache2.0.php
 
-# 新版本
+# 新版本V3
 Kongzue Dialog V3 现已上传测试版本，请前往 https://github.com/kongzue/DialogV3 查看。
 
 # 目录
