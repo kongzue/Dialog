@@ -168,19 +168,19 @@ public class SelectDialog extends ModalBaseDialog {
         }
         
         alertDialog = builder.create();
-        if (getDialogLifeCycleListener() != null)
-            getDialogLifeCycleListener().onCreate(alertDialog);
+        getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         View rootView;
-        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
                 dialogList.remove(selectDialog);
                 if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
-                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
+                getDialogLifeCycleListener().onDismiss();
+                getOnDismissListener().onDismiss();
                 isDialogShown = false;
                 context = null;
                 
@@ -364,7 +364,7 @@ public class SelectDialog extends ModalBaseDialog {
                 break;
         }
         isDialogShown = true;
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        getDialogLifeCycleListener().onShow(alertDialog);
         kongzueDialogHelper.setCancelable(isCanCancel);
     }
     
@@ -378,7 +378,7 @@ public class SelectDialog extends ModalBaseDialog {
         if (textInfo.getGravity() != -1) {
             textView.setGravity(textInfo.getGravity());
         }
-        Typeface font = Typeface.create(Typeface.SANS_SERIF, textInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, textInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
         textView.setTypeface(font);
     }
     

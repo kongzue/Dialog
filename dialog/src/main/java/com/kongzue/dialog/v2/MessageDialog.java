@@ -147,7 +147,6 @@ public class MessageDialog extends ModalBaseDialog {
         }
         
         alertDialog = builder.create();
-        if (getDialogLifeCycleListener() != null)
             getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
@@ -162,7 +161,8 @@ public class MessageDialog extends ModalBaseDialog {
                 if (bkg != null) bkg.removeAllViews();
                 if (customView != null) customView.removeAllViews();
                 customView = null;
-                if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onDismiss();
+                getDialogLifeCycleListener().onDismiss();
+                getOnDismissListener().onDismiss();
                 isDialogShown = false;
                 context = null;
     
@@ -318,7 +318,7 @@ public class MessageDialog extends ModalBaseDialog {
                 break;
         }
         isDialogShown = true;
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        getDialogLifeCycleListener().onShow(alertDialog);
         kongzueDialogHelper.setCancelable(isCanCancel);
     }
     

@@ -121,7 +121,7 @@ public class WaitDialog extends BaseDialog {
             case THEME_LIGHT:
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
-                blur_front_color = Color.argb(blur_alpha - 50, 255, 255, 255);
+                blur_front_color = Color.argb(blur_alpha, 255, 255, 255);
                 font_color = Color.rgb(0, 0, 0);
                 break;
             default:
@@ -134,8 +134,8 @@ public class WaitDialog extends BaseDialog {
         
         alertDialog = builder.create();
         
-        if (getDialogLifeCycleListener() != null)
-            getDialogLifeCycleListener().onCreate(alertDialog);
+        
+        getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
         
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -145,10 +145,10 @@ public class WaitDialog extends BaseDialog {
                 dialogList.remove(waitDialog);
                 if (boxProgress != null) boxProgress.removeAllViews();
                 if (boxBkg != null) boxBkg.removeAllViews();
-                if (getDialogLifeCycleListener() != null) {
-                    getDialogLifeCycleListener().onDismiss();
-                    alertDialog = null;
-                }
+                
+                getDialogLifeCycleListener().onDismiss();
+                alertDialog = null;
+                getOnDismissListener().onDismiss();
             }
         });
         
@@ -196,7 +196,7 @@ public class WaitDialog extends BaseDialog {
             boxBkg.setBackgroundResource(bkgResId);
         }
         
-        if (tip!=null && !tip.isEmpty()) {
+        if (tip != null && !tip.isEmpty()) {
             txtInfo.setVisibility(View.VISIBLE);
             txtInfo.setText(tip);
         } else {
@@ -237,7 +237,7 @@ public class WaitDialog extends BaseDialog {
             }
         });
         
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        getDialogLifeCycleListener().onShow(alertDialog);
         
         kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
         kongzueDialogHelper.setCancelable(isCanCancel);

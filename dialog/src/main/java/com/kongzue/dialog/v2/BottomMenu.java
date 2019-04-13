@@ -123,7 +123,7 @@ public class BottomMenu extends BaseDialog {
     
     public static BottomMenu show(AppCompatActivity activity, List<String> menuText, OnMenuItemClickListener onMenuItemClickListener, boolean isShowCancelButton, String cancelButtonCaption) {
         synchronized (BottomMenu.class) {
-            BottomMenu bottomMenu = build(activity,menuText,onMenuItemClickListener,isShowCancelButton,cancelButtonCaption);
+            BottomMenu bottomMenu = build(activity, menuText, onMenuItemClickListener, isShowCancelButton, cancelButtonCaption);
             bottomMenu.showDialog();
             return bottomMenu;
         }
@@ -197,7 +197,7 @@ public class BottomMenu extends BaseDialog {
             if (customButtonTextInfo.getFontColor() != 1) {
                 btnCancel.setTextColor(customButtonTextInfo.getFontColor());
             }
-            Typeface font = Typeface.create(Typeface.SANS_SERIF, customButtonTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+            Typeface font = Typeface.create(Typeface.SANS_SERIF, customButtonTextInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
             btnCancel.setTypeface(font);
             btnCancel.setText(cancelButtonCaption);
             
@@ -229,8 +229,8 @@ public class BottomMenu extends BaseDialog {
                 public void onDismiss(DialogInterface dialog) {
                     dialogList.remove(bottomMenu);
                     if (customView != null) customView.removeAllViews();
-                    if (getDialogLifeCycleListener() != null)
-                        getDialogLifeCycleListener().onDismiss();
+                    getDialogLifeCycleListener().onDismiss();
+                    getOnDismissListener().onDismiss();
                     isDialogShown = false;
                     activity = null;
                     try {
@@ -240,19 +240,16 @@ public class BottomMenu extends BaseDialog {
                     }
                 }
             });
-            if (getDialogLifeCycleListener() != null)
-                getDialogLifeCycleListener().onCreate(bottomSheetDialog);
+            getDialogLifeCycleListener().onCreate(bottomSheetDialog);
             bottomSheetDialog.show();
-            if (getDialogLifeCycleListener() != null)
-                getDialogLifeCycleListener().onShow(bottomSheetDialog);
+            getDialogLifeCycleListener().onShow(bottomSheetDialog);
         } else {
             AlertDialog.Builder builder;
             builder = new AlertDialog.Builder(activity, R.style.bottom_menu);
             builder.setCancelable(true);
             alertDialog = builder.create();
             alertDialog.setCanceledOnTouchOutside(true);
-            if (getDialogLifeCycleListener() != null)
-                getDialogLifeCycleListener().onCreate(alertDialog);
+            getDialogLifeCycleListener().onCreate(alertDialog);
             
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
@@ -260,15 +257,15 @@ public class BottomMenu extends BaseDialog {
                 public void onDismiss() {
                     dialogList.remove(bottomMenu);
                     if (customView != null) customView.removeAllViews();
-                    if (getDialogLifeCycleListener() != null)
-                        getDialogLifeCycleListener().onDismiss();
+                    getDialogLifeCycleListener().onDismiss();
+                    getOnDismissListener().onDismiss();
                     isDialogShown = false;
                     activity = null;
                 }
             });
             kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
             kongzueDialogHelper.setCancelable(true);
-    
+            
             alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
@@ -322,7 +319,7 @@ public class BottomMenu extends BaseDialog {
             if (customButtonTextInfo.getFontColor() != 1) {
                 btnCancel.setTextColor(customButtonTextInfo.getFontColor());
             }
-            Typeface font = Typeface.create(Typeface.SANS_SERIF, customButtonTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+            Typeface font = Typeface.create(Typeface.SANS_SERIF, customButtonTextInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
             btnCancel.setTypeface(font);
             
             btnCancel.setText(cancelButtonCaption);
@@ -394,8 +391,7 @@ public class BottomMenu extends BaseDialog {
                     alertDialog.dismiss();
                 }
             });
-            if (getDialogLifeCycleListener() != null)
-                getDialogLifeCycleListener().onShow(alertDialog);
+            getDialogLifeCycleListener().onShow(alertDialog);
         }
     }
     
@@ -459,7 +455,7 @@ public class BottomMenu extends BaseDialog {
                 if (customMenuTextInfo.getFontColor() != 1) {
                     viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
                 }
-                Typeface font = Typeface.create(Typeface.SANS_SERIF, customMenuTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+                Typeface font = Typeface.create(Typeface.SANS_SERIF, customMenuTextInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
                 viewHolder.textView.setTypeface(font);
             }
             
@@ -498,7 +494,7 @@ public class BottomMenu extends BaseDialog {
                 if (customMenuTextInfo.getFontColor() != 1) {
                     viewHolder.textView.setTextColor(customMenuTextInfo.getFontColor());
                 }
-                Typeface font = Typeface.create(Typeface.SANS_SERIF, customMenuTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+                Typeface font = Typeface.create(Typeface.SANS_SERIF, customMenuTextInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
                 viewHolder.textView.setTypeface(font);
                 
                 if (objects.size() == 1) {

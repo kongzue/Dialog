@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.8-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.9-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.8/link">
-<img src="https://img.shields.io/badge/Maven-2.4.8-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.4.9/link">
+<img src="https://img.shields.io/badge/Maven-2.4.9-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -27,6 +27,9 @@
 项目托管的Maven仓库在https://bintray.com/myzchh/maven/dialog
 
 本项目遵循Apache-2.0开源协议，具体可参考：http://www.opensource.org/licenses/apache2.0.php
+
+# 新版本
+Kongzue Dialog V3 现已上传测试版本，请前往 https://github.com/kongzue/DialogV3 查看。
 
 # 目录
 
@@ -81,14 +84,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.8</version>
+  <version>2.4.9</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.8'
+implementation 'com.kongzue.dialog:dialog:2.4.9'
 ```
 
 部分 Material 组件需要依赖：
@@ -96,8 +99,6 @@ implementation 'com.kongzue.dialog:dialog:2.4.8'
 implementation 'com.android.support:appcompat-v7:28.0.0'
 implementation 'com.android.support:design:28.0.0'
 ```
-
-⚠现有 Beta 版本提供，具体详情请转至 <a href="#更新日志">更新日志</a> 查看。
 
 ⚠现有 Android X 版本提供，具体请转至 <a href="https://github.com/kongzue/Dialog/tree/AndroidX">Android X分支</a> 查看。
 
@@ -665,8 +666,12 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.4.9:
+- 修复部分bug；
+- 新增 setOnDismissListener(...) 可单独设置对话框关闭事件；
+
 (beta)v2.4.8.2:
-- 迁移至 Android X；
+- 迁移至 Android X（已回档，要使用Android X版本请切换分支拉取项目）；
 
 &emsp;&emsp;注意，此版本尚处测试阶段，且不确定若出现重大 Bug 反档。
 

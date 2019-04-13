@@ -165,33 +165,31 @@ public class TipDialog extends BaseDialog {
                 builder = new AlertDialog.Builder(context, R.style.lightMode);
                 bkgResId = R.drawable.rect_light;
                 blur_front_color = Color.argb(blur_alpha - 50, 255, 255, 255);
-                font_color= Color.rgb( 0, 0, 0);
+                font_color = Color.rgb(0, 0, 0);
                 break;
             default:
                 builder = new AlertDialog.Builder(context, R.style.darkMode);
                 bkgResId = R.drawable.rect_dark;
                 blur_front_color = Color.argb(blur_alpha, 0, 0, 0);
-                font_color= Color.rgb( 255, 255, 255);
+                font_color = Color.rgb(255, 255, 255);
                 break;
         }
         
         alertDialog = builder.create();
-        if (getDialogLifeCycleListener() != null)
-            getDialogLifeCycleListener().onCreate(alertDialog);
+        getDialogLifeCycleListener().onCreate(alertDialog);
         if (isCanCancel) alertDialog.setCanceledOnTouchOutside(true);
-    
-        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+        
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
             @Override
             public void onDismiss() {
                 dialogList.remove(tipDialog);
                 if (boxBkg != null) boxBkg.removeAllViews();
-                if (getDialogLifeCycleListener() != null) {
-                    getDialogLifeCycleListener().onDismiss();
-                }
+                getDialogLifeCycleListener().onDismiss();
+                getOnDismissListener().onDismiss();
             }
         });
-    
+        
         View rootView = LayoutInflater.from(context).inflate(R.layout.dialog_tip, null);
         alertDialog.setView(rootView);
         
@@ -270,10 +268,10 @@ public class TipDialog extends BaseDialog {
         if (customTextInfo.getGravity() != -1) {
             txtInfo.setGravity(customTextInfo.getGravity());
         }
-        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold()?Typeface.BOLD:Typeface.NORMAL);
+        Typeface font = Typeface.create(Typeface.SANS_SERIF, customTextInfo.isBold() ? Typeface.BOLD : Typeface.NORMAL);
         txtInfo.setTypeface(font);
         
-        if (getDialogLifeCycleListener() != null) getDialogLifeCycleListener().onShow(alertDialog);
+        getDialogLifeCycleListener().onShow(alertDialog);
         
         int time = 1500;
         switch (howLong) {
@@ -289,8 +287,8 @@ public class TipDialog extends BaseDialog {
             public void run() {
                 if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
             }
-        },time);
-    
+        }, time);
+        
         kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
         kongzueDialogHelper.setCancelable(isCanCancel);
     }
