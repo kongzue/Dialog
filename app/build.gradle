@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "com.kongzue.dialogdemo"
+        applicationId "com.kongzue.dialogv2"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 5
