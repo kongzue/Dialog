@@ -18,16 +18,16 @@
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
 
-试用版可以前往 https://fir.im/dialogV2 下载
+试用版可以前往 <https://fir.im/dialogV2> 下载
 
 本例中，包含DialogDemo（Dialog/app/）是对话框的演示项目源代码，以及Library库（Dialog/dialog/）是封装的空祖家对话框的源代码。
 
-项目托管的Maven仓库在https://bintray.com/myzchh/maven/dialog
+项目托管的Maven仓库在<https://bintray.com/myzchh/maven/dialog>
 
-本项目遵循Apache-2.0开源协议，具体可参考：http://www.opensource.org/licenses/apache2.0.php
+本项目遵循Apache-2.0开源协议，具体可参考：<http://www.opensource.org/licenses/apache2.0.php>
 
 # 🆙 新版本V3
-Kongzue Dialog V3 现已上传测试版本，请前往 https://github.com/kongzue/DialogV3 查看。
+Kongzue Dialog V3 现已上传正式版本，请前往 <https://github.com/kongzue/DialogV3> 查看。
 
 # 目录
 
@@ -744,7 +744,7 @@ v2.3.7：
 - 修改了 DialogSettings 中对于各组件文字样式的设置方式，具体请参照章节：<a href="#附加功能">附加功能</a>；
 
 v2.3.6：
-- 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(https://github.com/Devlight/ShadowLayout) ，开源协议：Apache License 2.0）；
+- 新增 Pop 提示阴影效果（阴影组件来源 @GIGAMOLE(<https://github.com/Devlight/ShadowLayout>) ，开源协议：Apache License 2.0）；
 - InputDialog 新增 setInputInfo(InputInfo) 方法，对输入框进行设置，具体请查看章节：<a href="#调用输入对话框">调用输入对话框</a>；
 - 修复其他 bug；
 
