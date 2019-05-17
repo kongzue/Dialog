@@ -2,10 +2,10 @@
 献给要求我们安卓照着苹果设计稿做开发的产品们（手动滑稽
 
 <a href="https://github.com/kongzue/Dialog/">
-<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.4.9-green.svg" alt="Kongzue Dialog">
+<img src="https://img.shields.io/badge/Kongzue%20Dialog-2.5.1-green.svg" alt="Kongzue Dialog">
 </a> 
-<a href="https://bintray.com/myzchh/maven/dialog/2.4.9/link">
-<img src="https://img.shields.io/badge/Maven-2.4.9-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/dialog/2.5.1/link">
+<img src="https://img.shields.io/badge/Maven-2.5.1-blue.svg" alt="Maven">
 </a> 
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -82,14 +82,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.dialog</groupId>
   <artifactId>dialog</artifactId>
-  <version>2.4.9</version>
+  <version>2.5.1</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.dialog:dialog:2.4.9'
+implementation 'com.kongzue.dialog:dialog:2.5.1'
 ```
 
 部分 Material 组件需要依赖：
@@ -664,6 +664,9 @@ limitations under the License.
 ```
 
 ## 更新日志：
+v2.5.1:
+- 修复因文字过长，TextView 宽度计算 bug 导致 WaitDialog、TipDialog 文字显示超出区域的问题；
+
 v2.4.9:
 - 修复部分bug；
 - 新增 setOnDismissListener(...) 可单独设置对话框关闭事件；

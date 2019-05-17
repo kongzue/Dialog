@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -183,13 +184,16 @@ public class WaitDialog extends BaseDialog {
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     blur.setLayoutParams(params);
                     blur.setOverlayColor(blur_front_color);
-                    
+                    boxBkg.addView(blur, 0, params);
+                }
+            });
+            boxBkg.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
                     ViewGroup.LayoutParams boxBkgLayoutParams = boxBkg.getLayoutParams();
                     boxBkgLayoutParams.width = boxInfo.getWidth();
                     boxBkgLayoutParams.height = boxInfo.getHeight();
                     boxBkg.setLayoutParams(boxBkgLayoutParams);
-                    
-                    boxBkg.addView(blur, 0, params);
                 }
             });
         } else {
