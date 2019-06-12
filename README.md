@@ -14,7 +14,7 @@
 <img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Homepage">
 </a>
 
-# 🆙 新版本V3
+# 新版本V3 🆙 
 本库即将停止新功能的更新，请尽快升级使用 V3版本。
 
 Kongzue Dialog V3 现已上传正式版本，请前往 <https://github.com/kongzue/DialogV3> 查看。
