@@ -227,7 +227,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismiss();
+                        kongzueDialogHelper.dismissAllowingStateLoss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
@@ -236,7 +236,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismiss();
+                        kongzueDialogHelper.dismissAllowingStateLoss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
@@ -308,7 +308,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismiss();
+                        kongzueDialogHelper.dismissAllowingStateLoss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
@@ -318,7 +318,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismiss();
+                        kongzueDialogHelper.dismissAllowingStateLoss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
@@ -384,7 +384,7 @@ public class SelectDialog extends ModalBaseDialog {
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
     }
     
     public SelectDialog setCanCancel(boolean canCancel) {

@@ -181,7 +181,7 @@ public class InputDialog extends ModalBaseDialog {
             public void onDismiss() {
                 dialogList.remove(inputDialog);
                 if (bkg != null) bkg.removeAllViews();
-                if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
+                if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
@@ -252,7 +252,7 @@ public class InputDialog extends ModalBaseDialog {
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismiss();
+                        kongzueDialogHelper.dismissAllowingStateLoss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                         onCancelButtonClickListener = null;
@@ -474,7 +474,7 @@ public class InputDialog extends ModalBaseDialog {
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
     }
     
     public InputDialog setCanCancel(boolean canCancel) {

@@ -249,7 +249,7 @@ public class WaitDialog extends BaseDialog {
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismiss();
+        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
     }
     
     public WaitDialog setCanCancel(boolean canCancel) {
