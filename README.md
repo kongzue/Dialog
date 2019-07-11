@@ -14,6 +14,15 @@
 <img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Homepage">
 </a>
 
+# 新版本V3 🆙 
+本库即将停止新功能的更新，请尽快升级使用 V3版本。
+
+Kongzue Dialog V3 现已上传正式版本，请前往 <https://github.com/kongzue/DialogV3> 查看。
+
+停止更新后，V2版本会继续修复bug，但不会增加任何新的功能。
+
+# V2版本
+
 空祖家的对话框2.0拥有提供最简单的调用方式以实现消息框、选择框、输入框、等待提示、警告提示、完成提示、错误提示等弹出样式。以下是目前包含的所有对话框样式预览图：
 
 ![Kongzue's Dialog](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/Kongzue%20Dialog%202.0.png)
@@ -25,9 +34,6 @@
 项目托管的Maven仓库在<https://bintray.com/myzchh/maven/dialog>
 
 本项目遵循Apache-2.0开源协议，具体可参考：<http://www.opensource.org/licenses/apache2.0.php>
-
-# 🆙 新版本V3
-Kongzue Dialog V3 现已上传正式版本，请前往 <https://github.com/kongzue/DialogV3> 查看。
 
 # 目录
 
