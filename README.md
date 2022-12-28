@@ -14,12 +14,11 @@
 <img src="https://img.shields.io/badge/Homepage-Kongzue.com-brightgreen.svg" alt="Homepage">
 </a>
 
-# 新版本V3 🆙 
-本库即将停止新功能的更新，请尽快升级使用 V3版本。
+# 新版本 DialogX 🆙 
+本库即将停止新功能的更新，请尽快升级使用 DialogX 。
 
-Kongzue Dialog V3 现已上传正式版本，请前往 <https://github.com/kongzue/DialogV3> 查看。
+Kongzue DialogX 现已上传正式版本，请前往 <https://github.com/kongzue/DialogX> 查看。
 
-停止更新后，V2版本会继续修复bug，但不会增加任何新的功能。
 
 # V2版本
 
